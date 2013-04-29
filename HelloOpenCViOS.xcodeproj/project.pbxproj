@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E004B73E171DB8DE00B86D98 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B73D171DB8DE00B86D98 /* opencv2.framework */; };
+		E004B740171E06BA00B86D98 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B73F171E06BA00B86D98 /* Accelerate.framework */; };
+		E004B742171E06C200B86D98 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B741171E06C200B86D98 /* AssetsLibrary.framework */; };
+		E004B744171E06CA00B86D98 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B743171E06CA00B86D98 /* AVFoundation.framework */; };
+		E004B746171E06DD00B86D98 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B745171E06DD00B86D98 /* CoreImage.framework */; };
+		E004B748171E06E700B86D98 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B747171E06E600B86D98 /* CoreMedia.framework */; };
+		E004B74A171E06F500B86D98 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B749171E06F500B86D98 /* CoreVideo.framework */; };
+		E004B74C171E070500B86D98 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B74B171E070500B86D98 /* QuartzCore.framework */; };
+		E004B74F171E0B4B00B86D98 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B74D171E096700B86D98 /* libc++.dylib */; };
+		E004B753171EDFD400B86D98 /* Shapes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E004B752171EDFD400B86D98 /* Shapes.cpp */; };
+		E004B756171EE0BB00B86D98 /* ShapeFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E004B755171EE0BB00B86D98 /* ShapeFinder.cpp */; };
 		E014524D171DB5E300B94A9A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E014524C171DB5E200B94A9A /* UIKit.framework */; };
 		E014524F171DB5E300B94A9A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E014524E171DB5E300B94A9A /* Foundation.framework */; };
 		E0145251171DB5E300B94A9A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0145250171DB5E300B94A9A /* CoreGraphics.framework */; };
@@ -18,10 +29,23 @@
 		E0145263171DB5E300B94A9A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0145262171DB5E300B94A9A /* Default-568h@2x.png */; };
 		E0145266171DB5E300B94A9A /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0145264171DB5E300B94A9A /* MainStoryboard_iPhone.storyboard */; };
 		E0145269171DB5E300B94A9A /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0145267171DB5E300B94A9A /* MainStoryboard_iPad.storyboard */; };
-		E014526C171DB5E300B94A9A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E014526B171DB5E300B94A9A /* ViewController.m */; };
+		E014526C171DB5E300B94A9A /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E014526B171DB5E300B94A9A /* ViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E004B73D171DB8DE00B86D98 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../../../../lib/ios/opencv2.framework; sourceTree = "<group>"; };
+		E004B73F171E06BA00B86D98 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		E004B741171E06C200B86D98 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		E004B743171E06CA00B86D98 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		E004B745171E06DD00B86D98 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		E004B747171E06E600B86D98 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		E004B749171E06F500B86D98 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		E004B74B171E070500B86D98 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E004B74D171E096700B86D98 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		E004B751171EDFAC00B86D98 /* Shapes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shapes.h; sourceTree = "<group>"; };
+		E004B752171EDFD400B86D98 /* Shapes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shapes.cpp; sourceTree = "<group>"; };
+		E004B754171EE08000B86D98 /* ShapeFinder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShapeFinder.h; sourceTree = "<group>"; };
+		E004B755171EE0BB00B86D98 /* ShapeFinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShapeFinder.cpp; sourceTree = "<group>"; };
 		E0145249171DB5E200B94A9A /* HelloOpenCViOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloOpenCViOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E014524C171DB5E200B94A9A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E014524E171DB5E300B94A9A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -38,7 +62,7 @@
 		E0145265171DB5E300B94A9A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		E0145268171DB5E300B94A9A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		E014526A171DB5E300B94A9A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		E014526B171DB5E300B94A9A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		E014526B171DB5E300B94A9A /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,9 +70,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E004B74F171E0B4B00B86D98 /* libc++.dylib in Frameworks */,
+				E004B74C171E070500B86D98 /* QuartzCore.framework in Frameworks */,
+				E004B74A171E06F500B86D98 /* CoreVideo.framework in Frameworks */,
+				E004B748171E06E700B86D98 /* CoreMedia.framework in Frameworks */,
+				E004B746171E06DD00B86D98 /* CoreImage.framework in Frameworks */,
+				E0145251171DB5E300B94A9A /* CoreGraphics.framework in Frameworks */,
+				E004B744171E06CA00B86D98 /* AVFoundation.framework in Frameworks */,
+				E004B742171E06C200B86D98 /* AssetsLibrary.framework in Frameworks */,
+				E004B740171E06BA00B86D98 /* Accelerate.framework in Frameworks */,
+				E004B73E171DB8DE00B86D98 /* opencv2.framework in Frameworks */,
 				E014524D171DB5E300B94A9A /* UIKit.framework in Frameworks */,
 				E014524F171DB5E300B94A9A /* Foundation.framework in Frameworks */,
-				E0145251171DB5E300B94A9A /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +91,15 @@
 		E0145240171DB5E200B94A9A = {
 			isa = PBXGroup;
 			children = (
+				E004B74D171E096700B86D98 /* libc++.dylib */,
+				E004B74B171E070500B86D98 /* QuartzCore.framework */,
+				E004B749171E06F500B86D98 /* CoreVideo.framework */,
+				E004B747171E06E600B86D98 /* CoreMedia.framework */,
+				E004B745171E06DD00B86D98 /* CoreImage.framework */,
+				E004B743171E06CA00B86D98 /* AVFoundation.framework */,
+				E004B741171E06C200B86D98 /* AssetsLibrary.framework */,
+				E004B73F171E06BA00B86D98 /* Accelerate.framework */,
+				E004B73D171DB8DE00B86D98 /* opencv2.framework */,
 				E0145252171DB5E300B94A9A /* HelloOpenCViOS */,
 				E014524B171DB5E200B94A9A /* Frameworks */,
 				E014524A171DB5E200B94A9A /* Products */,
@@ -85,12 +127,16 @@
 		E0145252171DB5E300B94A9A /* HelloOpenCViOS */ = {
 			isa = PBXGroup;
 			children = (
+				E004B755171EE0BB00B86D98 /* ShapeFinder.cpp */,
+				E004B754171EE08000B86D98 /* ShapeFinder.h */,
+				E004B751171EDFAC00B86D98 /* Shapes.h */,
+				E004B752171EDFD400B86D98 /* Shapes.cpp */,
 				E014525B171DB5E300B94A9A /* AppDelegate.h */,
 				E014525C171DB5E300B94A9A /* AppDelegate.m */,
 				E0145264171DB5E300B94A9A /* MainStoryboard_iPhone.storyboard */,
 				E0145267171DB5E300B94A9A /* MainStoryboard_iPad.storyboard */,
 				E014526A171DB5E300B94A9A /* ViewController.h */,
-				E014526B171DB5E300B94A9A /* ViewController.m */,
+				E014526B171DB5E300B94A9A /* ViewController.mm */,
 				E0145253171DB5E300B94A9A /* Supporting Files */,
 			);
 			path = HelloOpenCViOS;
@@ -179,7 +225,9 @@
 			files = (
 				E0145259171DB5E300B94A9A /* main.m in Sources */,
 				E014525D171DB5E300B94A9A /* AppDelegate.m in Sources */,
-				E014526C171DB5E300B94A9A /* ViewController.m in Sources */,
+				E014526C171DB5E300B94A9A /* ViewController.mm in Sources */,
+				E004B753171EDFD400B86D98 /* Shapes.cpp in Sources */,
+				E004B756171EE0BB00B86D98 /* ShapeFinder.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,7 +275,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -259,7 +307,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -274,6 +322,11 @@
 		E0145270171DB5E300B94A9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../lib/ios\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloOpenCViOS/HelloOpenCViOS-Prefix.pch";
 				INFOPLIST_FILE = "HelloOpenCViOS/HelloOpenCViOS-Info.plist";
@@ -285,6 +338,11 @@
 		E0145271171DB5E300B94A9A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../lib/ios\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloOpenCViOS/HelloOpenCViOS-Prefix.pch";
 				INFOPLIST_FILE = "HelloOpenCViOS/HelloOpenCViOS-Info.plist";
@@ -312,6 +370,7 @@
 				E0145271171DB5E300B94A9A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
