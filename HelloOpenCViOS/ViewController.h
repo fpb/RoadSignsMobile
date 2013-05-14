@@ -7,21 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <opencv2/highgui/cap_ios.h>
+#import <CoreLocation/CoreLocation.h>
+#import <CoreMotion/CoreMotion.h>
 
-using namespace cv;
+class Shape;
 
-@interface ViewController : UIViewController<CvVideoCameraDelegate>
+@interface ViewController : UIViewController<CLLocationManagerDelegate>
 {
-    IBOutlet UIImageView* imageView;
-    IBOutlet UIButton* button;    
-
-    CvVideoCamera* videoCamera;
+	std::vector<int> lengths;
 }
 
-
-- (IBAction)actionStart:(id)sender;
-
-@property (nonatomic, retain) CvVideoCamera* videoCamera;
+// Core Data
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @end

@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class CoreDataModule;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) CoreDataModule *cdm;
 
 @end

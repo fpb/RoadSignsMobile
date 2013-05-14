@@ -7,7 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E004B73E171DB8DE00B86D98 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B73D171DB8DE00B86D98 /* opencv2.framework */; };
+		012E6EC017426A920098F2FF /* 4.1.6_(Road_sign).gif in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EB717426A920098F2FF /* 4.1.6_(Road_sign).gif */; };
+		012E6EC117426A920098F2FF /* 417px-Belgium-trafficsign-e9a.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EB817426A920098F2FF /* 417px-Belgium-trafficsign-e9a.svg.png */; };
+		012E6EC217426A920098F2FF /* 600px-Belgium-trafficsign-c1.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EB917426A920098F2FF /* 600px-Belgium-trafficsign-c1.svg.png */; };
+		012E6EC317426A920098F2FF /* 600px-Belgium-trafficsign-d1_right.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EBA17426A920098F2FF /* 600px-Belgium-trafficsign-d1_right.svg.png */; };
+		012E6EC417426A920098F2FF /* 600px-Belgium-trafficsign-d5.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EBB17426A920098F2FF /* 600px-Belgium-trafficsign-d5.svg.png */; };
+		012E6EC517426A920098F2FF /* 600px-Belgium-trafficsign-f49.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EBC17426A920098F2FF /* 600px-Belgium-trafficsign-f49.svg.png */; };
+		012E6EC617426A920098F2FF /* 720px-Belgium-trafficsign-b1.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EBD17426A920098F2FF /* 720px-Belgium-trafficsign-b1.svg.png */; };
+		012E6EC717426A920098F2FF /* Selected Data from Oregon 300 (GARMIN).GPX in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EBE17426A920098F2FF /* Selected Data from Oregon 300 (GARMIN).GPX */; };
+		012E6EC817426A920098F2FF /* Signs Collected.rtfd in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EBF17426A920098F2FF /* Signs Collected.rtfd */; };
+		012E6ED717426BA60098F2FF /* CoreDataModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6ECB17426BA60098F2FF /* CoreDataModule.mm */; };
+		012E6ED817426BA60098F2FF /* CoreLocationModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6ECE17426BA60098F2FF /* CoreLocationModule.mm */; };
+		012E6ED917426BA60098F2FF /* CoreMotionModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6ED117426BA60098F2FF /* CoreMotionModule.mm */; };
+		012E6EDA17426BA60098F2FF /* FPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 012E6ED317426BA60098F2FF /* FPS.cpp */; };
+		012E6EDB17426BA60098F2FF /* Utilities.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6ED617426BA60098F2FF /* Utilities.mm */; };
+		012E6EE917426C710098F2FF /* Action.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6EDE17426C710098F2FF /* Action.mm */; };
+		012E6EEA17426C710098F2FF /* Activity.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6EE017426C710098F2FF /* Activity.mm */; };
+		012E6EEB17426C710098F2FF /* Location.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6EE217426C710098F2FF /* Location.mm */; };
+		012E6EEC17426C710098F2FF /* RoadSign.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6EE417426C710098F2FF /* RoadSign.mm */; };
+		012E6EEE17426C710098F2FF /* RoadSignsCD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 012E6EE617426C710098F2FF /* RoadSignsCD.xcdatamodeld */; };
+		012E6EF017426C820098F2FF /* RoadSignsCD.storedata in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EEF17426C820098F2FF /* RoadSignsCD.storedata */; };
+		01612E8D172EB89E0037F3F0 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01612E8C172EB89E0037F3F0 /* opencv2.framework */; };
+		019D0155172FFCB000C81701 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019D0154172FFCB000C81701 /* ImageIO.framework */; };
+		01A003DE1740F48B00E238A7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A003DD1740F48B00E238A7 /* CoreData.framework */; };
+		01A003FA1740FA2300E238A7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A003F91740FA2300E238A7 /* CoreLocation.framework */; };
+		01A004021740FD2300E238A7 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A004011740FD2300E238A7 /* CoreMotion.framework */; };
+		01A00407174127CB00E238A7 /* ARView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01A00404174127CB00E238A7 /* ARView.mm */; };
+		01A00408174127CB00E238A7 /* PlaceOfInterest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01A00406174127CB00E238A7 /* PlaceOfInterest.mm */; };
+		01A0040B17412E6900E238A7 /* MyCamera.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01A0040A17412E6900E238A7 /* MyCamera.mm */; };
 		E004B740171E06BA00B86D98 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B73F171E06BA00B86D98 /* Accelerate.framework */; };
 		E004B742171E06C200B86D98 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B741171E06C200B86D98 /* AssetsLibrary.framework */; };
 		E004B744171E06CA00B86D98 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B743171E06CA00B86D98 /* AVFoundation.framework */; };
@@ -23,7 +50,7 @@
 		E0145251171DB5E300B94A9A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0145250171DB5E300B94A9A /* CoreGraphics.framework */; };
 		E0145257171DB5E300B94A9A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E0145255171DB5E300B94A9A /* InfoPlist.strings */; };
 		E0145259171DB5E300B94A9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E0145258171DB5E300B94A9A /* main.m */; };
-		E014525D171DB5E300B94A9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E014525C171DB5E300B94A9A /* AppDelegate.m */; };
+		E014525D171DB5E300B94A9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E014525C171DB5E300B94A9A /* AppDelegate.mm */; };
 		E014525F171DB5E300B94A9A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E014525E171DB5E300B94A9A /* Default.png */; };
 		E0145261171DB5E300B94A9A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0145260171DB5E300B94A9A /* Default@2x.png */; };
 		E0145263171DB5E300B94A9A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0145262171DB5E300B94A9A /* Default-568h@2x.png */; };
@@ -33,7 +60,48 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E004B73D171DB8DE00B86D98 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../../../../lib/ios/opencv2.framework; sourceTree = "<group>"; };
+		012E6EB717426A920098F2FF /* 4.1.6_(Road_sign).gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "4.1.6_(Road_sign).gif"; sourceTree = "<group>"; };
+		012E6EB817426A920098F2FF /* 417px-Belgium-trafficsign-e9a.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "417px-Belgium-trafficsign-e9a.svg.png"; sourceTree = "<group>"; };
+		012E6EB917426A920098F2FF /* 600px-Belgium-trafficsign-c1.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "600px-Belgium-trafficsign-c1.svg.png"; sourceTree = "<group>"; };
+		012E6EBA17426A920098F2FF /* 600px-Belgium-trafficsign-d1_right.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "600px-Belgium-trafficsign-d1_right.svg.png"; sourceTree = "<group>"; };
+		012E6EBB17426A920098F2FF /* 600px-Belgium-trafficsign-d5.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "600px-Belgium-trafficsign-d5.svg.png"; sourceTree = "<group>"; };
+		012E6EBC17426A920098F2FF /* 600px-Belgium-trafficsign-f49.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "600px-Belgium-trafficsign-f49.svg.png"; sourceTree = "<group>"; };
+		012E6EBD17426A920098F2FF /* 720px-Belgium-trafficsign-b1.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "720px-Belgium-trafficsign-b1.svg.png"; sourceTree = "<group>"; };
+		012E6EBE17426A920098F2FF /* Selected Data from Oregon 300 (GARMIN).GPX */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Selected Data from Oregon 300 (GARMIN).GPX"; sourceTree = "<group>"; };
+		012E6EBF17426A920098F2FF /* Signs Collected.rtfd */ = {isa = PBXFileReference; lastKnownFileType = wrapper.rtfd; path = "Signs Collected.rtfd"; sourceTree = "<group>"; };
+		012E6ECA17426BA60098F2FF /* CoreDataModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataModule.h; sourceTree = "<group>"; };
+		012E6ECB17426BA60098F2FF /* CoreDataModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CoreDataModule.mm; sourceTree = "<group>"; };
+		012E6ECD17426BA60098F2FF /* CoreLocationModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreLocationModule.h; sourceTree = "<group>"; };
+		012E6ECE17426BA60098F2FF /* CoreLocationModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CoreLocationModule.mm; sourceTree = "<group>"; };
+		012E6ED017426BA60098F2FF /* CoreMotionModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreMotionModule.h; sourceTree = "<group>"; };
+		012E6ED117426BA60098F2FF /* CoreMotionModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CoreMotionModule.mm; sourceTree = "<group>"; };
+		012E6ED317426BA60098F2FF /* FPS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FPS.cpp; sourceTree = "<group>"; };
+		012E6ED417426BA60098F2FF /* FPS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPS.h; sourceTree = "<group>"; };
+		012E6ED517426BA60098F2FF /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		012E6ED617426BA60098F2FF /* Utilities.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Utilities.mm; sourceTree = "<group>"; };
+		012E6EDD17426C710098F2FF /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
+		012E6EDE17426C710098F2FF /* Action.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Action.mm; sourceTree = "<group>"; };
+		012E6EDF17426C710098F2FF /* Activity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Activity.h; sourceTree = "<group>"; };
+		012E6EE017426C710098F2FF /* Activity.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Activity.mm; sourceTree = "<group>"; };
+		012E6EE117426C710098F2FF /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		012E6EE217426C710098F2FF /* Location.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Location.mm; sourceTree = "<group>"; };
+		012E6EE317426C710098F2FF /* RoadSign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoadSign.h; sourceTree = "<group>"; };
+		012E6EE417426C710098F2FF /* RoadSign.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RoadSign.mm; sourceTree = "<group>"; };
+		012E6EE717426C710098F2FF /* RoadSignsCD 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RoadSignsCD 2.xcdatamodel"; sourceTree = "<group>"; };
+		012E6EE817426C710098F2FF /* RoadSignsCD.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RoadSignsCD.xcdatamodel; sourceTree = "<group>"; };
+		012E6EEF17426C820098F2FF /* RoadSignsCD.storedata */ = {isa = PBXFileReference; lastKnownFileType = file; name = RoadSignsCD.storedata; path = "../../../Library/Application Support/David.RoadSignsCD/RoadSignsCD.storedata"; sourceTree = "<group>"; };
+		01612E8C172EB89E0037F3F0 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../OpenCV/opencv2.framework; sourceTree = "<group>"; };
+		019D0154172FFCB000C81701 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		01A003DD1740F48B00E238A7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		01A003EA1740F4DE00E238A7 /* FetchResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FetchResults.h; path = ../../../pARk/pARk/FetchResults.h; sourceTree = "<group>"; };
+		01A003F91740FA2300E238A7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		01A004011740FD2300E238A7 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		01A00403174127CB00E238A7 /* ARView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARView.h; sourceTree = "<group>"; };
+		01A00404174127CB00E238A7 /* ARView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ARView.mm; sourceTree = "<group>"; };
+		01A00405174127CB00E238A7 /* PlaceOfInterest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceOfInterest.h; sourceTree = "<group>"; };
+		01A00406174127CB00E238A7 /* PlaceOfInterest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlaceOfInterest.mm; sourceTree = "<group>"; };
+		01A0040917412E6900E238A7 /* MyCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCamera.h; sourceTree = "<group>"; };
+		01A0040A17412E6900E238A7 /* MyCamera.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyCamera.mm; sourceTree = "<group>"; };
 		E004B73F171E06BA00B86D98 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		E004B741171E06C200B86D98 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		E004B743171E06CA00B86D98 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -55,7 +123,7 @@
 		E0145258171DB5E300B94A9A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E014525A171DB5E300B94A9A /* HelloOpenCViOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HelloOpenCViOS-Prefix.pch"; sourceTree = "<group>"; };
 		E014525B171DB5E300B94A9A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		E014525C171DB5E300B94A9A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E014525C171DB5E300B94A9A /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		E014525E171DB5E300B94A9A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		E0145260171DB5E300B94A9A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		E0145262171DB5E300B94A9A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -70,6 +138,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01A004021740FD2300E238A7 /* CoreMotion.framework in Frameworks */,
+				01A003FA1740FA2300E238A7 /* CoreLocation.framework in Frameworks */,
+				01A003DE1740F48B00E238A7 /* CoreData.framework in Frameworks */,
+				019D0155172FFCB000C81701 /* ImageIO.framework in Frameworks */,
 				E004B74F171E0B4B00B86D98 /* libc++.dylib in Frameworks */,
 				E004B74C171E070500B86D98 /* QuartzCore.framework in Frameworks */,
 				E004B74A171E06F500B86D98 /* CoreVideo.framework in Frameworks */,
@@ -79,28 +151,110 @@
 				E004B744171E06CA00B86D98 /* AVFoundation.framework in Frameworks */,
 				E004B742171E06C200B86D98 /* AssetsLibrary.framework in Frameworks */,
 				E004B740171E06BA00B86D98 /* Accelerate.framework in Frameworks */,
-				E004B73E171DB8DE00B86D98 /* opencv2.framework in Frameworks */,
 				E014524D171DB5E300B94A9A /* UIKit.framework in Frameworks */,
 				E014524F171DB5E300B94A9A /* Foundation.framework in Frameworks */,
+				01612E8D172EB89E0037F3F0 /* opencv2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		012E6EB517426A920098F2FF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				012E6EB617426A920098F2FF /* Signs Collected */,
+			);
+			name = Resources;
+			path = HelloOpenCViOS/Resources;
+			sourceTree = "<group>";
+		};
+		012E6EB617426A920098F2FF /* Signs Collected */ = {
+			isa = PBXGroup;
+			children = (
+				012E6EB717426A920098F2FF /* 4.1.6_(Road_sign).gif */,
+				012E6EB817426A920098F2FF /* 417px-Belgium-trafficsign-e9a.svg.png */,
+				012E6EB917426A920098F2FF /* 600px-Belgium-trafficsign-c1.svg.png */,
+				012E6EBA17426A920098F2FF /* 600px-Belgium-trafficsign-d1_right.svg.png */,
+				012E6EBB17426A920098F2FF /* 600px-Belgium-trafficsign-d5.svg.png */,
+				012E6EBC17426A920098F2FF /* 600px-Belgium-trafficsign-f49.svg.png */,
+				012E6EBD17426A920098F2FF /* 720px-Belgium-trafficsign-b1.svg.png */,
+				012E6EBE17426A920098F2FF /* Selected Data from Oregon 300 (GARMIN).GPX */,
+				012E6EBF17426A920098F2FF /* Signs Collected.rtfd */,
+			);
+			path = "Signs Collected";
+			sourceTree = "<group>";
+		};
+		012E6EC917426BA60098F2FF /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				01A003EA1740F4DE00E238A7 /* FetchResults.h */,
+				012E6ECA17426BA60098F2FF /* CoreDataModule.h */,
+				012E6ECB17426BA60098F2FF /* CoreDataModule.mm */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		012E6ECC17426BA60098F2FF /* CoreLocation */ = {
+			isa = PBXGroup;
+			children = (
+				012E6ECD17426BA60098F2FF /* CoreLocationModule.h */,
+				012E6ECE17426BA60098F2FF /* CoreLocationModule.mm */,
+			);
+			path = CoreLocation;
+			sourceTree = "<group>";
+		};
+		012E6ECF17426BA60098F2FF /* CoreMotion */ = {
+			isa = PBXGroup;
+			children = (
+				012E6ED017426BA60098F2FF /* CoreMotionModule.h */,
+				012E6ED117426BA60098F2FF /* CoreMotionModule.mm */,
+			);
+			path = CoreMotion;
+			sourceTree = "<group>";
+		};
+		012E6ED217426BA60098F2FF /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				012E6ED317426BA60098F2FF /* FPS.cpp */,
+				012E6ED417426BA60098F2FF /* FPS.h */,
+				012E6ED517426BA60098F2FF /* Utilities.h */,
+				012E6ED617426BA60098F2FF /* Utilities.mm */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		012E6EDC17426C710098F2FF /* RoadSignsDataBase */ = {
+			isa = PBXGroup;
+			children = (
+				012E6EDD17426C710098F2FF /* Action.h */,
+				012E6EDE17426C710098F2FF /* Action.mm */,
+				012E6EDF17426C710098F2FF /* Activity.h */,
+				012E6EE017426C710098F2FF /* Activity.mm */,
+				012E6EE117426C710098F2FF /* Location.h */,
+				012E6EE217426C710098F2FF /* Location.mm */,
+				012E6EE317426C710098F2FF /* RoadSign.h */,
+				012E6EE417426C710098F2FF /* RoadSign.mm */,
+				012E6EEF17426C820098F2FF /* RoadSignsCD.storedata */,
+				012E6EE617426C710098F2FF /* RoadSignsCD.xcdatamodeld */,
+			);
+			path = RoadSignsDataBase;
+			sourceTree = SOURCE_ROOT;
+		};
+		019D0150172FE89700C81701 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				01A0040917412E6900E238A7 /* MyCamera.h */,
+				01A0040A17412E6900E238A7 /* MyCamera.mm */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
 		E0145240171DB5E200B94A9A = {
 			isa = PBXGroup;
 			children = (
-				E004B74D171E096700B86D98 /* libc++.dylib */,
-				E004B74B171E070500B86D98 /* QuartzCore.framework */,
-				E004B749171E06F500B86D98 /* CoreVideo.framework */,
-				E004B747171E06E600B86D98 /* CoreMedia.framework */,
-				E004B745171E06DD00B86D98 /* CoreImage.framework */,
-				E004B743171E06CA00B86D98 /* AVFoundation.framework */,
-				E004B741171E06C200B86D98 /* AssetsLibrary.framework */,
-				E004B73F171E06BA00B86D98 /* Accelerate.framework */,
-				E004B73D171DB8DE00B86D98 /* opencv2.framework */,
 				E0145252171DB5E300B94A9A /* HelloOpenCViOS */,
+				012E6EB517426A920098F2FF /* Resources */,
 				E014524B171DB5E200B94A9A /* Frameworks */,
 				E014524A171DB5E200B94A9A /* Products */,
 			);
@@ -117,6 +271,19 @@
 		E014524B171DB5E200B94A9A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				01A004011740FD2300E238A7 /* CoreMotion.framework */,
+				01A003F91740FA2300E238A7 /* CoreLocation.framework */,
+				01A003DD1740F48B00E238A7 /* CoreData.framework */,
+				019D0154172FFCB000C81701 /* ImageIO.framework */,
+				E004B74D171E096700B86D98 /* libc++.dylib */,
+				E004B74B171E070500B86D98 /* QuartzCore.framework */,
+				E004B749171E06F500B86D98 /* CoreVideo.framework */,
+				E004B747171E06E600B86D98 /* CoreMedia.framework */,
+				E004B745171E06DD00B86D98 /* CoreImage.framework */,
+				E004B743171E06CA00B86D98 /* AVFoundation.framework */,
+				E004B741171E06C200B86D98 /* AssetsLibrary.framework */,
+				E004B73F171E06BA00B86D98 /* Accelerate.framework */,
+				01612E8C172EB89E0037F3F0 /* opencv2.framework */,
 				E014524C171DB5E200B94A9A /* UIKit.framework */,
 				E014524E171DB5E300B94A9A /* Foundation.framework */,
 				E0145250171DB5E300B94A9A /* CoreGraphics.framework */,
@@ -127,12 +294,22 @@
 		E0145252171DB5E300B94A9A /* HelloOpenCViOS */ = {
 			isa = PBXGroup;
 			children = (
+				019D0150172FE89700C81701 /* Camera */,
+				012E6EC917426BA60098F2FF /* CoreData */,
+				012E6ECC17426BA60098F2FF /* CoreLocation */,
+				012E6ECF17426BA60098F2FF /* CoreMotion */,
+				012E6ED217426BA60098F2FF /* Utilities */,
+				012E6EDC17426C710098F2FF /* RoadSignsDataBase */,
+				01A00403174127CB00E238A7 /* ARView.h */,
+				01A00404174127CB00E238A7 /* ARView.mm */,
+				01A00405174127CB00E238A7 /* PlaceOfInterest.h */,
+				01A00406174127CB00E238A7 /* PlaceOfInterest.mm */,
 				E004B755171EE0BB00B86D98 /* ShapeFinder.cpp */,
 				E004B754171EE08000B86D98 /* ShapeFinder.h */,
 				E004B751171EDFAC00B86D98 /* Shapes.h */,
 				E004B752171EDFD400B86D98 /* Shapes.cpp */,
 				E014525B171DB5E300B94A9A /* AppDelegate.h */,
-				E014525C171DB5E300B94A9A /* AppDelegate.m */,
+				E014525C171DB5E300B94A9A /* AppDelegate.mm */,
 				E0145264171DB5E300B94A9A /* MainStoryboard_iPhone.storyboard */,
 				E0145267171DB5E300B94A9A /* MainStoryboard_iPad.storyboard */,
 				E014526A171DB5E300B94A9A /* ViewController.h */,
@@ -213,6 +390,16 @@
 				E0145263171DB5E300B94A9A /* Default-568h@2x.png in Resources */,
 				E0145266171DB5E300B94A9A /* MainStoryboard_iPhone.storyboard in Resources */,
 				E0145269171DB5E300B94A9A /* MainStoryboard_iPad.storyboard in Resources */,
+				012E6EC017426A920098F2FF /* 4.1.6_(Road_sign).gif in Resources */,
+				012E6EC117426A920098F2FF /* 417px-Belgium-trafficsign-e9a.svg.png in Resources */,
+				012E6EC217426A920098F2FF /* 600px-Belgium-trafficsign-c1.svg.png in Resources */,
+				012E6EC317426A920098F2FF /* 600px-Belgium-trafficsign-d1_right.svg.png in Resources */,
+				012E6EC417426A920098F2FF /* 600px-Belgium-trafficsign-d5.svg.png in Resources */,
+				012E6EC517426A920098F2FF /* 600px-Belgium-trafficsign-f49.svg.png in Resources */,
+				012E6EC617426A920098F2FF /* 720px-Belgium-trafficsign-b1.svg.png in Resources */,
+				012E6EC717426A920098F2FF /* Selected Data from Oregon 300 (GARMIN).GPX in Resources */,
+				012E6EC817426A920098F2FF /* Signs Collected.rtfd in Resources */,
+				012E6EF017426C820098F2FF /* RoadSignsCD.storedata in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,10 +411,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0145259171DB5E300B94A9A /* main.m in Sources */,
-				E014525D171DB5E300B94A9A /* AppDelegate.m in Sources */,
+				E014525D171DB5E300B94A9A /* AppDelegate.mm in Sources */,
 				E014526C171DB5E300B94A9A /* ViewController.mm in Sources */,
 				E004B753171EDFD400B86D98 /* Shapes.cpp in Sources */,
 				E004B756171EE0BB00B86D98 /* ShapeFinder.cpp in Sources */,
+				01A00407174127CB00E238A7 /* ARView.mm in Sources */,
+				01A00408174127CB00E238A7 /* PlaceOfInterest.mm in Sources */,
+				01A0040B17412E6900E238A7 /* MyCamera.mm in Sources */,
+				012E6ED717426BA60098F2FF /* CoreDataModule.mm in Sources */,
+				012E6ED817426BA60098F2FF /* CoreLocationModule.mm in Sources */,
+				012E6ED917426BA60098F2FF /* CoreMotionModule.mm in Sources */,
+				012E6EDA17426BA60098F2FF /* FPS.cpp in Sources */,
+				012E6EDB17426BA60098F2FF /* Utilities.mm in Sources */,
+				012E6EE917426C710098F2FF /* Action.mm in Sources */,
+				012E6EEA17426C710098F2FF /* Activity.mm in Sources */,
+				012E6EEB17426C710098F2FF /* Location.mm in Sources */,
+				012E6EEC17426C710098F2FF /* RoadSign.mm in Sources */,
+				012E6EEE17426C710098F2FF /* RoadSignsCD.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,15 +522,21 @@
 		E0145270171DB5E300B94A9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CODE_SIGN_IDENTITY = "iPhone Developer: David Furió (GQLKKAF7AB)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../../lib/ios\"",
+					"\"$(SRCROOT)/../OpenCV\"",
 				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloOpenCViOS/HelloOpenCViOS-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "HelloOpenCViOS/HelloOpenCViOS-Info.plist";
+				OTHER_CFLAGS = "";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "92F1AC40-FB63-42BE-83FF-74A596C2154D";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -338,15 +544,22 @@
 		E0145271171DB5E300B94A9A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CODE_SIGN_IDENTITY = "iPhone Developer: David Furió (GQLKKAF7AB)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../../lib/ios\"",
+					"\"$(SRCROOT)/../OpenCV\"",
 				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloOpenCViOS/HelloOpenCViOS-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "HelloOpenCViOS/HelloOpenCViOS-Info.plist";
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "92F1AC40-FB63-42BE-83FF-74A596C2154D";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -373,6 +586,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		012E6EE617426C710098F2FF /* RoadSignsCD.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				012E6EE717426C710098F2FF /* RoadSignsCD 2.xcdatamodel */,
+				012E6EE817426C710098F2FF /* RoadSignsCD.xcdatamodel */,
+			);
+			currentVersion = 012E6EE717426C710098F2FF /* RoadSignsCD 2.xcdatamodel */;
+			path = RoadSignsCD.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E0145241171DB5E200B94A9A /* Project object */;
 }

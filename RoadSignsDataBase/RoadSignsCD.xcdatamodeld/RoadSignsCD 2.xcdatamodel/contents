@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Action" representedClassName="Action" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="roadsigns" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RoadSign" inverseName="actions" inverseEntity="RoadSign" syncable="YES"/>
+    </entity>
+    <entity name="Activity" representedClassName="Activity" syncable="YES">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="locations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Location" inverseName="activities" inverseEntity="Location" syncable="YES"/>
+    </entity>
+    <entity name="Location" representedClassName="Location" syncable="YES">
+        <attribute name="face" attributeType="Float" minValueString="0" maxValueString="360" syncable="YES"/>
+        <attribute name="latitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="activities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Activity" inverseName="locations" inverseEntity="Activity" syncable="YES"/>
+        <relationship name="roadsigns" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RoadSign" inverseName="locations" inverseEntity="RoadSign" syncable="YES"/>
+    </entity>
+    <entity name="RoadSign" representedClassName="RoadSign" syncable="YES">
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="type" attributeType="String" syncable="YES"/>
+        <relationship name="actions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Action" inverseName="roadsigns" inverseEntity="Action" syncable="YES"/>
+        <relationship name="locations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Location" inverseName="roadsigns" inverseEntity="Location" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Action" positionX="-36" positionY="216" width="128" height="73"/>
+        <element name="Activity" positionX="205" positionY="-18" width="128" height="75"/>
+        <element name="Location" positionX="241" positionY="207" width="128" height="118"/>
+        <element name="RoadSign" positionX="-45" positionY="-18" width="117" height="118"/>
+    </elements>
+</model>

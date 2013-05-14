@@ -8,11 +8,25 @@
 
 #import "AppDelegate.h"
 
+#import "RoadSign.h"
+#import "Activity.h"
+#import "Action.h"
+#import "Location.h"
+
+#import "ViewController.h"
+#import "CoreDataModule.h"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+	_cdm = [[CoreDataModule alloc] init];
+	NSManagedObjectContext *context = [_cdm managedObjectContext];
+
+	ViewController *controller = (ViewController*)self.window.rootViewController;
+	controller.managedObjectContext = context;
+	
     return YES;
 }
 							

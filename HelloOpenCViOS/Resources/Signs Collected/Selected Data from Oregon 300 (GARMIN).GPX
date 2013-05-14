@@ -1,0 +1,282 @@
+<?xml version="1.0"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wptx1="http://www.garmin.com/xmlschemas/WaypointExtension/v1" xmlns:gpxtrx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:trp="http://www.garmin.com/xmlschemas/TripExtensions/v1" xmlns:adv="http://www.garmin.com/xmlschemas/AdventuresExtensions/v1" xmlns:prs="http://www.garmin.com/xmlschemas/PressureExtension/v1" creator="Garmin Desktop App" version="1.1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/WaypointExtension/v1 http://www8.garmin.com/xmlschemas/WaypointExtensionv1.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www8.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/ActivityExtension/v1 http://www8.garmin.com/xmlschemas/ActivityExtensionv1.xsd http://www.garmin.com/xmlschemas/AdventuresExtensions/v1 http://www8.garmin.com/xmlschemas/AdventuresExtensionv1.xsd http://www.garmin.com/xmlschemas/PressureExtension/v1 http://www.garmin.com/xmlschemas/PressureExtensionv1.xsd http://www.garmin.com/xmlschemas/TripExtensions/v1 http://www.garmin.com/xmlschemas/TripExtensionsv1.xsd">
+
+  <metadata>
+    <link href="http://www.garmin.com">
+      <text>Garmin International</text>
+    </link>
+    <time>2013-05-09T10:29:14Z</time>
+    <bounds maxlat="38.661971027031541" maxlon="-9.203965030610561" minlat="38.660889007151127" minlon="-9.206909006461501"/>
+  </metadata>
+
+  <wpt lat="38.661667015403509" lon="-9.203965030610561">
+    <ele>104.909999999999997</ele>
+    <time>2013-05-08T13:55:49Z</time>
+    <name>001</name>
+    <cmt>08-MAY-13 14:55:14</cmt>
+    <desc>08-MAY-13 14:55:14</desc>
+    <sym>Navaid, Red</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="38.661524020135403" lon="-9.203969975933433">
+    <ele>103.469999999999999</ele>
+    <time>2013-05-08T13:57:37Z</time>
+    <name>002</name>
+    <cmt>08-MAY-13 14:57:05</cmt>
+    <desc>08-MAY-13 14:57:05</desc>
+    <sym>Navaid, Red</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="38.661379013210535" lon="-9.204167034476995">
+    <ele>102.989999999999995</ele>
+    <time>2013-05-08T13:58:48Z</time>
+    <name>003</name>
+    <cmt>08-MAY-13 14:58:16</cmt>
+    <desc>08-MAY-13 14:58:16</desc>
+    <sym>Navaid, Red</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="38.661278011277318" lon="-9.204309023916721">
+    <ele>105.390000000000001</ele>
+    <time>2013-05-08T14:00:46Z</time>
+    <name>004</name>
+    <cmt>08-MAY-13 15:00:10</cmt>
+    <desc>08-MAY-13 15:00:10</desc>
+    <sym>Navaid, Red</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="38.661249009892344" lon="-9.204169968143106">
+    <ele>103.950000000000003</ele>
+    <time>2013-05-08T14:02:35Z</time>
+    <name>005</name>
+    <cmt>08-MAY-13 15:02:02</cmt>
+    <desc>08-MAY-13 15:02:02</desc>
+    <sym>Navaid, Red</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="38.660889007151127" lon="-9.204104002565145">
+    <ele>100.819999999999993</ele>
+    <time>2013-05-08T14:06:28Z</time>
+    <name>006</name>
+    <cmt>08-MAY-13 15:05:55</cmt>
+    <desc>08-MAY-13 15:05:55</desc>
+    <sym>Navaid, Red</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="38.661082964390516" lon="-9.204789977520704">
+    <ele>106.829999999999998</ele>
+    <time>2013-05-08T14:09:44Z</time>
+    <name>007</name>
+    <cmt>08-MAY-13 15:09:12</cmt>
+    <desc>08-MAY-13 15:09:12</desc>
+    <sym>Navaid, Red</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="38.661075001582503" lon="-9.205472012981772">
+    <ele>103.950000000000003</ele>
+    <time>2013-05-08T14:13:04Z</time>
+    <name>008</name>
+    <cmt>08-MAY-13 15:12:31</cmt>
+    <desc>08-MAY-13 15:12:31</desc>
+    <sym>Navaid, Red</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="38.661097967997193" lon="-9.205759009346366">
+    <ele>103.709999999999994</ele>
+    <time>2013-05-08T14:14:20Z</time>
+    <name>009</name>
+    <cmt>08-MAY-13 15:13:48</cmt>
+    <desc>08-MAY-13 15:13:48</desc>
+    <sym>Navaid, Red</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="38.661121018230915" lon="-9.206034019589424">
+    <ele>100.579999999999998</ele>
+    <time>2013-05-08T14:15:38Z</time>
+    <name>010</name>
+    <cmt>08-MAY-13 15:15:05</cmt>
+    <desc>08-MAY-13 15:15:05</desc>
+    <sym>Navaid, Red</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="38.661051029339433" lon="-9.20643400400877">
+    <ele>102.510000000000005</ele>
+    <time>2013-05-08T14:16:54Z</time>
+    <name>011</name>
+    <cmt>08-MAY-13 15:16:22</cmt>
+    <desc>08-MAY-13 15:16:22</desc>
+    <sym>Navaid, Red</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="38.661091011017561" lon="-9.206805992871523">
+    <ele>103.230000000000004</ele>
+    <time>2013-05-08T14:17:39Z</time>
+    <name>012</name>
+    <cmt>08-MAY-13 15:17:38</cmt>
+    <desc>08-MAY-13 15:17:38</desc>
+    <sym>Navaid, Red</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="38.661092016845942" lon="-9.206806998699903">
+    <ele>103.230000000000004</ele>
+    <time>2013-05-08T14:18:24Z</time>
+    <name>013</name>
+    <cmt>08-MAY-13 15:17:51</cmt>
+    <desc>08-MAY-13 15:17:51</desc>
+    <sym>Navaid, Red</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="38.661297960206866" lon="-9.206833988428116">
+    <ele>101.540000000000006</ele>
+    <time>2013-05-08T14:19:30Z</time>
+    <name>014</name>
+    <cmt>08-MAY-13 15:18:57</cmt>
+    <desc>08-MAY-13 15:18:57</desc>
+    <sym>Navaid, Red</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="38.661310030147433" lon="-9.206909006461501">
+    <ele>101.060000000000002</ele>
+    <time>2013-05-08T14:21:01Z</time>
+    <name>015</name>
+    <cmt>08-MAY-13 15:20:27</cmt>
+    <desc>08-MAY-13 15:20:27</desc>
+    <sym>Navaid, Red</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="38.66180095821619" lon="-9.206166034564376">
+    <ele>100.340000000000003</ele>
+    <time>2013-05-08T14:22:54Z</time>
+    <name>016</name>
+    <cmt>08-MAY-13 15:22:21</cmt>
+    <desc>08-MAY-13 15:22:21</desc>
+    <sym>Navaid, Red</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="38.661971027031541" lon="-9.205992026254535">
+    <ele>95.299999999999997</ele>
+    <time>2013-05-08T14:24:14Z</time>
+    <name>017</name>
+    <cmt>08-MAY-13 15:23:42</cmt>
+    <desc>08-MAY-13 15:23:42</desc>
+    <sym>Navaid, Red</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+  <wpt lat="38.661830965429544" lon="-9.204172985628247">
+    <ele>96.980000000000004</ele>
+    <time>2013-05-08T14:27:24Z</time>
+    <name>018</name>
+    <cmt>08-MAY-13 15:26:50</cmt>
+    <desc>08-MAY-13 15:26:50</desc>
+    <sym>Navaid, Red</sym>
+    <type>user</type>
+    <extensions>
+      <gpxx:WaypointExtension>
+        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
+      </gpxx:WaypointExtension>
+    </extensions>
+  </wpt>
+
+</gpx>
