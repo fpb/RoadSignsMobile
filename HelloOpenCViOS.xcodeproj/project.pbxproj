@@ -27,6 +27,7 @@
 		012E6EEC17426C710098F2FF /* RoadSign.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6EE417426C710098F2FF /* RoadSign.mm */; };
 		012E6EEE17426C710098F2FF /* RoadSignsCD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 012E6EE617426C710098F2FF /* RoadSignsCD.xcdatamodeld */; };
 		012E6EF017426C820098F2FF /* RoadSignsCD.storedata in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EEF17426C820098F2FF /* RoadSignsCD.storedata */; };
+		012E6EF2174274600098F2FF /* TODO.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EF1174274600098F2FF /* TODO.rtf */; };
 		01612E8D172EB89E0037F3F0 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01612E8C172EB89E0037F3F0 /* opencv2.framework */; };
 		019D0155172FFCB000C81701 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019D0154172FFCB000C81701 /* ImageIO.framework */; };
 		01A003DE1740F48B00E238A7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A003DD1740F48B00E238A7 /* CoreData.framework */; };
@@ -90,6 +91,7 @@
 		012E6EE717426C710098F2FF /* RoadSignsCD 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RoadSignsCD 2.xcdatamodel"; sourceTree = "<group>"; };
 		012E6EE817426C710098F2FF /* RoadSignsCD.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RoadSignsCD.xcdatamodel; sourceTree = "<group>"; };
 		012E6EEF17426C820098F2FF /* RoadSignsCD.storedata */ = {isa = PBXFileReference; lastKnownFileType = file; name = RoadSignsCD.storedata; path = "../../../Library/Application Support/David.RoadSignsCD/RoadSignsCD.storedata"; sourceTree = "<group>"; };
+		012E6EF1174274600098F2FF /* TODO.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = TODO.rtf; sourceTree = SOURCE_ROOT; };
 		01612E8C172EB89E0037F3F0 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../OpenCV/opencv2.framework; sourceTree = "<group>"; };
 		019D0154172FFCB000C81701 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		01A003DD1740F48B00E238A7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -253,6 +255,7 @@
 		E0145240171DB5E200B94A9A = {
 			isa = PBXGroup;
 			children = (
+				012E6EF1174274600098F2FF /* TODO.rtf */,
 				E0145252171DB5E300B94A9A /* HelloOpenCViOS */,
 				012E6EB517426A920098F2FF /* Resources */,
 				E014524B171DB5E200B94A9A /* Frameworks */,
@@ -400,6 +403,7 @@
 				012E6EC717426A920098F2FF /* Selected Data from Oregon 300 (GARMIN).GPX in Resources */,
 				012E6EC817426A920098F2FF /* Signs Collected.rtfd in Resources */,
 				012E6EF017426C820098F2FF /* RoadSignsCD.storedata in Resources */,
+				012E6EF2174274600098F2FF /* TODO.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
