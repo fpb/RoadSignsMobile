@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		010EBBDC17427A3100F8BE97 /* Readme.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 010EBBDB17427A3100F8BE97 /* Readme.rtf */; };
 		012E6EC017426A920098F2FF /* 4.1.6_(Road_sign).gif in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EB717426A920098F2FF /* 4.1.6_(Road_sign).gif */; };
 		012E6EC117426A920098F2FF /* 417px-Belgium-trafficsign-e9a.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EB817426A920098F2FF /* 417px-Belgium-trafficsign-e9a.svg.png */; };
 		012E6EC217426A920098F2FF /* 600px-Belgium-trafficsign-c1.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EB917426A920098F2FF /* 600px-Belgium-trafficsign-c1.svg.png */; };
@@ -43,7 +44,6 @@
 		E004B748171E06E700B86D98 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B747171E06E600B86D98 /* CoreMedia.framework */; };
 		E004B74A171E06F500B86D98 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B749171E06F500B86D98 /* CoreVideo.framework */; };
 		E004B74C171E070500B86D98 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B74B171E070500B86D98 /* QuartzCore.framework */; };
-		E004B74F171E0B4B00B86D98 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B74D171E096700B86D98 /* libc++.dylib */; };
 		E004B753171EDFD400B86D98 /* Shapes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E004B752171EDFD400B86D98 /* Shapes.cpp */; };
 		E004B756171EE0BB00B86D98 /* ShapeFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E004B755171EE0BB00B86D98 /* ShapeFinder.cpp */; };
 		E014524D171DB5E300B94A9A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E014524C171DB5E200B94A9A /* UIKit.framework */; };
@@ -61,6 +61,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		010EBBDB17427A3100F8BE97 /* Readme.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Readme.rtf; sourceTree = "<group>"; };
 		012E6EB717426A920098F2FF /* 4.1.6_(Road_sign).gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "4.1.6_(Road_sign).gif"; sourceTree = "<group>"; };
 		012E6EB817426A920098F2FF /* 417px-Belgium-trafficsign-e9a.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "417px-Belgium-trafficsign-e9a.svg.png"; sourceTree = "<group>"; };
 		012E6EB917426A920098F2FF /* 600px-Belgium-trafficsign-c1.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "600px-Belgium-trafficsign-c1.svg.png"; sourceTree = "<group>"; };
@@ -111,7 +112,6 @@
 		E004B747171E06E600B86D98 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		E004B749171E06F500B86D98 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		E004B74B171E070500B86D98 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		E004B74D171E096700B86D98 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		E004B751171EDFAC00B86D98 /* Shapes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shapes.h; sourceTree = "<group>"; };
 		E004B752171EDFD400B86D98 /* Shapes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shapes.cpp; sourceTree = "<group>"; };
 		E004B754171EE08000B86D98 /* ShapeFinder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShapeFinder.h; sourceTree = "<group>"; };
@@ -144,7 +144,6 @@
 				01A003FA1740FA2300E238A7 /* CoreLocation.framework in Frameworks */,
 				01A003DE1740F48B00E238A7 /* CoreData.framework in Frameworks */,
 				019D0155172FFCB000C81701 /* ImageIO.framework in Frameworks */,
-				E004B74F171E0B4B00B86D98 /* libc++.dylib in Frameworks */,
 				E004B74C171E070500B86D98 /* QuartzCore.framework in Frameworks */,
 				E004B74A171E06F500B86D98 /* CoreVideo.framework in Frameworks */,
 				E004B748171E06E700B86D98 /* CoreMedia.framework in Frameworks */,
@@ -255,7 +254,9 @@
 		E0145240171DB5E200B94A9A = {
 			isa = PBXGroup;
 			children = (
+				010EBBDB17427A3100F8BE97 /* Readme.rtf */,
 				012E6EF1174274600098F2FF /* TODO.rtf */,
+				012E6EDC17426C710098F2FF /* RoadSignsDataBase */,
 				E0145252171DB5E300B94A9A /* HelloOpenCViOS */,
 				012E6EB517426A920098F2FF /* Resources */,
 				E014524B171DB5E200B94A9A /* Frameworks */,
@@ -278,7 +279,6 @@
 				01A003F91740FA2300E238A7 /* CoreLocation.framework */,
 				01A003DD1740F48B00E238A7 /* CoreData.framework */,
 				019D0154172FFCB000C81701 /* ImageIO.framework */,
-				E004B74D171E096700B86D98 /* libc++.dylib */,
 				E004B74B171E070500B86D98 /* QuartzCore.framework */,
 				E004B749171E06F500B86D98 /* CoreVideo.framework */,
 				E004B747171E06E600B86D98 /* CoreMedia.framework */,
@@ -302,7 +302,6 @@
 				012E6ECC17426BA60098F2FF /* CoreLocation */,
 				012E6ECF17426BA60098F2FF /* CoreMotion */,
 				012E6ED217426BA60098F2FF /* Utilities */,
-				012E6EDC17426C710098F2FF /* RoadSignsDataBase */,
 				01A00403174127CB00E238A7 /* ARView.h */,
 				01A00404174127CB00E238A7 /* ARView.mm */,
 				01A00405174127CB00E238A7 /* PlaceOfInterest.h */,
@@ -404,6 +403,7 @@
 				012E6EC817426A920098F2FF /* Signs Collected.rtfd in Resources */,
 				012E6EF017426C820098F2FF /* RoadSignsCD.storedata in Resources */,
 				012E6EF2174274600098F2FF /* TODO.rtf in Resources */,
+				010EBBDC17427A3100F8BE97 /* Readme.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
