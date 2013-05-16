@@ -121,7 +121,7 @@
 		[alert show];
         return nil;
     }
-    _managedObjectContext = [[NSManagedObjectContext alloc] init];
+    _managedObjectContext = [NSManagedObjectContext new];
     [_managedObjectContext setPersistentStoreCoordinator:coordinator];
 	
     return _managedObjectContext;

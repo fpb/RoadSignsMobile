@@ -1,24 +1,22 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf370
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
 {\colortbl;\red255\green255\blue255;}
-{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
-{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}}
-{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}}
 \margl1440\margr1440\vieww9000\viewh8400\viewkind0
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+\deftab529
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab529\pardirnatural
 
-\f0\fs24 \cf0 Take a picture with the camera and analyze it.\
+\f0\fs22 \cf0 I am going to add the functionality to take a picture with the phone so the image data can be analyzed with OpenCV to detect if it is the correct sign.\
 \
-Fetch location: Currently we fetch all locations. Change it to:\
-\pard\tx220\tx720\tx1120\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural
-\ls1\ilvl0\cf0 {\listtext	\'95	}fetch all sign locations corresponding to an activity\
-\pard\tx560\tx1120\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
-\cf0 	   Advantages: One fetch per game. Faster approach.\
-	   Disadvantages: Activities with a lot of sign locations could use  too much memory?\
-\pard\tx220\tx720\tx1120\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\pardirnatural
-\ls2\ilvl0\cf0 {\listtext	\'95	}fetch close sign locations. We fetch sign locations near the user. Every time the user moves 'x' distance we fetch for new sign locations.\
-\pard\tx560\tx1120\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
-\cf0 	   Advantages: Memory use is more or less constant. Activities with a lot of sign locations are not a problem.\
-	   Disadvantages: Fetching sign locations every 'x' distance. More complex and slower approach due to the constant fetching (we also have to generate the places of interest labels).\
+Fetch location: Currently we fetch all locations (bad). Change it to:\
+	\'95	fetch all sign locations corresponding to an activity\
+	\'a0 Advantages: One fetch per game. Faster approach.\
+	\'a0 Disadvantages: Activities with a lot of sign locations could use\'a0 too much memory?\
+	\'95	fetch close sign locations. We fetch sign locations near the user. Every time the user moves 'x' distance we fetch for new sign locations.\'a0This sign locations can be related to an activity or we can simply grab locations that are near the user, independently of the activity.\
+	\'a0 Advantages: Memory use is more or less constant. Activities with a lot of sign locations are not a problem.\
+	\'a0 Disadvantages: More complex and slower approach due to the constant fetching (we also have to generate the places of interest labels and compare distances).\
+\pard\pardeftab720
+\cf0 \
+Measure heading of signs\
 \
-Add comments on the source code and the readme file}
+\pard\tx560\tx1120\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab529\pardirnatural
+\cf0 Add comments on the source code and the readme file}

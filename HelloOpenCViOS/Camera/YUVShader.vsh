@@ -1,6 +1,6 @@
 /*
-     File: ARView.h
- Abstract: Augmented reality view. Displays a live camera feed with specified places-of-interest overlayed in the correct position based on the direction the user is looking. Uses Core Location to determine the user's location relative the places-of-interest and Core Motion to determine the direction the user is looking.
+     File: Shader.vsh
+ Abstract: Vertex shader that passes attributes through to fragment shader.
   Version: 1.0
  
  Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
@@ -41,31 +41,17 @@
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  
- Copyright (C) 2012 Apple Inc. All Rights Reserved.
+ Copyright (C) 2013 Apple Inc. All Rights Reserved.
  
  */
 
-#import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
-#import <CoreMotion/CoreMotion.h>
+attribute vec4 position;
+attribute vec2 texCoord;
 
-@interface ARView : UIView
+varying vec2 texCoordVarying;
 
-@property (nonatomic, strong) NSArray *placesOfInterest;
-
-// Core Data
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
-// Options
-@property (nonatomic, strong) IBOutlet UILabel *distanceLabel2;
-@property (nonatomic, strong) IBOutlet UILabel *headingLabel2;
-@property (nonatomic, strong) IBOutlet UILabel *fpsLabel2;
-
-@property (nonatomic, strong) IBOutlet UILabel *distanceLabel;
-@property (nonatomic, strong) IBOutlet UILabel *headingLabel;
-@property (nonatomic, strong) IBOutlet UILabel *fpsLabel;
-
-- (void)start;
-- (void)stop;
-
-@end
+void main()
+{
+    gl_Position = position;
+    texCoordVarying = texCoord;
+}

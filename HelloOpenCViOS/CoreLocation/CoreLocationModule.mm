@@ -12,17 +12,27 @@
 
 @synthesize locationManager = _locationManager;
 @synthesize bestLocation	= _bestLocation;
+@synthesize delegate		= _delegate;
+
+- (id)init
+{
+	self = [super init];
+	if (self)
+	{
+		_locationManager = [CLLocationManager new];
+		_locationManager.distanceFilter = kCLDistanceFilterNone; //100.0;
+		_locationManager.desiredAccuracy = kCLLocationAccuracyBest; // kCLLocationAccuracyNearestTenMeters ???
+		_locationManager.pausesLocationUpdatesAutomatically = NO;
+		_locationManager.headingFilter = kCLHeadingFilterNone;
+		_locationManager.delegate = self;
+	}
+	
+	return self;
+}
 
 - (void)startLocation
 {
-	_locationManager = nil;
-	_locationManager = [[CLLocationManager alloc] init];
-	_locationManager.delegate = self;
-	_locationManager.distanceFilter = kCLDistanceFilterNone; //100.0;
-	_locationManager.desiredAccuracy = kCLLocationAccuracyBest; // kCLLocationAccuracyNearestTenMeters ???
-	_locationManager.pausesLocationUpdatesAutomatically = NO;
 	[_locationManager startUpdatingLocation];
-	_locationManager.headingFilter = kCLHeadingFilterNone;
 	[_locationManager startUpdatingHeading];
 }
 
@@ -30,10 +40,9 @@
 {
 	[_locationManager stopUpdatingHeading];
 	[_locationManager stopUpdatingLocation];
-	_locationManager = nil;
 }
 
-#pragma mark - Delegate methods
+#pragma mark Location delegate
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
 	// Get last update
@@ -61,7 +70,8 @@
 	// store the location as the "best effort"
 	_bestLocation = newLocation;
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"LocationDataReceived" object:self userInfo:nil];
+	if ([_delegate respondsToSelector:@selector(locationDataReceived)])
+		[_delegate locationDataReceived];
 }
 
 - (void) locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
@@ -74,7 +84,9 @@
 	
 	_currentHeading = newHeading;
 	
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"HeadingDataReceived" object:self userInfo:nil];
+	if ([_delegate respondsToSelector:@selector(headingDataReceived)])
+		[_delegate headingDataReceived];
+
 	//	[(ViewController*)[(pARkAppDelegate*)[[UIApplication sharedApplication] delegate] viewController] headingLabel].text =
 	//	[NSString stringWithFormat:@"%f", newHeading.trueHeading];
 	//	NSLog(@"X: %f, Y: %f", cosf(currentHeading.trueHeading*DEGREES_TO_RADIANS), sinf(currentHeading.trueHeading*DEGREES_TO_RADIANS));

@@ -9,8 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+@protocol CoreLocationModuleDelegate <NSObject>
+@optional
+- (void)locationDataReceived;
+- (void)headingDataReceived;
+@end
+
 @interface CoreLocationModule : NSObject <CLLocationManagerDelegate>
 
+@property (nonatomic, assign) id<CoreLocationModuleDelegate> delegate;
 @property (readonly, nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *bestLocation;
 @property (nonatomic, strong) CLHeading *currentHeading;

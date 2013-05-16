@@ -8,91 +8,110 @@
         <scene sceneID="5">
             <objects>
                 <viewController storyboardIdentifier="initial" wantsFullScreenLayout="YES" id="2" customClass="ViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Z3e-8b-Ux8" customClass="ARView">
+                    <glkView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" enableSetNeedsDisplay="NO" id="0Qa-F2-6oH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="FPS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Bi-9z-K8k">
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="FPS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oVE-nP-kQB">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="FPS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BwF-3b-afa">
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Heading" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pwr-gP-Xjd">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDv-Jv-d6d">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="FPS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w15-Sx-kxf">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rlC-fD-beR">
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Heading" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rbb-Sz-po8">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.80000001192092896" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="FPS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0f-UW-ozG">
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="juI-6N-y0l">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.80000001192092896" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Heading" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTH-5Y-cmz">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.80000001192092896" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="FPS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wGo-L5-dAE">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.80000001192092896" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" translatesAutoresizingMaskIntoConstraints="NO" id="hVd-p1-sVo">
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="s0P-tc-954"/>
+                                    <barButtonItem systemItem="camera" id="egY-gM-djI">
+                                        <connections>
+                                            <action selector="takePicture:" destination="2" id="hk0-jb-mWT"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="F0M-Dc-9A3"/>
+                                </items>
+                            </toolbar>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="BwF-3b-afa" firstAttribute="top" secondItem="Z3e-8b-Ux8" secondAttribute="top" constant="20" symbolic="YES" type="default" id="6KW-Ha-rv8"/>
-                            <constraint firstItem="rlC-fD-beR" firstAttribute="leading" secondItem="Z3e-8b-Ux8" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="DmO-tU-UYq"/>
-                            <constraint firstItem="KTH-5Y-cmz" firstAttribute="leading" secondItem="Z3e-8b-Ux8" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Pet-Ua-T9e"/>
-                            <constraint firstItem="BwF-3b-afa" firstAttribute="leading" secondItem="5Bi-9z-K8k" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="Pst-Nj-4yf"/>
-                            <constraint firstItem="5Bi-9z-K8k" firstAttribute="top" secondItem="Z3e-8b-Ux8" secondAttribute="top" constant="20" symbolic="YES" type="default" id="Slr-0n-nKN"/>
-                            <constraint firstItem="KTH-5Y-cmz" firstAttribute="baseline" secondItem="wGo-L5-dAE" secondAttribute="baseline" type="default" id="UbI-7b-FAt"/>
-                            <constraint firstItem="Y0f-UW-ozG" firstAttribute="baseline" secondItem="rlC-fD-beR" secondAttribute="baseline" type="default" id="UpI-t9-Auy"/>
-                            <constraint firstItem="rlC-fD-beR" firstAttribute="top" secondItem="5Bi-9z-K8k" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="YZB-FF-j2K"/>
-                            <constraint firstItem="5Bi-9z-K8k" firstAttribute="leading" secondItem="Z3e-8b-Ux8" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="e9c-4Y-L2E"/>
-                            <constraint firstItem="Y0f-UW-ozG" firstAttribute="leading" secondItem="rlC-fD-beR" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="k8u-nF-qjM"/>
-                            <constraint firstItem="wGo-L5-dAE" firstAttribute="leading" secondItem="KTH-5Y-cmz" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="sb3-Gb-9pM"/>
-                            <constraint firstItem="KTH-5Y-cmz" firstAttribute="top" secondItem="rlC-fD-beR" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="ukJ-dg-Efr"/>
+                            <constraint firstItem="hVd-p1-sVo" firstAttribute="leading" secondItem="0Qa-F2-6oH" secondAttribute="leading" type="default" id="10J-eh-M4a"/>
+                            <constraint firstItem="yDv-Jv-d6d" firstAttribute="baseline" secondItem="juI-6N-y0l" secondAttribute="baseline" type="default" id="9hl-Ok-ALo"/>
+                            <constraint firstItem="juI-6N-y0l" firstAttribute="leading" secondItem="rbb-Sz-po8" secondAttribute="leading" type="default" id="BlA-SM-Pn0"/>
+                            <constraint firstItem="Pwr-gP-Xjd" firstAttribute="centerX" secondItem="yDv-Jv-d6d" secondAttribute="centerX" type="default" id="Drg-VW-ifp"/>
+                            <constraint firstItem="hVd-p1-sVo" firstAttribute="bottom" secondItem="0Qa-F2-6oH" secondAttribute="bottom" type="default" id="E8d-AR-5Ts"/>
+                            <constraint firstItem="rbb-Sz-po8" firstAttribute="leading" secondItem="w15-Sx-kxf" secondAttribute="leading" type="default" id="EUg-Ah-xua"/>
+                            <constraint firstItem="yDv-Jv-d6d" firstAttribute="top" secondItem="Pwr-gP-Xjd" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Iz8-Kd-ehK"/>
+                            <constraint firstItem="hVd-p1-sVo" firstAttribute="trailing" secondItem="0Qa-F2-6oH" secondAttribute="trailing" type="default" id="QQy-T8-Bef"/>
+                            <constraint firstItem="Pwr-gP-Xjd" firstAttribute="baseline" secondItem="rbb-Sz-po8" secondAttribute="baseline" type="default" id="VAG-fJ-j1i"/>
+                            <constraint firstItem="oVE-nP-kQB" firstAttribute="leading" secondItem="Pwr-gP-Xjd" secondAttribute="leading" type="default" id="X31-OF-lBT"/>
+                            <constraint firstItem="oVE-nP-kQB" firstAttribute="top" secondItem="0Qa-F2-6oH" secondAttribute="top" constant="20" symbolic="YES" type="default" id="lqt-OM-ay9"/>
+                            <constraint firstItem="juI-6N-y0l" firstAttribute="leading" secondItem="yDv-Jv-d6d" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="rLz-3m-ztM"/>
+                            <constraint firstItem="yDv-Jv-d6d" firstAttribute="leading" secondItem="0Qa-F2-6oH" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="teO-Yd-bUk"/>
+                            <constraint firstItem="Pwr-gP-Xjd" firstAttribute="top" secondItem="oVE-nP-kQB" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="ygh-xm-DtT"/>
+                            <constraint firstItem="w15-Sx-kxf" firstAttribute="top" secondItem="0Qa-F2-6oH" secondAttribute="top" constant="20" symbolic="YES" type="default" id="ypD-wH-dol"/>
                         </constraints>
                         <connections>
-                            <outlet property="distanceLabel" destination="Y0f-UW-ozG" id="T67-Ml-QyY"/>
-                            <outlet property="distanceLabel2" destination="rlC-fD-beR" id="mEj-bS-1lh"/>
-                            <outlet property="fpsLabel" destination="BwF-3b-afa" id="KKc-m6-9S2"/>
-                            <outlet property="fpsLabel2" destination="5Bi-9z-K8k" id="YaG-WA-GKs"/>
-                            <outlet property="headingLabel" destination="wGo-L5-dAE" id="eH9-oh-TZN"/>
-                            <outlet property="headingLabel2" destination="KTH-5Y-cmz" id="qkb-EE-Vxq"/>
+                            <outlet property="delegate" destination="2" id="MSg-Vk-hPf"/>
                         </connections>
-                    </view>
+                    </glkView>
+                    <toolbarItems/>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="distanceLabel" destination="juI-6N-y0l" id="o9H-RR-yCy"/>
+                        <outlet property="distanceLabel2" destination="yDv-Jv-d6d" id="FcN-z9-ehb"/>
+                        <outlet property="fpsLabel" destination="w15-Sx-kxf" id="KYf-9r-cep"/>
+                        <outlet property="fpsLabel2" destination="oVE-nP-kQB" id="FBX-Au-i23"/>
+                        <outlet property="headingLabel" destination="rbb-Sz-po8" id="XSi-v0-GNJ"/>
+                        <outlet property="headingLabel2" destination="Pwr-gP-Xjd" id="ODd-KG-Afa"/>
+                        <outlet property="toolbar" destination="hVd-p1-sVo" id="GWl-Iy-jkc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-466" y="-151"/>
+            <point key="canvasLocation" x="-2024" y="-455"/>
         </scene>
     </scenes>
     <classes>
-        <class className="ARView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ARView.h"/>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="ViewController" superclassName="GLKViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
             <relationships>
+                <relationship kind="action" name="takePicture:"/>
                 <relationship kind="outlet" name="distanceLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="distanceLabel2" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="fpsLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="fpsLabel2" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="headingLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="headingLabel2" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
             </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -1,7 +1,7 @@
 /*
- File: PlaceOfInterest.m
- Abstract: Class that represents a place-of-interest: a position (latitude and longitude) and associated UIView.
- Version: 1.0
+     File: Shader.fsh
+ Abstract: Fragment shader for converting Y/UV textures to RGB.
+  Version: 1.0
  
  Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
  Inc. ("Apple") in consideration of your agreement to the following
@@ -41,53 +41,35 @@
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  
- Copyright (C) 2012 Apple Inc. All Rights Reserved.
+ Copyright (C) 2013 Apple Inc. All Rights Reserved.
  
  */
 
-#import "PlaceOfInterest.h"
+uniform sampler2D SamplerY;
+uniform sampler2D SamplerUV;
 
-@implementation PlaceOfInterest
+varying highp vec2 texCoordVarying;
 
-@synthesize view;
-@synthesize location;
-
-- (id)init
+void main()
 {
-    self = [super init];
-    if (self) {
-		view = nil;
-		location = nil;
-		heading = nil;
-    }
-    return self;
+    mediump vec3 yuv;
+    lowp vec3 rgb;
+    
+    yuv.x = texture2D(SamplerY, texCoordVarying).r;
+    yuv.yz = texture2D(SamplerUV, texCoordVarying).rg - vec2(0.5, 0.5);
+    
+    // BT.601, which is the standard for SDTV is provided as a reference
+    /*
+    rgb = mat3(    1,       1,     1,
+                   0, -.34413, 1.772,
+               1.402, -.71414,     0) * yuv;
+     */
+    
+    // Using BT.709 which is the standard for HDTV
+    rgb = mat3(      1,       1,      1,
+                     0, -.18732, 1.8556,
+               1.57481, -.46813,      0) * yuv;
+    
+    gl_FragColor = vec4(rgb, 1);
 }
 
-//- (void)dealloc
-//{
-//	[view release];
-//	[location release];
-//	[super dealloc];
-//}
-
-- (void) setFace:(CLLocationDirection) trueHeading
-{
-	heading = trueHeading;
-}
-- (CLLocationDirection) face
-{
-	return heading;
-}
-
-+ (PlaceOfInterest *)placeOfInterestWithView:(UIView *)view at:(CLLocation *)location facingAt:(CLLocationDirection) trueHeading
-{
-	PlaceOfInterest *poi = [PlaceOfInterest new];
-	poi.view = view;
-	poi.view.hidden = YES;
-	poi.location = location;
-	[poi setFace:trueHeading];
-	
-	return poi;
-}
-
-@end

@@ -34,9 +34,12 @@
 		01A003DE1740F48B00E238A7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A003DD1740F48B00E238A7 /* CoreData.framework */; };
 		01A003FA1740FA2300E238A7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A003F91740FA2300E238A7 /* CoreLocation.framework */; };
 		01A004021740FD2300E238A7 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A004011740FD2300E238A7 /* CoreMotion.framework */; };
-		01A00407174127CB00E238A7 /* ARView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01A00404174127CB00E238A7 /* ARView.mm */; };
 		01A00408174127CB00E238A7 /* PlaceOfInterest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01A00406174127CB00E238A7 /* PlaceOfInterest.mm */; };
 		01A0040B17412E6900E238A7 /* MyCamera.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01A0040A17412E6900E238A7 /* MyCamera.mm */; };
+		01BB9BB11742983B00546196 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01BB9BB01742983B00546196 /* OpenGLES.framework */; };
+		01BB9BB31742984E00546196 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01BB9BB21742984E00546196 /* GLKit.framework */; };
+		01BB9BB417429C4100546196 /* YUVShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 01BB9BA91742936A00546196 /* YUVShader.fsh */; };
+		01BB9BB517429C4100546196 /* YUVShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 01BB9BAA1742936A00546196 /* YUVShader.vsh */; };
 		E004B740171E06BA00B86D98 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B73F171E06BA00B86D98 /* Accelerate.framework */; };
 		E004B742171E06C200B86D98 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B741171E06C200B86D98 /* AssetsLibrary.framework */; };
 		E004B744171E06CA00B86D98 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004B743171E06CA00B86D98 /* AVFoundation.framework */; };
@@ -96,15 +99,17 @@
 		01612E8C172EB89E0037F3F0 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../OpenCV/opencv2.framework; sourceTree = "<group>"; };
 		019D0154172FFCB000C81701 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		01A003DD1740F48B00E238A7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		01A003EA1740F4DE00E238A7 /* FetchResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FetchResults.h; path = ../../../pARk/pARk/FetchResults.h; sourceTree = "<group>"; };
 		01A003F91740FA2300E238A7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		01A004011740FD2300E238A7 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		01A00403174127CB00E238A7 /* ARView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARView.h; sourceTree = "<group>"; };
-		01A00404174127CB00E238A7 /* ARView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ARView.mm; sourceTree = "<group>"; };
 		01A00405174127CB00E238A7 /* PlaceOfInterest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceOfInterest.h; sourceTree = "<group>"; };
 		01A00406174127CB00E238A7 /* PlaceOfInterest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlaceOfInterest.mm; sourceTree = "<group>"; };
 		01A0040917412E6900E238A7 /* MyCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCamera.h; sourceTree = "<group>"; };
 		01A0040A17412E6900E238A7 /* MyCamera.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyCamera.mm; sourceTree = "<group>"; };
+		01BB9BA91742936A00546196 /* YUVShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = YUVShader.fsh; sourceTree = "<group>"; };
+		01BB9BAA1742936A00546196 /* YUVShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = YUVShader.vsh; sourceTree = "<group>"; };
+		01BB9BAF1742971E00546196 /* FetchResults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FetchResults.h; sourceTree = "<group>"; };
+		01BB9BB01742983B00546196 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		01BB9BB21742984E00546196 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		E004B73F171E06BA00B86D98 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		E004B741171E06C200B86D98 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		E004B743171E06CA00B86D98 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -140,6 +145,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01BB9BB31742984E00546196 /* GLKit.framework in Frameworks */,
+				01BB9BB11742983B00546196 /* OpenGLES.framework in Frameworks */,
 				01A004021740FD2300E238A7 /* CoreMotion.framework in Frameworks */,
 				01A003FA1740FA2300E238A7 /* CoreLocation.framework in Frameworks */,
 				01A003DE1740F48B00E238A7 /* CoreData.framework in Frameworks */,
@@ -189,9 +196,9 @@
 		012E6EC917426BA60098F2FF /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				01A003EA1740F4DE00E238A7 /* FetchResults.h */,
 				012E6ECA17426BA60098F2FF /* CoreDataModule.h */,
 				012E6ECB17426BA60098F2FF /* CoreDataModule.mm */,
+				01BB9BAF1742971E00546196 /* FetchResults.h */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -245,6 +252,8 @@
 		019D0150172FE89700C81701 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				01BB9BA91742936A00546196 /* YUVShader.fsh */,
+				01BB9BAA1742936A00546196 /* YUVShader.vsh */,
 				01A0040917412E6900E238A7 /* MyCamera.h */,
 				01A0040A17412E6900E238A7 /* MyCamera.mm */,
 			);
@@ -275,6 +284,8 @@
 		E014524B171DB5E200B94A9A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				01BB9BB21742984E00546196 /* GLKit.framework */,
+				01BB9BB01742983B00546196 /* OpenGLES.framework */,
 				01A004011740FD2300E238A7 /* CoreMotion.framework */,
 				01A003F91740FA2300E238A7 /* CoreLocation.framework */,
 				01A003DD1740F48B00E238A7 /* CoreData.framework */,
@@ -302,8 +313,6 @@
 				012E6ECC17426BA60098F2FF /* CoreLocation */,
 				012E6ECF17426BA60098F2FF /* CoreMotion */,
 				012E6ED217426BA60098F2FF /* Utilities */,
-				01A00403174127CB00E238A7 /* ARView.h */,
-				01A00404174127CB00E238A7 /* ARView.mm */,
 				01A00405174127CB00E238A7 /* PlaceOfInterest.h */,
 				01A00406174127CB00E238A7 /* PlaceOfInterest.mm */,
 				E004B755171EE0BB00B86D98 /* ShapeFinder.cpp */,
@@ -387,6 +396,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0145257171DB5E300B94A9A /* InfoPlist.strings in Resources */,
+				01BB9BB417429C4100546196 /* YUVShader.fsh in Resources */,
+				01BB9BB517429C4100546196 /* YUVShader.vsh in Resources */,
 				E014525F171DB5E300B94A9A /* Default.png in Resources */,
 				E0145261171DB5E300B94A9A /* Default@2x.png in Resources */,
 				E0145263171DB5E300B94A9A /* Default-568h@2x.png in Resources */,
@@ -419,7 +430,6 @@
 				E014526C171DB5E300B94A9A /* ViewController.mm in Sources */,
 				E004B753171EDFD400B86D98 /* Shapes.cpp in Sources */,
 				E004B756171EE0BB00B86D98 /* ShapeFinder.cpp in Sources */,
-				01A00407174127CB00E238A7 /* ARView.mm in Sources */,
 				01A00408174127CB00E238A7 /* PlaceOfInterest.mm in Sources */,
 				01A0040B17412E6900E238A7 /* MyCamera.mm in Sources */,
 				012E6ED717426BA60098F2FF /* CoreDataModule.mm in Sources */,

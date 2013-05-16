@@ -21,7 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-	_cdm = [[CoreDataModule alloc] init];
+	_cdm = [CoreDataModule new];
 	NSManagedObjectContext *context = [_cdm managedObjectContext];
 
 	ViewController *controller = (ViewController*)self.window.rootViewController;

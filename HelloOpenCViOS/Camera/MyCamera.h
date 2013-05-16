@@ -11,13 +11,11 @@
 
 @interface MyCamera : NSObject
 
-@property (readonly, nonatomic, strong) UIView *captureView;
-@property (readonly, nonatomic, strong) AVCaptureSession *captureSession;
-@property (readonly, nonatomic, strong) AVCaptureVideoPreviewLayer *captureLayer;
-
+@property(nonatomic, weak) id<AVCaptureVideoDataOutputSampleBufferDelegate> delegate;
+@property(nonatomic, readonly, strong) AVCaptureStillImageOutput *stillImageOutput;
 
 - (id)initWithFrame:(CGRect) frame;
-- (void)startCameraPreview;
+- (void)startCameraPreviewWithPreset:(NSString*) preset;
 - (void)stopCameraPreview;
 
 @end
