@@ -84,6 +84,24 @@ void transformFromCMRotationMatrix(mat4f_t mout, const CMRotationMatrix *m)
 	mout[15] = 1.0f;
 }
 
+// Initialize mout to be an affine transform corresponding to the same rotation specified by m
+void transformFromCMRotationMatrix(CATransform3D mout, const CMRotationMatrix *m)
+{
+	mout = CATransform3DIdentity;
+	
+	mout.m11 = (float)m->m11;
+	mout.m21 = (float)m->m21;
+	mout.m31 = (float)m->m31;
+	
+	mout.m12 = (float)m->m12;
+	mout.m22 = (float)m->m22;
+	mout.m32 = (float)m->m32;
+	
+	mout.m13 = (float)m->m13;
+	mout.m23 = (float)m->m23;
+	mout.m33 = (float)m->m33;
+}
+
 #pragma mark -
 #pragma mark Geodetic utilities definition
 

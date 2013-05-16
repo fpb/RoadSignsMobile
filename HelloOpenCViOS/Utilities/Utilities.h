@@ -28,6 +28,7 @@ void multiplyMatrixAndMatrix(mat4f_t c, const mat4f_t a, const mat4f_t b);
 
 // Initialize mout to be an affine transform corresponding to the same rotation specified by m
 void transformFromCMRotationMatrix(vec4f_t mout, const CMRotationMatrix *m);
+void transformFromCMRotationMatrix(CATransform3D mout, const CMRotationMatrix *m);
 
 #pragma mark -
 #pragma mark Geodetic utilities declaration

@@ -51,13 +51,16 @@
 
 @interface PlaceOfInterest : NSObject
 {
-	CLLocationDirection heading;
+	CLLocationDirection _heading;
+	CLLocationDistance _distance;
 }
 @property (nonatomic, strong) UIView *view;
 @property (nonatomic, strong) CLLocation *location;
 
 - (void) setFace:(CLLocationDirection) trueHeading;
 - (CLLocationDirection) face;
+- (void) setDistance:(CLLocationDistance)distance;
+- (CLLocationDistance) distance;
 
 + (PlaceOfInterest *)placeOfInterestWithView:(UIView *)view at:(CLLocation *)location facingAt:(CLLocationDirection) trueHeading;
 

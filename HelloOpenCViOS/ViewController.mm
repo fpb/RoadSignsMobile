@@ -27,6 +27,9 @@ const CGFloat toolbarHeight = 44.0f;
 const CGFloat screenHeight = 480.0f;
 const CGFloat screenWithToolBar = (screenHeight - toolbarHeight) / screenHeight;
 
+const float kMinDistnace = 10.0f;
+const float kMaxDistnace = 500.0f;
+
 const GLfloat texCoords[] = {
 	0,0,
 	1,0,
@@ -41,7 +44,7 @@ const GLfloat vertices[] = {
 	//	-1, 1,
 	//	-1,-1
 	
-	// With toolbar. ToolbarHeight is double because of retina screen
+	// Full screen with toolbar. ToolbarHeight is double because of retina screen
 	1, 1,
 	1,-(screenHeight - toolbarHeight * 2) / screenHeight,
 	-1, 1,
@@ -108,6 +111,8 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	
 	mat4f_t _projectionTransform;
 	mat4f_t _cameraTransform;
+	
+	float _deviceYrotation;
 }
 
 - (void)cleanUpTextures;
@@ -585,6 +590,7 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	{
 		CMRotationMatrix r = d.attitude.rotationMatrix;
 		transformFromCMRotationMatrix(_cameraTransform, &r);
+		_deviceYrotation = atan2f(d.gravity.x, d.gravity.y) + M_PI;
 	}
 	
 	if (!_fpsLabel.hidden)
@@ -605,7 +611,6 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	multiplyMatrixAndMatrix(projectionCameraTransform, _projectionTransform, _cameraTransform);
 	
 	int i = 0;
-	//	float distance = MAXFLOAT;
 	for (PlaceOfInterest *poi in [_placesOfInterest objectEnumerator])
 	{
 		vec4f_t v;
@@ -619,20 +624,23 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 			CGRect bounds = self.view.bounds;
 			poi.view.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.5f];
 			poi.view.center = CGPointMake(x*bounds.size.width, bounds.size.height-y*bounds.size.height);
-			poi.view.hidden = NO;
-			
-			//			float temp = sqrtf(_placesOfInterestCoordinates[i][0]*_placesOfInterestCoordinates[i][0] +
-			//							   _placesOfInterestCoordinates[i][1]*_placesOfInterestCoordinates[i][1]);
-			//
-			//			if (distance > temp)
-			//				distance = temp;
-			
-			if (_locationManager.currentHeading.trueHeading < (poi.face - 90.0) && _locationManager.currentHeading.trueHeading > (poi.face + 90.0))
-				poi.view.backgroundColor = [UIColor colorWithRed:0.0f green:1.0f blue:0.0f alpha:0.5f];
-			if (x < 0.0f || x > 1.0f)
-				poi.view.backgroundColor = [UIColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:0.5f];
-			if (y < 1.0f - screenWithToolBar || y > 1.0f)
-				poi.view.backgroundColor = [UIColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:0.5f];
+
+			if ([poi distance] < kMaxDistnace)
+			{
+				poi.view.hidden = NO;
+				float scale = 1.0f - ([poi distance] - kMinDistnace) / (kMaxDistnace - kMinDistnace);
+				poi.view.transform = CGAffineTransformMakeScale(scale, scale);
+				poi.view.transform = CGAffineTransformRotate(poi.view.transform, _deviceYrotation);
+				
+				if (_locationManager.currentHeading.trueHeading < (poi.face - 90.0) && _locationManager.currentHeading.trueHeading > (poi.face + 90.0))
+					poi.view.backgroundColor = [UIColor colorWithRed:0.0f green:1.0f blue:0.0f alpha:0.5f];
+				if (x < 0.0f || x > 1.0f)
+					poi.view.backgroundColor = [UIColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:0.5f];
+				if (y < 1.0f - screenWithToolBar || y > 1.0f)
+					poi.view.backgroundColor = [UIColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:0.5f];
+			}
+			else
+				poi.view.hidden = YES;
 		}
 		else
 		{
@@ -747,7 +755,8 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 		distanceAndIndex.distance = sqrtf(n*n + e*e);
 		distanceAndIndex.index = i;
 		[orderedDistances insertObject:[NSData dataWithBytes:&distanceAndIndex length:sizeof(distanceAndIndex)] atIndex:i++];
-		//		NSLog(@"Distance2: %f", sqrtf(n*n + e*e));
+		
+		[poi setDistance:distanceAndIndex.distance];
 	}
 	
 	// Sort orderedDistances in ascending order based on distance from the user

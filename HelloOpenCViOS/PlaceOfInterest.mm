@@ -49,16 +49,16 @@
 
 @implementation PlaceOfInterest
 
-@synthesize view;
-@synthesize location;
+@synthesize view = _view;
+@synthesize location = _location;
 
 - (id)init
 {
     self = [super init];
     if (self) {
-		view = nil;
-		location = nil;
-		heading = nil;
+		_view = nil;
+		_location = nil;
+		_heading = nil;
     }
     return self;
 }
@@ -70,13 +70,24 @@
 //	[super dealloc];
 //}
 
-- (void) setFace:(CLLocationDirection) trueHeading
+- (void)setFace:(CLLocationDirection) trueHeading
 {
-	heading = trueHeading;
+	_heading = trueHeading;
 }
+
 - (CLLocationDirection) face
 {
-	return heading;
+	return _heading;
+}
+
+- (void)setDistance:(CLLocationDistance)distance
+{
+	_distance = distance;
+}
+
+- (CLLocationDistance) distance
+{
+	return _distance;
 }
 
 + (PlaceOfInterest *)placeOfInterestWithView:(UIView *)view at:(CLLocation *)location facingAt:(CLLocationDirection) trueHeading
