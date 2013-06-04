@@ -46,17 +46,17 @@
  */
 
 #import "PlaceOfInterest.h"
+#import "Utilities.h"
 
 @implementation PlaceOfInterest
-
-@synthesize view = _view;
-@synthesize location = _location;
 
 - (id)init
 {
     self = [super init];
-    if (self) {
-		_view = nil;
+    if (self)
+	{
+		_views = nil;
+//		_view = nil;
 		_location = nil;
 		_heading = nil;
     }
@@ -90,11 +90,142 @@
 	return _distance;
 }
 
-+ (PlaceOfInterest *)placeOfInterestWithView:(UIView *)view at:(CLLocation *)location facingAt:(CLLocationDirection) trueHeading
+- (void)setViewsCenter:(CGPoint)center
+{
+//	for (UIView *view in _views)
+//	{
+//		view.center = center;
+//	}
+	int numberOfImages = [_views count];
+	
+	if (numberOfImages == 1)
+	{
+		((UIImageView*)[_views objectAtIndex:0]).center = center;
+	}
+	else // More than one item
+	{
+		CGPoint newCenter = center;
+		float displace;
+		float sign;
+		if (numberOfImages % 2 == 0)
+		{
+			displace = 25;
+			sign = 1;
+			for (UIView *view in _views)
+			{
+				view.center = CGPointMake(newCenter.x, newCenter.y + displace * sign);
+				sign *= -1;
+				if (sign == 1) displace += 50;
+			}
+		}
+		else
+		{
+			displace = 0;
+			sign = 1;
+			for (UIView *view in _views)
+			{
+				view.center = CGPointMake(newCenter.x, newCenter.y + displace * sign);
+				if (sign == 1) displace += 50;
+				sign *= -1;
+				
+			}
+		}
+	}
+}
+
+- (void)setViewsHidden:(BOOL)hidden
+{
+	for (UIView *view in _views)
+	{
+		view.hidden = hidden;
+	}
+
+}
+
+- (void)removeFromSuperview
+{
+	for (UIView *view in _views)
+	{
+		[view removeFromSuperview];
+	}
+}
+
+- (void)transformViews:(CGAffineTransform)transform
+{
+	for (UIView *view in _views)
+	{
+		view.transform = transform;
+	}
+	
+//	int numberOfImages = [_views count];
+//
+//	if (numberOfImages == 1)
+//	{
+//		((UIImageView*)[_views objectAtIndex:0]).transform = transform;
+//	}
+//	else // More than one item
+//	{
+//		float displace;
+//		float sign;
+//		if (numberOfImages % 2 == 0)
+//		{
+//			displace = 25;
+//			sign = 1;
+//			for (UIView *view in _views)
+//			{
+//				
+//				view.transform = CGAffineTransformConcat(transform, CGAffineTransformMakeTranslation(view.center.x, view.center.y + displace * sign));
+//				sign *= -1;
+//				if (sign == 1) displace += 50;
+//			}
+//		}
+//		else
+//		{
+//			displace = 0;
+//			sign = 1;
+//			for (UIView *view in _views)
+//			{
+//				view.transform = CGAffineTransformConcat(transform, CGAffineTransformMakeTranslation(view.center.x, view.center.y + displace * sign));
+//				if (sign == 1) displace += 50;
+//				sign *= -1;
+//				
+//			}
+//		}
+//	}
+}
+
+//+ (PlaceOfInterest *)placeOfInterestWithView:(UIView *)view at:(CLLocation *)location facingAt:(CLLocationDirection) trueHeading
+//{
+//	PlaceOfInterest *poi = [PlaceOfInterest new];
+//	poi.view = view;
+//	poi.view.hidden = YES;
+//	poi.location = location;
+//	[poi setFace:trueHeading];
+//	
+//	return poi;
+//}
+
++ (PlaceOfInterest *)placeOfInterestWithViews:(NSArray *)images at:(CLLocation *)location facingAt:(CLLocationDirection) trueHeading
 {
 	PlaceOfInterest *poi = [PlaceOfInterest new];
-	poi.view = view;
-	poi.view.hidden = YES;
+//	poi.view = view;
+	NSMutableArray *imageViews = [[NSMutableArray alloc] initWithCapacity:[images count]];
+	
+	for (UIImage *image in images)
+	{
+		UIImageView *imageView = [[UIImageView alloc] initWithImage:image highlightedImage:convertImageToGrayScale(image)];
+		//set contentMode to scale aspect to fit
+		imageView.contentMode = UIViewContentModeScaleAspectFit;
+		//change width of frame
+		CGRect frame = imageView.frame;
+		frame.size.height = 50;
+		frame.size.width = 50;
+		imageView.frame = frame;
+		[imageViews addObject:imageView];
+	}
+	
+	poi.views = imageViews;
+	[poi setViewsHidden:YES];
 	poi.location = location;
 	[poi setFace:trueHeading];
 	

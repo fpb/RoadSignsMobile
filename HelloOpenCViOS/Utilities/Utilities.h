@@ -9,6 +9,7 @@
 #pragma once
 
 #import <CoreMotion/CoreMotion.h>
+#import <CoreLocation/CoreLocation.h>
 
 #pragma mark -
 #pragma mark Math utilities declaration
@@ -41,3 +42,39 @@ void latLonToEcef(double lat, double lon, double alt, double *x, double *y, doub
 
 // Coverts ECEF to ENU coordinates centered at given lat, lon
 void ecefToEnu(double lat, double lon, double x, double y, double z, double xr, double yr, double zr, double *e, double *n, double *u);
+
+// Get distance in Km between two latitudes and longitudes
+double getDistanceFromLatLonInKm(double const &lat1, double const &lon1, double const &lat2, double const &lon2);
+CLLocation* getLatitudeAndLongitudeFromDistanceAndBearing(double const &lat1, double const &lon1, double const &distance, double const &bearing);
+double getNewLatitudeFromDistance(double const &lat1, double const &distance, double const &bearing = 0);
+double getNewLongitudeFromDistance(double const &lat1, double const &lon1, double const &lat2, double const &distance, double const &bearing = M_PI_2);
+
+// Enum class utilities
+template<typename E, E first, E head>
+void advanceEnum(E& v)
+{
+	if(v == head)
+		v = first;
+}
+
+template<typename E, E first, E head, E next, E... tail>
+void advanceEnum(E& v)
+{
+	if(v == head)
+		v = next;
+	else
+		advanceEnum<E,first,next,tail...>(v);
+}
+
+template<typename E, E first, E... values>
+struct EnumValues
+{
+	static void advance(E& v)
+	{
+		advanceEnum<E, first, first, values...>(v);
+	}
+};
+
+double getDoubleRounded(double number, short scale);
+int getDecimalPlaces(double number);
+UIImage* convertImageToGrayScale(UIImage *image);

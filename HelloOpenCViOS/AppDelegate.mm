@@ -24,8 +24,8 @@
 	_cdm = [CoreDataModule new];
 	NSManagedObjectContext *context = [_cdm managedObjectContext];
 
-	ViewController *controller = (ViewController*)self.window.rootViewController;
-	controller.managedObjectContext = context;
+	_controller = (ViewController*)self.window.rootViewController;
+	_controller.managedObjectContext = context;
 	
     return YES;
 }

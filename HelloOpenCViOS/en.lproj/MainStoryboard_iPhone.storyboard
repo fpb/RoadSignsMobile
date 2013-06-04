@@ -53,21 +53,62 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="F0M-Dc-9A3"/>
                                 </items>
                             </toolbar>
+                            <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="b3U-M5-jXb"/>
+                            <label hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Waiting for better GPS accuracy..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFg-rV-wPD">
+                                <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label - Minigame" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Klj-dr-sJi">
+                                <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="131" id="D7i-F3-tAd"/>
+                                    <constraint firstAttribute="height" constant="21" id="McE-hU-ddJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="0.70196080207824707" green="0.70196080207824707" blue="0.70196080207824707" alpha="1" colorSpace="calibratedRGB"/>
+                                <size key="shadowOffset" width="1" height="1"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2GL-YH-1Qc">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Minigame">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="minigamePressButton:" destination="2" eventType="touchUpInside" id="UaR-Bj-BOI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="hVd-p1-sVo" firstAttribute="leading" secondItem="0Qa-F2-6oH" secondAttribute="leading" type="default" id="10J-eh-M4a"/>
+                            <constraint firstItem="2GL-YH-1Qc" firstAttribute="trailing" secondItem="0Qa-F2-6oH" secondAttribute="trailing" type="default" id="8FB-6j-jBs"/>
                             <constraint firstItem="yDv-Jv-d6d" firstAttribute="baseline" secondItem="juI-6N-y0l" secondAttribute="baseline" type="default" id="9hl-Ok-ALo"/>
                             <constraint firstItem="juI-6N-y0l" firstAttribute="leading" secondItem="rbb-Sz-po8" secondAttribute="leading" type="default" id="BlA-SM-Pn0"/>
                             <constraint firstItem="Pwr-gP-Xjd" firstAttribute="centerX" secondItem="yDv-Jv-d6d" secondAttribute="centerX" type="default" id="Drg-VW-ifp"/>
                             <constraint firstItem="hVd-p1-sVo" firstAttribute="bottom" secondItem="0Qa-F2-6oH" secondAttribute="bottom" type="default" id="E8d-AR-5Ts"/>
                             <constraint firstItem="rbb-Sz-po8" firstAttribute="leading" secondItem="w15-Sx-kxf" secondAttribute="leading" type="default" id="EUg-Ah-xua"/>
                             <constraint firstItem="yDv-Jv-d6d" firstAttribute="top" secondItem="Pwr-gP-Xjd" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Iz8-Kd-ehK"/>
+                            <constraint firstItem="qFg-rV-wPD" firstAttribute="leading" secondItem="0Qa-F2-6oH" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="IzJ-Md-11r"/>
+                            <constraint firstItem="Klj-dr-sJi" firstAttribute="bottom" secondItem="hVd-p1-sVo" secondAttribute="top" type="default" id="JbW-Xr-Cl7"/>
+                            <constraint firstItem="qFg-rV-wPD" firstAttribute="centerX" secondItem="b3U-M5-jXb" secondAttribute="centerX" type="default" id="NIb-Cp-f1K"/>
                             <constraint firstItem="hVd-p1-sVo" firstAttribute="trailing" secondItem="0Qa-F2-6oH" secondAttribute="trailing" type="default" id="QQy-T8-Bef"/>
+                            <constraint firstItem="2GL-YH-1Qc" firstAttribute="bottom" secondItem="Klj-dr-sJi" secondAttribute="bottom" type="default" id="QdB-3b-kc3"/>
+                            <constraint firstItem="b3U-M5-jXb" firstAttribute="top" secondItem="0Qa-F2-6oH" secondAttribute="top" constant="265" id="Txb-7z-EgM"/>
                             <constraint firstItem="Pwr-gP-Xjd" firstAttribute="baseline" secondItem="rbb-Sz-po8" secondAttribute="baseline" type="default" id="VAG-fJ-j1i"/>
                             <constraint firstItem="oVE-nP-kQB" firstAttribute="leading" secondItem="Pwr-gP-Xjd" secondAttribute="leading" type="default" id="X31-OF-lBT"/>
+                            <constraint firstItem="juI-6N-y0l" firstAttribute="leading" secondItem="yDv-Jv-d6d" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="dNT-O0-iRB"/>
+                            <constraint firstItem="Klj-dr-sJi" firstAttribute="leading" secondItem="0Qa-F2-6oH" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="fbG-2I-T5P"/>
                             <constraint firstItem="oVE-nP-kQB" firstAttribute="top" secondItem="0Qa-F2-6oH" secondAttribute="top" constant="20" symbolic="YES" type="default" id="lqt-OM-ay9"/>
-                            <constraint firstItem="juI-6N-y0l" firstAttribute="leading" secondItem="yDv-Jv-d6d" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="rLz-3m-ztM"/>
                             <constraint firstItem="yDv-Jv-d6d" firstAttribute="leading" secondItem="0Qa-F2-6oH" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="teO-Yd-bUk"/>
+                            <constraint firstItem="qFg-rV-wPD" firstAttribute="top" secondItem="b3U-M5-jXb" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="wJw-Jh-jpt"/>
+                            <constraint firstAttribute="trailing" secondItem="qFg-rV-wPD" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="wWt-em-TIO"/>
                             <constraint firstItem="Pwr-gP-Xjd" firstAttribute="top" secondItem="oVE-nP-kQB" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="ygh-xm-DtT"/>
                             <constraint firstItem="w15-Sx-kxf" firstAttribute="top" secondItem="0Qa-F2-6oH" secondAttribute="top" constant="20" symbolic="YES" type="default" id="ypD-wH-dol"/>
                         </constraints>
@@ -88,12 +129,17 @@
                         <outlet property="fpsLabel2" destination="oVE-nP-kQB" id="FBX-Au-i23"/>
                         <outlet property="headingLabel" destination="rbb-Sz-po8" id="XSi-v0-GNJ"/>
                         <outlet property="headingLabel2" destination="Pwr-gP-Xjd" id="ODd-KG-Afa"/>
+                        <outlet property="loadingView" destination="b3U-M5-jXb" id="6gh-22-tow"/>
+                        <outlet property="minigameButton" destination="2GL-YH-1Qc" id="WIx-t6-YFB"/>
+                        <outlet property="minigameLabel" destination="Klj-dr-sJi" id="ncX-Gf-7Vl"/>
+                        <outlet property="pictureButton" destination="egY-gM-djI" id="Hd5-E8-aZX"/>
                         <outlet property="toolbar" destination="hVd-p1-sVo" id="GWl-Iy-jkc"/>
+                        <outlet property="warningLabel" destination="qFg-rV-wPD" id="i38-QM-nTM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2024" y="-455"/>
+            <point key="canvasLocation" x="-2342" y="-582"/>
         </scene>
     </scenes>
     <classes>
@@ -103,6 +149,7 @@
         <class className="ViewController" superclassName="GLKViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
             <relationships>
+                <relationship kind="action" name="minigamePressButton:" candidateClass="UIButton"/>
                 <relationship kind="action" name="takePicture:"/>
                 <relationship kind="outlet" name="distanceLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="distanceLabel2" candidateClass="UILabel"/>
@@ -110,7 +157,12 @@
                 <relationship kind="outlet" name="fpsLabel2" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="headingLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="headingLabel2" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="loadingView" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="minigameButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="minigameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="pictureButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="warningLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
     </classes>

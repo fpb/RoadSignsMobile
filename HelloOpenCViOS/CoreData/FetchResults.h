@@ -10,13 +10,21 @@
 
 #import <CoreData/CoreData.h>
 
-NSArray* FetchResultsFromEntitywithPredicate(NSManagedObjectContext *managedObjectContext, NSString *entityName, NSPredicate *predicate);
+NSArray* FetchResultsFromEntitywithPredicate(NSManagedObjectContext *managedObjectContext,
+											 NSString *entityName,
+											 NSPredicate *predicate,
+											 NSArray *sortDescriptors);
 
-NSArray* FetchResultsFromEntitywithPredicate(NSManagedObjectContext *managedObjectContext, NSString *entityName, NSPredicate *predicate)
+NSArray* FetchResultsFromEntitywithPredicate(NSManagedObjectContext *managedObjectContext,
+											 NSString *entityName,
+											 NSPredicate *predicate,
+											 NSArray *sortDescriptors)
 {
 	NSFetchRequest *request = [NSFetchRequest new];
 	[request setEntity:[NSEntityDescription entityForName:entityName inManagedObjectContext:managedObjectContext]];
 	[request setPredicate:predicate];
+	if (sortDescriptors)
+		[request setSortDescriptors:sortDescriptors];
 	
 	return [managedObjectContext executeFetchRequest:request error:nil];
 }

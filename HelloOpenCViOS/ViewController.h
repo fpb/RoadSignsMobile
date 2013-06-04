@@ -22,21 +22,34 @@ class Shape;
 	std::vector<int> lengths;
 }
 
-@property (nonatomic, strong) NSArray *placesOfInterest;
+@property (nonatomic, weak) NSArray *placesOfInterest;
 
 // Core Data
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, weak) NSManagedObjectContext *managedObjectContext;
 
 // Options
-@property (nonatomic, strong) IBOutlet UILabel *distanceLabel2;
-@property (nonatomic, strong) IBOutlet UILabel *headingLabel2;
-@property (nonatomic, strong) IBOutlet UILabel *fpsLabel2;
+@property (nonatomic, weak) IBOutlet UILabel *distanceLabel2;
+@property (nonatomic, weak) IBOutlet UILabel *headingLabel2;
+@property (nonatomic, weak) IBOutlet UILabel *fpsLabel2;
 
-@property (nonatomic, strong) IBOutlet UILabel *distanceLabel;
-@property (nonatomic, strong) IBOutlet UILabel *headingLabel;
-@property (nonatomic, strong) IBOutlet UILabel *fpsLabel;
+@property (nonatomic, weak) IBOutlet UILabel *distanceLabel;
+@property (nonatomic, weak) IBOutlet UILabel *headingLabel;
+@property (nonatomic, weak) IBOutlet UILabel *fpsLabel;
 
-@property (nonatomic, strong) IBOutlet UIToolbar *toolbar;
+@property (nonatomic, weak) IBOutlet UIToolbar *toolbar;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *pictureButton;
+
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *loadingView;
+@property (nonatomic, weak) IBOutlet UILabel *warningLabel;
+
+// Minigames
+@property (nonatomic, weak) IBOutlet UILabel *minigameLabel;
+#if defined(DEBUG)
+@property (weak, nonatomic) IBOutlet UIButton *minigameButton;
+
+
+- (IBAction)minigamePressButton:(UIButton *)sender;
+#endif
 
 - (IBAction)takePicture:(id)sender;
 @end

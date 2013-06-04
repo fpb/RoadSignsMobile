@@ -2,7 +2,7 @@
 //  RoadSign.mm
 //  RoadSignsCD
 //
-//  Created by David on 10/05/13.
+//  Created by David on 30/05/13.
 //  Copyright (c) 2013 David. All rights reserved.
 //
 
@@ -14,6 +14,7 @@
 @implementation RoadSign
 
 @dynamic desc;
+@dynamic imageUrl;
 @dynamic name;
 @dynamic type;
 @dynamic actions;

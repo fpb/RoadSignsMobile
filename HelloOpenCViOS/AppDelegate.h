@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class CoreDataModule;
+@class ViewController;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) CoreDataModule *cdm;
-
+@property (weak, nonatomic) ViewController *controller;
 @end

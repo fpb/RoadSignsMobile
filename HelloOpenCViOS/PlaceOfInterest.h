@@ -54,14 +54,19 @@
 	CLLocationDirection _heading;
 	CLLocationDistance _distance;
 }
-@property (nonatomic, strong) UIView *view;
+//@property (nonatomic, strong) UIView *view;
+@property (nonatomic, strong) NSArray *views;
 @property (nonatomic, strong) CLLocation *location;
 
 - (void) setFace:(CLLocationDirection) trueHeading;
 - (CLLocationDirection) face;
 - (void) setDistance:(CLLocationDistance)distance;
 - (CLLocationDistance) distance;
+- (void)setViewsHidden:(BOOL)hidden;
+- (void)setViewsCenter:(CGPoint)center;
+- (void)removeFromSuperview;
+- (void)transformViews:(CGAffineTransform)transform;
 
-+ (PlaceOfInterest *)placeOfInterestWithView:(UIView *)view at:(CLLocation *)location facingAt:(CLLocationDirection) trueHeading;
-
+//+ (PlaceOfInterest *)placeOfInterestWithView:(UIView *)view at:(CLLocation *)location facingAt:(CLLocationDirection) trueHeading;
++ (PlaceOfInterest *)placeOfInterestWithViews:(NSArray *)images at:(CLLocation *)location facingAt:(CLLocationDirection) trueHeading;
 @end

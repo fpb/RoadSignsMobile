@@ -2,7 +2,7 @@
 //  RoadSign.h
 //  RoadSignsCD
 //
-//  Created by David on 10/05/13.
+//  Created by David on 30/05/13.
 //  Copyright (c) 2013 David. All rights reserved.
 //
 
@@ -14,6 +14,7 @@
 @interface RoadSign : NSManagedObject
 
 @property (nonatomic, retain) NSString * desc;
+@property (nonatomic, retain) NSString * imageUrl;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) NSSet *actions;

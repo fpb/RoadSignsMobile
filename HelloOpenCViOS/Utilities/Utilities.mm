@@ -137,3 +137,108 @@ void ecefToEnu(double lat, double lon, double x, double y, double z, double xr, 
 	*n = -slat*clon*dx - slat*slon*dy + clat*dz;
 	*u = clat*clon*dx + clat*slon*dy + slat*dz;
 }
+
+#pragma mark - Distance between two latitudes and longitudes
+double getDistanceFromLatLonInKm(double const &lat1, double const &lon1, double const &lat2, double const &lon2)
+{
+	const double R = 6371.0; // Radius of the earth in km
+	double dLat = DEGREES_TO_RADIANS * (lat2 - lat1);  // deg2rad below
+	double dLon = DEGREES_TO_RADIANS * (lon2 - lon1);
+	double a =  sin(dLat * 0.5) * sin(dLat * 0.5) +
+				cos(DEGREES_TO_RADIANS * lat1) * cos(DEGREES_TO_RADIANS * lat2) *
+				sin(dLon * 0.5) * sin(dLon * 0.5);
+	
+	double c = 2.0 * atan2(sqrt(a), sqrt(1.0 - a));
+	double d = R * c; // Distance in km
+	return d;
+}
+
+// lat1 and lon1 are in degrees
+CLLocation* getLatitudeAndLongitudeFromDistanceAndBearing(double const &lat1, double const &lon1, double const &distance, double const &bearing)
+{
+//	double lat2 = lat1 + (0.1 / 110.54);
+//	double lon2 = lon1 + (0.1 / 111.320 * cos(lat2));
+	//Latitude: 1 deg = 110.54 km
+	//Longitude: 1 deg = 111.320*cos(latitude) km
+
+	// Better formula
+	double lat1InRadians = lat1 * DEGREES_TO_RADIANS;
+	const double R = 6371.0; // Radius of the earth in km
+	double lat2 = asin(sin(lat1InRadians) * cos(distance/R) + cos(lat1InRadians) * sin(distance/R) * cos(bearing)); // Is in radians
+	// Get longitude in degrees
+	double lon2 = lon1 + atan2(sin(bearing) * sin(distance/R) * cos(lat1InRadians), cos(distance/R) - sin(lat1InRadians) * sin(lat2)) * RADIANS_TO_DEGREES;
+	
+	CLLocation *l = [[CLLocation alloc] initWithLatitude:lat2 * RADIANS_TO_DEGREES longitude:lon2];
+	return l;
+}
+
+double getNewLatitudeFromDistance(double const &lat1, double const &distance, double const &bearing)
+{
+	double lat1InRadians = lat1 * DEGREES_TO_RADIANS;
+	const double R = 6371.0; // Radius of the earth in km
+	double lat2 = asin(sin(lat1InRadians) * cos(distance/R) + cos(lat1InRadians) * sin(distance/R) * cos(bearing)); // Is in radians
+
+	return lat2 * RADIANS_TO_DEGREES;
+}
+
+double getNewLongitudeFromDistance(double const &lat1, double const &lon1, double const &lat2, double const &distance, double const &bearing)
+{
+	double lat1InRadians = lat1 * DEGREES_TO_RADIANS;
+	const double R = 6371.0; // Radius of the earth in km
+	// Get longitude in degrees
+	double lon2 = lon1 + atan2(sin(bearing) * sin(distance/R) * cos(lat1InRadians), cos(distance/R) - sin(lat1InRadians) * sin(lat2)) * RADIANS_TO_DEGREES;
+	
+	return lon2;
+}
+
+double getDoubleRounded(double number, short scale)
+{
+	NSNumber *n = [NSNumber numberWithDouble:number];
+	NSDecimalNumber *dn = [NSDecimalNumber decimalNumberWithDecimal:[n decimalValue]];
+	NSDecimalNumberHandler *handler = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown
+																							 scale:scale
+																				  raiseOnExactness:NO
+																				   raiseOnOverflow:NO
+																				  raiseOnUnderflow:NO
+																			   raiseOnDivideByZero:NO];
+	NSDecimalNumber *result = [dn decimalNumberByRoundingAccordingToBehavior:handler];
+	return [result doubleValue];
+}
+
+int getDecimalPlaces(double number)
+{
+	NSNumber *numberValue = [NSNumber numberWithDouble:number];
+	NSString *doubleString = [numberValue stringValue];
+	NSArray *doubleStringComps = [doubleString componentsSeparatedByString:@"."];
+	return [[doubleStringComps objectAtIndex:1] length];
+}
+
+UIImage* convertImageToGrayScale(UIImage *image)
+{
+	// Create image rectangle with current image width/height
+	CGRect imageRect = CGRectMake(0, 0, image.size.width, image.size.height);
+	
+	// Grayscale color space
+	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+	
+	// Create bitmap content with current image size and grayscale colorspace
+	CGContextRef context = CGBitmapContextCreate(nil, image.size.width, image.size.height, 8, 0, colorSpace, kCGImageAlphaNone);
+	
+	// Draw image into current context, with specified rectangle
+	// using previously defined context (with grayscale colorspace)
+	CGContextDrawImage(context, imageRect, [image CGImage]);
+	
+	// Create bitmap image info from pixel data in current context
+	CGImageRef imageRef = CGBitmapContextCreateImage(context);
+	
+	// Create a new UIImage object
+	UIImage *newImage = [UIImage imageWithCGImage:imageRef];
+	
+	// Release colorspace, context and bitmap information
+	CGColorSpaceRelease(colorSpace);
+	CGContextRelease(context);
+	CFRelease(imageRef);
+	
+	// Return the new grayscale image
+	return newImage;
+}

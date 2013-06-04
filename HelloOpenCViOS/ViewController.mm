@@ -16,8 +16,28 @@
 #include "Utilities.h"
 #import "MyCamera.h"
 #import "FPS.h"
+#import "Grid.h"
+#import "Cell.h"
+#import "Shaders.h"
 
 #import <CoreVideo/CoreVideo.h>
+
+// TODO: FUTURE WORK: Interpolate to predict to movement
+// TODO: FUTURE WORK: What happens if we have moved more than one cell!!!!! Do not store the movement but update the position of the user??? (guess the movements) Iterate until we have all the movements done???
+
+// Grid
+using VectorGridCoordinates = std::vector<CLLocationCoordinate2D>;
+
+const unsigned int kMaxVectorGridCoordinates = 5;
+const unsigned int kMaxVectorGridMovements = 5;
+const int kMinLife = -5;
+const int kLifeDecrease = -1;
+const int kLifeUser = 2;
+const int kLifeAdjacents = 1;
+//////////////////////////////////////////////////////////////////
+
+BOOL setPois = YES;
+const CGFloat minHorizontalAccuracy = 10.0f;
 
 const BOOL showFPS = YES;
 const BOOL showDistance = NO;
@@ -27,49 +47,38 @@ const CGFloat toolbarHeight = 44.0f;
 const CGFloat screenHeight = 480.0f;
 const CGFloat screenWithToolBar = (screenHeight - toolbarHeight) / screenHeight;
 
+
 const float kMinDistnace = 10.0f;
 const float kMaxDistnace = 500.0f;
 
-const GLfloat texCoords[] = {
+const GLfloat texCoords[] =
+{
 	0,0,
 	1,0,
 	0,1,
 	1,1
 };
 
-const GLfloat vertices[] = {
-	// Full screen
-	//	 1, 1,
-	//	 1,-1,
-	//	-1, 1,
-	//	-1,-1
-	
+const GLfloat screenVerticesWithToolbar[] =
+{
 	// Full screen with toolbar. ToolbarHeight is double because of retina screen
-	1, 1,
-	1,-(screenHeight - toolbarHeight * 2) / screenHeight,
+	 1, 1,
+	 1,-(screenHeight - toolbarHeight * 2) / screenHeight,
 	-1, 1,
 	-1,-(screenHeight - toolbarHeight * 2) / screenHeight
 	
 };
 
+const GLfloat screenVertices[] =
+{
+// Full screen
+	 1, 1,
+	 1,-1,
+	-1, 1,
+	-1,-1
+};
+
 const GLushort indices[]  = {0, 1, 2, 3};
-
-// Uniform index.
-enum
-{
-    UNIFORM_Y,
-    UNIFORM_UV,
-    NUM_UNIFORMS
-};
-GLint uniforms[NUM_UNIFORMS];
-
-// Attribute index.
-enum
-{
-    ATTRIB_VERTEX,
-    ATTRIB_TEXCOORD,
-    NUM_ATTRIBUTES
-};
 
 #define GRAD_THRESHOLD  150
 
@@ -83,12 +92,11 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 
 @interface ViewController ()
 {
-	FramesPerSecond fps;
+	FramesPerSecond _fps;
 	
-	MyCamera *camera;
+	MyCamera *_camera;
 	
-	GLuint _program;
-    
+    Shader _cameraShader;
     GLuint _positionVBO;
     GLuint _texcoordVBO;
     GLuint _indexVBO;
@@ -113,6 +121,19 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	mat4f_t _cameraTransform;
 	
 	float _deviceYrotation;
+	
+	Grid* _grid;
+	// Stores current and previous grid coordinates
+	// Current user position is always at the end of the vector
+	VectorGridCoordinates _userVectorGridCoordinates;
+	// Stores the scores of the movements in order to predict the next movement
+	VectorGridMovements _userVectorGridMovements;
+	GridMovementScores _userGridMovementsScores[static_cast<int>(GridMovements::TotalPositions)];
+	// Dictionary containing the image views of the signs loaded in the grid
+	NSMutableDictionary *signImageViews;
+	
+	// Minigame 1
+	BOOL _isMinigame1Running;
 }
 
 - (void)cleanUpTextures;
@@ -122,10 +143,6 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 - (void)setupBuffers;
 - (void)setupGL;
 - (void)tearDownGL;
-
-- (BOOL)loadShaders;
-- (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file;
-- (BOOL)linkProgram:(GLuint)prog;
 
 - (void)setupPois;
 - (void)updatePlacesOfInterestCoordinates;
@@ -137,6 +154,13 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 - (void)setupMotionManager;
 - (void)tearDownMotionManager;
 
+// Grid
+- (void)setupGrid;
+- (void)tearDownGrid;
+
+- (void)addNewCells:(GridMovements const &)newMovement;
+- (void)removeOldCells;
+- (void)updateUserPosition;
 @end
 
 
@@ -149,11 +173,16 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 {
     [super viewDidLoad];
     
+	[_loadingView setHidden:NO];
+	[_loadingView startAnimating];
+	
+	[self showMinigame:NO];
+	
 	//lengths.push_back(10);
     lengths.push_back(13);
     lengths.push_back(17);
     lengths.push_back(22);
-	
+
 	if (showFPS)
 	{
 		self.fpsLabel.hidden = NO;
@@ -177,15 +206,17 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	CGRect frame = CGRectMake(0, 0, 320, 480 - toolbarHeight); // Substract toolbar height
 	createProjectionMatrix(_projectionTransform, 60.8f * DEGREES_TO_RADIANS, frame.size.width * 1.0f / frame.size.height, 0.25f, 1000.0f);
 	
-	[self setupPois];
 	[self setupLocationManager];
 	[self setupMotionManager];
+	
+	[_loadingView stopAnimating];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     
+	[self tearDownGrid];
 	[self tearDownPois];
 	[self tearDownMotionManager];
 	[self tearDownLocationManager];
@@ -201,7 +232,7 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
-	fps.initFPS();
+	_fps.initFPS();
 	
 	[_locationManager startLocation];
 	[_motionManager startDeviceMotion];
@@ -235,7 +266,7 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 #pragma mark - Camera
 - (void)setupAVCapture
 {
-	camera = [MyCamera new];
+	_camera = [MyCamera new];
 	
     //-- Create CVOpenGLESTextureCacheRef for optimal CVImageBufferRef to GLES texture conversion.
 #if COREVIDEO_USE_EAGLCONTEXT_CLASS_IN_API
@@ -250,8 +281,8 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
     else
         sessionPreset = AVCaptureSessionPreset352x288;
     
-	camera.delegate = self;
-	[camera startCameraPreviewWithPreset:sessionPreset];
+	_camera.delegate = self;
+	[_camera startCameraPreviewWithPreset:sessionPreset];
 	
     if (err)
     {
@@ -268,8 +299,8 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
     
     CFRelease(_videoTextureCache);
 	
-	[camera stopCameraPreview];
-	camera = nil;
+	[_camera stopCameraPreview];
+	_camera = nil;
 }
 #pragma mark Camera delegate
 
@@ -345,27 +376,27 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 #pragma mark - OpenCV
 - (void) processImage:(cv::Mat&) image
 {
-	//	// Do some OpenCV stuff with the image
-	//	cv::Mat image_copy;
-	//    cvtColor(image, image_copy, CV_BGRA2BGR);
-    
-    // invert image
-	//    bitwise_not(image_copy, image_copy);
-	//    cvtColor(image_copy, image, CV_BGR2BGRA);
-	
-	//    cvtColor(image_copy, image_copy, CV_RGB2GRAY);
-    
-    
-	//    ShapeFinder sf(image);
-	//
-	//    // TODO: Change this to a configured parameter
-	//    sf.prepare(GRAD_THRESHOLD);
-	//
-	//    std::vector<Shape*> c_shapes;
-	//    c_shapes = sf.findShape(0,lengths);
-	
-	//    cvtColor(image, image, CV_RGBA2BGR);
-	//    drawShapes(c_shapes, image);
+//	// Do some OpenCV stuff with the image
+//	cv::Mat image_copy;
+//    cvtColor(image, image_copy, CV_BGRA2BGR);
+
+// invert image
+//    bitwise_not(image_copy, image_copy);
+//    cvtColor(image_copy, image, CV_BGR2BGRA);
+
+//    cvtColor(image_copy, image_copy, CV_RGB2GRAY);
+
+
+//    ShapeFinder sf(image);
+//
+//    // TODO: Change this to a configured parameter
+//    sf.prepare(GRAD_THRESHOLD);
+//
+//    std::vector<Shape*> c_shapes;
+//    c_shapes = sf.findShape(0,lengths);
+
+//    cvtColor(image, image, CV_RGBA2BGR);
+//    drawShapes(c_shapes, image);
 }
 
 #pragma mark - OpenGL ES
@@ -398,17 +429,17 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
     
     glGenBuffers(1, &_positionVBO);
     glBindBuffer(GL_ARRAY_BUFFER, _positionVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) << 3, vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) << 3, screenVertices, GL_STATIC_DRAW);
     
-    glEnableVertexAttribArray(ATTRIB_VERTEX);
-    glVertexAttribPointer(ATTRIB_VERTEX, 2, GL_FLOAT, GL_FALSE, 0, 0);
+    glEnableVertexAttribArray(static_cast<int>(Attributes::ATTRIB_VERTEX));
+    glVertexAttribPointer(static_cast<int>(Attributes::ATTRIB_VERTEX), 2, GL_FLOAT, GL_FALSE, 0, 0);
 	
     glGenBuffers(1, &_texcoordVBO);
     glBindBuffer(GL_ARRAY_BUFFER, _texcoordVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) << 3, texCoords, GL_STATIC_DRAW);
     
-    glEnableVertexAttribArray(ATTRIB_TEXCOORD);
-    glVertexAttribPointer(ATTRIB_TEXCOORD, 2, GL_FLOAT, GL_FALSE, 0, 0);
+    glEnableVertexAttribArray(static_cast<int>(Attributes::ATTRIB_TEXCOORD));
+	glVertexAttribPointer(static_cast<int>(Attributes::ATTRIB_TEXCOORD), 2, GL_FLOAT, GL_FALSE, 0, 0);
 }
 
 - (void)setupGL
@@ -426,12 +457,13 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	
     [EAGLContext setCurrentContext:_context];
     
-    [self loadShaders];
+	_cameraShader.LoadShaders([[[NSBundle mainBundle] pathForResource:@"YUVShader" ofType:@"vsh"] UTF8String],
+							  [[[NSBundle mainBundle] pathForResource:@"YUVShader" ofType:@"fsh"] UTF8String]);
     
-    glUseProgram(_program);
+    glUseProgram(_cameraShader.GetProgram());
 	
-    glUniform1i(uniforms[UNIFORM_Y], 0);
-    glUniform1i(uniforms[UNIFORM_UV], 1);
+    glUniform1i(uniforms[static_cast<int>(Uniforms::UNIFORM_Y) ], 0);
+    glUniform1i(uniforms[static_cast<int>(Uniforms::UNIFORM_UV)], 1);
 }
 
 - (void)tearDownGL
@@ -441,145 +473,9 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
     glDeleteBuffers(1, &_positionVBO);
     glDeleteBuffers(1, &_texcoordVBO);
     glDeleteBuffers(1, &_indexVBO);
-    
-    if (_program) {
-        glDeleteProgram(_program);
-        _program = 0;
-    }
-	
+    	
 	if ([EAGLContext currentContext] == _context)
         [EAGLContext setCurrentContext:nil];
-}
-
-#pragma mark OpenGL ES 2 shader compilation
-
-- (BOOL)loadShaders
-{
-    GLuint vertShader, fragShader;
-    NSString *vertShaderPathname, *fragShaderPathname;
-    
-    // Create shader program.
-    _program = glCreateProgram();
-    
-    // Create and compile vertex shader.
-    vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"YUVShader" ofType:@"vsh"];
-    if (![self compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname]) {
-        NSLog(@"Failed to compile vertex shader");
-        return NO;
-    }
-    
-    // Create and compile fragment shader.
-    fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"YUVShader" ofType:@"fsh"];
-    if (![self compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname]) {
-        NSLog(@"Failed to compile fragment shader");
-        return NO;
-    }
-    
-    // Attach vertex shader to program.
-    glAttachShader(_program, vertShader);
-    
-    // Attach fragment shader to program.
-    glAttachShader(_program, fragShader);
-    
-    // Bind attribute locations.
-    // This needs to be done prior to linking.
-    glBindAttribLocation(_program, ATTRIB_VERTEX, "position");
-    glBindAttribLocation(_program, ATTRIB_TEXCOORD, "texCoord");
-    
-    // Link program.
-    if (![self linkProgram:_program]) {
-        NSLog(@"Failed to link program: %d", _program);
-        
-        if (vertShader) {
-            glDeleteShader(vertShader);
-            vertShader = 0;
-        }
-        if (fragShader) {
-            glDeleteShader(fragShader);
-            fragShader = 0;
-        }
-        if (_program) {
-            glDeleteProgram(_program);
-            _program = 0;
-        }
-        
-        return NO;
-    }
-    
-    // Get uniform locations.
-    uniforms[UNIFORM_Y] = glGetUniformLocation(_program, "SamplerY");
-    uniforms[UNIFORM_UV] = glGetUniformLocation(_program, "SamplerUV");
-    
-    // Release vertex and fragment shaders.
-    if (vertShader) {
-        glDetachShader(_program, vertShader);
-        glDeleteShader(vertShader);
-    }
-    if (fragShader) {
-        glDetachShader(_program, fragShader);
-        glDeleteShader(fragShader);
-    }
-    
-    return YES;
-}
-
-- (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file
-{
-    GLint status;
-    const GLchar *source;
-    
-    source = (GLchar *)[[NSString stringWithContentsOfFile:file encoding:NSUTF8StringEncoding error:nil] UTF8String];
-    if (!source) {
-        NSLog(@"Failed to load vertex shader");
-        return NO;
-    }
-    
-    *shader = glCreateShader(type);
-    glShaderSource(*shader, 1, &source, NULL);
-    glCompileShader(*shader);
-    
-#if defined(DEBUG)
-    GLint logLength;
-    glGetShaderiv(*shader, GL_INFO_LOG_LENGTH, &logLength);
-    if (logLength > 0) {
-        GLchar *log = (GLchar *)malloc(logLength);
-        glGetShaderInfoLog(*shader, logLength, &logLength, log);
-        NSLog(@"Shader compile log:\n%s", log);
-        free(log);
-    }
-#endif
-    
-    glGetShaderiv(*shader, GL_COMPILE_STATUS, &status);
-    if (status == 0) {
-        glDeleteShader(*shader);
-        return NO;
-    }
-    
-    return YES;
-}
-
-- (BOOL)linkProgram:(GLuint)prog
-{
-    GLint status;
-    glLinkProgram(prog);
-    
-#if defined(DEBUG)
-    GLint logLength;
-    glGetProgramiv(prog, GL_INFO_LOG_LENGTH, &logLength);
-    if (logLength > 0) {
-        GLchar *log = (GLchar *)malloc(logLength);
-        glGetProgramInfoLog(prog, logLength, &logLength, log);
-        NSLog(@"Program link log:\n%s", log);
-        free(log);
-    }
-#endif
-    
-    glGetProgramiv(prog, GL_LINK_STATUS, &status);
-    if (status == 0) {
-        return NO;
-    }
-    
-    return YES;
 }
 
 #pragma mark - CLKViewController delegate
@@ -594,93 +490,421 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	}
 	
 	if (!_fpsLabel.hidden)
-		_fpsLabel.text = [NSString stringWithFormat:@"%.2f fps", fps.CalculateFPS()];
+		_fpsLabel.text = [NSString stringWithFormat:@"%.2f fps", _fps.CalculateFPS()];
 }
 
 #pragma mark - GLKView delegate
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    glClear(GL_COLOR_BUFFER_BIT);
-    
-	glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT, 0);
-	
-	if (_placesOfInterestCoordinates == nil)
-		return;
-	
-	mat4f_t projectionCameraTransform;
-	multiplyMatrixAndMatrix(projectionCameraTransform, _projectionTransform, _cameraTransform);
-	
-	int i = 0;
-	for (PlaceOfInterest *poi in [_placesOfInterest objectEnumerator])
+	if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationFaceUp)
 	{
-		vec4f_t v;
-		multiplyMatrixAndVector(v, projectionCameraTransform, _placesOfInterestCoordinates[i]);
+		//face up
+		glClear(GL_COLOR_BUFFER_BIT);
 		
-		float x = (v[0] / v[3] + 1.0f) * 0.5f;
-		float y = (v[1] / v[3] + 1.0f) * 0.5f;
+		glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT, 0);
 		
-		if (v[2] < 0.0f)
+		[_camera stopRunning];
+	}
+	else
+	{
+		if (![_camera isRunning])
 		{
-			CGRect bounds = self.view.bounds;
-			poi.view.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.5f];
-			poi.view.center = CGPointMake(x*bounds.size.width, bounds.size.height-y*bounds.size.height);
-
-			if ([poi distance] < kMaxDistnace)
+			[_camera startRunning];
+		}
+		
+		glClear(GL_COLOR_BUFFER_BIT);
+		
+		glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT, 0);
+		
+		if (_placesOfInterestCoordinates == nil)
+			return;
+		
+		mat4f_t projectionCameraTransform;
+		multiplyMatrixAndMatrix(projectionCameraTransform, _projectionTransform, _cameraTransform);
+		
+		int i = 0;
+		[self resetPoiIntersection];
+		for (PlaceOfInterest *poi in _placesOfInterest)
+		{
+			vec4f_t v;
+			multiplyMatrixAndVector(v, projectionCameraTransform, _placesOfInterestCoordinates[i]);
+			
+			float x = (v[0] / v[3] + 1.0f) * 0.5f;
+			float y = (v[1] / v[3] + 1.0f) * 0.5f;
+			
+			if (v[2] < 0.0f)
 			{
-				poi.view.hidden = NO;
+				CGRect bounds = self.view.bounds;
+				[poi setViewsCenter:CGPointMake(x*bounds.size.width, bounds.size.height-y*bounds.size.height)];
+				//			poi.view.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.5f];
 				float scale = 1.0f - ([poi distance] - kMinDistnace) / (kMaxDistnace - kMinDistnace);
-				poi.view.transform = CGAffineTransformMakeScale(scale, scale);
-				poi.view.transform = CGAffineTransformRotate(poi.view.transform, _deviceYrotation);
+				CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
+				[poi transformViews:CGAffineTransformRotate(transform, _deviceYrotation)];
 				
-				if (_locationManager.currentHeading.trueHeading < (poi.face - 90.0) && _locationManager.currentHeading.trueHeading > (poi.face + 90.0))
-					poi.view.backgroundColor = [UIColor colorWithRed:0.0f green:1.0f blue:0.0f alpha:0.5f];
-				if (x < 0.0f || x > 1.0f)
-					poi.view.backgroundColor = [UIColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:0.5f];
-				if (y < 1.0f - screenWithToolBar || y > 1.0f)
-					poi.view.backgroundColor = [UIColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:0.5f];
+				[poi setViewsHidden:NO];
+				[self checkPoiIntersection:poi];
+				//			if (/*[poi distance] < kMaxDistnace &&*/ [[poi views] count] == 2)
+				//			{
+				
+				//				if (_locationManager.currentHeading.trueHeading < (poi.face - 90.0) && _locationManager.currentHeading.trueHeading > (poi.face + 90.0))
+				//					poi.view.backgroundColor = [UIColor colorWithRed:0.0f green:1.0f blue:0.0f alpha:0.5f];
+				//				if (x < 0.0f || x > 1.0f)
+				//					poi.view.backgroundColor = [UIColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:0.5f];
+				//				if (y < 1.0f - screenWithToolBar || y > 1.0f)
+				//					poi.view.backgroundColor = [UIColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:0.5f];
+				//			}
+				//			else
+				//				[poi setViewsHidden:YES];
 			}
 			else
-				poi.view.hidden = YES;
+			{
+				[poi setViewsHidden:YES];
+			}
+			++i;
 		}
-		else
-		{
-			poi.view.hidden = YES;
-		}
-		++i;
 	}
-	
 	//	// Distance to closest sign
 	//	if (!_distanceLabel.hidden)
 	//		_distanceLabel.text = [NSString stringWithFormat:@"%f", distance];
 }
 
+#pragma mark - Grid
+- (void)setupGrid
+{
+	// Users current location
+	CLLocationCoordinate2D myLocation = _locationManager.bestLocation.coordinate;
+	//	NSLog(@"Latitude: %f\tLongitude: %f", myLocation.coordinate.latitude, myLocation.coordinate.longitude);
+	
+	///////////////////////////////////////////////////////
+	// Initialize the grid
+	///////////////////////////////////////////////////////
+	_grid = [Grid new];
+	[_grid setCellSize:kMinCellSize]; // Minimum cell size
+	double distance = [_grid cellSize];
+	
+	// User cell is the center cell
+	CLLocationCoordinate2D center = CLLocationCoordinate2DMake(getDoubleRounded(myLocation.latitude, getDecimalPlaces(distance)),
+															   getDoubleRounded(myLocation.longitude, getDecimalPlaces(distance)));
+	_userVectorGridCoordinates.push_back(center);
+
+	// TODO: Fill another level of cells????
+	for (GridMovements i = GridMovements::InitialPosition; i < GridMovements::TotalPositions; ++i)
+	{
+		// get all cells around the user position and the user's position cell
+		CLLocationCoordinate2D newCellId = [_grid getNewCellIdsFromMovement:i andCellId:center];
+				
+		// Fetch sign inside the cell
+		NSPredicate *fetchPredicate = [NSPredicate predicateWithFormat:@"(latitude => %f) AND (latitude < %f) AND (longitude => %f) AND (longitude < %f)",
+									   newCellId.latitude, newCellId.latitude + distance, newCellId.longitude, newCellId.longitude + distance];
+		NSArray *results = FetchResultsFromEntitywithPredicate(self.managedObjectContext, @"Location", fetchPredicate, nil);
+		
+		Cell* cell = [[Cell alloc] initWithCellId:newCellId];
+		if ([results count] > 0)
+		{
+			// Get signs and locations that pertain to the current cell
+			//			for (Location *l in filteredArray)
+			//			{
+			//				NSLog(@"Latitude: %f\tLongitude: %f", [l.latitude doubleValue], [l.longitude doubleValue]);
+			//			}
+			// Fill the Cell
+			for (Location *l in results)
+			{
+				//					NSLog(@"Latitude: %f\tLongitude: %f", [l.latitude doubleValue], [l.longitude doubleValue]);
+				
+				// Get RoadSigns in this location
+				NSArray *roadSigns = [l.roadsigns allObjects];
+				CellElement *element = [[CellElement alloc] initWithSignId:[roadSigns valueForKey:@"name"]
+															  withLatitude:[l.latitude doubleValue]
+															  andLongitude:[l.longitude doubleValue]
+															   andFacingTo:[l.face floatValue]];
+				[cell addElement:element];
+				
+				for (RoadSign *r in roadSigns)
+				{
+					if ([signImageViews objectForKey:r.name] == nil)
+					{
+						UIImage *image = [UIImage imageNamed:r.imageUrl];
+						[signImageViews setObject:image forKey:r.name];
+					}
+				}
+			}
+		}
+		
+		NSString *key = [NSString stringWithFormat:@"%f,%f", newCellId.latitude, newCellId.longitude];
+		NSLog(@"%@", key);
+		[_grid setCell:cell forKey:key];
+		cell = nil;
+	}
+	///////////////////////////////////////////////////////
+	// End of grid initialization
+	///////////////////////////////////////////////////////
+}
+
+- (void)tearDownGrid
+{
+	_grid = nil;
+}
+
+// Add cells next to the user position
+- (void)addNewCells:(GridMovements const &)newMovement
+{	
+	// User's position
+	CLLocationCoordinate2D userCellId = _userVectorGridCoordinates.back();
+	
+	float distance = [_grid cellSize];
+	
+	// Add cells around the user cell
+	for (GridMovements i = GridMovements::InitialPosition; i < GridMovements::TotalPositions; ++i)
+	{
+		CLLocationCoordinate2D newCellId = [_grid getNewCellIdsFromMovement:i andCellId:userCellId];
+		
+		NSString *key = [NSString stringWithFormat:@"%f,%f", newCellId.latitude, newCellId.longitude];
+		Cell *oldCell = [_grid getCellFromKey:key];
+		
+		if (oldCell) // This cell already exists
+			continue;
+		
+		// Cell does not exist. Create it.
+		Cell* cell = [[Cell alloc] initWithCellId:newCellId];
+		
+		
+		NSPredicate *fetchPredicate = [NSPredicate predicateWithFormat:@"(latitude => %f) AND (latitude < %f) AND (longitude => %f) AND (longitude < %f)",
+									   newCellId.latitude, newCellId.latitude + distance, newCellId.longitude, newCellId.longitude + distance];
+		NSArray *results = FetchResultsFromEntitywithPredicate(self.managedObjectContext, @"Location", fetchPredicate, nil);
+		
+		if ([results count] > 0)
+		{
+			// Fill the Cell
+			for (Location *l in results)
+			{
+				// Get RoadSigns in this location
+				NSArray *roadSigns = [[l.roadsigns allObjects] valueForKey:@"name"];
+				CellElement *element = [[CellElement alloc] initWithSignId:roadSigns
+															  withLatitude:[l.latitude doubleValue]
+															  andLongitude:[l.longitude doubleValue]
+															   andFacingTo:[l.face floatValue]];
+				[cell addElement:element];
+			}
+		}
+		
+		NSLog(@"%@", key);
+		[_grid setCell:cell forKey:key];
+		cell = nil;
+	}
+	
+	// Add cells based on the prediction movement
+	// Get the 5 movements with higher scores
+	VectorGridMovements futureMovements = [self getFavoriteMovements];
+	// Get cellId based on a movement
+	GridMovements maxMovement = *(std::max_element(futureMovements.begin(), futureMovements.end()));
+	CLLocationCoordinate2D movementCellId = [_grid getNewCellIdsFromMovement:maxMovement andCellId:userCellId];
+	// Add cells for those 5 movements
+	for (VectorGridMovements::iterator it = futureMovements.begin(); it != futureMovements.end(); ++it)
+	{
+		
+		CLLocationCoordinate2D newCellId = [_grid getNewCellIdsFromMovement:*it andCellId:movementCellId];
+		NSString *key = [NSString stringWithFormat:@"%f,%f", newCellId.latitude, newCellId.longitude];
+		Cell *oldCell = [_grid getCellFromKey:key];
+		
+		if (oldCell) // This cell already exists
+			continue;
+		
+		// Cell does not exist. Create it.
+		Cell* cell = [[Cell alloc] initWithCellId:newCellId];
+		
+		
+		NSPredicate *fetchPredicate = [NSPredicate predicateWithFormat:@"(latitude => %f) AND (latitude < %f) AND (longitude => %f) AND (longitude < %f)",
+									   newCellId.latitude, newCellId.latitude + distance, newCellId.longitude, newCellId.longitude + distance];
+		NSArray *results = FetchResultsFromEntitywithPredicate(self.managedObjectContext, @"Location", fetchPredicate, nil);
+		
+		if ([results count] > 0)
+		{
+			// Fill the Cell
+			for (Location *l in results)
+			{
+				// Get RoadSigns in this location
+				NSArray *roadSigns = [[l.roadsigns allObjects] valueForKey:@"name"];
+				CellElement *element = [[CellElement alloc] initWithSignId:roadSigns
+															  withLatitude:[l.latitude doubleValue]
+															  andLongitude:[l.longitude doubleValue]
+															   andFacingTo:[l.face floatValue]];
+				[cell addElement:element];
+			}
+		}
+		
+		NSLog(@"%@", key);
+		[_grid setCell:cell forKey:key];
+		cell = nil;
+	}
+	
+	[self removeOldCells];
+}
+
+
+- (void)updateCellsLife:(CLLocationCoordinate2D)cellId
+{
+	NSArray *userCells = [_grid getCenterCellAndCellsAroundFromCellId:cellId];
+//	NSArray *adjacents;
+	
+	// Decrease life of every cell with the exception of the user cell and the adjacent cells
+	for (Cell *c in _grid.grid)
+	{
+		if ([userCells containsObject:c])
+		{
+			[c updateLife:kLifeUser];
+//			if (c == [userCells objectAtIndex:static_cast<int>(GridMovements::Center)])
+//			{
+//				[c updateLife:kLifeUser];
+//			}
+//			else if ([adjacents containsObject:c])
+//			{
+//				[c updateLife:kLifeAdjacents];
+//			}
+//			// else life does not change
+		}
+		else
+			[c updateLife:kLifeDecrease];
+	}
+}
+
+// Removes the old cells
+- (void)removeOldCells
+{
+	// Only remove cells when memory is full
+	NSArray *allCells = [_grid.grid allValues];
+	bool condition = [allCells count] > _grid.maxCellsInMemory;
+	if (condition)
+	{
+		NSSortDescriptor *lifeDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"life" ascending:NO];
+		NSArray *sortDescriptors = [NSArray arrayWithObject:lifeDescriptor];
+		NSMutableArray *sortedArray = [NSMutableArray arrayWithArray:[allCells sortedArrayUsingDescriptors:sortDescriptors]];
+		
+		// Cells adjacent to the user and user cell
+		NSArray * adjacentCells = [_grid getCenterCellAndCellsAroundFromCellId:_userVectorGridCoordinates.back()];
+		[sortedArray removeObjectsInArray:adjacentCells];
+		
+		// Delete cells with less life
+		while ((condition) && ([sortedArray count] > 0))
+		{
+			// Check that the cells we are going to delete are not adjacent to the user cell
+			CLLocationCoordinate2D cellId = ((Cell*)[sortedArray objectAtIndex:0]).cellId;
+			[_grid.grid removeObjectForKey:[NSString stringWithFormat:@"%f,%f", cellId.latitude, cellId.longitude]];
+			[sortedArray removeObjectAtIndex:0];
+		}
+	}
+}
+
+- (void)updateUserPosition
+{
+	double distance = [_grid cellSize];
+	
+	CLLocationCoordinate2D lastUserCellId = _userVectorGridCoordinates.back();
+
+	CLLocationCoordinate2D myLocation = _locationManager.bestLocation.coordinate;
+	CLLocationCoordinate2D currentUserCellId = CLLocationCoordinate2DMake(getDoubleRounded(myLocation.latitude, getDecimalPlaces(distance)),
+																		  getDoubleRounded(myLocation.longitude, getDecimalPlaces(distance)));
+	
+	// If we have moved to a new cell...
+	GridMovements newMovement = [_grid getMovementFromPreviousCellId:lastUserCellId toNewCellId:currentUserCellId];
+	if (newMovement != GridMovements::Center)
+	{
+		_userVectorGridCoordinates.push_back(currentUserCellId);
+		// If we have more than the max elements, remove the oldest one
+		if (_userVectorGridCoordinates.size() > kMaxVectorGridCoordinates)
+		{
+			_userVectorGridCoordinates.erase(_userVectorGridCoordinates.begin());
+		}
+		
+		[self updateMovementPrediction:newMovement];
+		// Add new cells near to the user position
+		[self addNewCells:newMovement];
+		// Add life to cells around the user and the user cell
+		[self updateCellsLife:currentUserCellId];
+		// Load cells around the user position into pois
+		// TODO: FUTURE WORK: Load only new pois and delete only new pois
+		[self setupPois];
+	}
+
+//	NSLog(@"My grid position:%d,%d", myGridRowIndex, myGridColumnIndex);
+
+}
+
+// Update the scores of the movements
+- (void)updateMovementPrediction:(GridMovements)lastMovement
+{
+	_userVectorGridMovements.push_back(lastMovement);
+	if (_userVectorGridMovements.size() > 5)
+	{
+		_userVectorGridMovements.erase(_userVectorGridMovements.begin());
+	}
+	
+	VectorGridMovements adjacents = getAdjacentMovementsFromMovement(lastMovement);
+	for (GridMovements i = GridMovements::InitialPosition; i < GridMovements::TotalPositions; ++i)
+	{
+		VectorGridMovements::iterator it = std::find(adjacents.begin(), adjacents.end(), i);
+		if (i == lastMovement)
+			_userGridMovementsScores[static_cast<int>(i)].second += 4;
+		else if (it != adjacents.end())
+			_userGridMovementsScores[static_cast<int>(i)].second += 2;
+		else
+			_userGridMovementsScores[static_cast<int>(i)].second -= 1;
+	}
+	
+	// TODO: Reset movement scores that are not in the vector????
+}
+
+- (VectorGridMovements)getFavoriteMovements
+{
+	std::vector<GridMovementScores> sortedMovementScores(_userGridMovementsScores, _userGridMovementsScores + static_cast<int>(GridMovements::TotalPositions));
+	
+	std::sort(sortedMovementScores.begin(), sortedMovementScores.end(),
+			  [](const GridMovementScores &s1, const GridMovementScores &s2) -> bool { return s1.second > s2.second; });
+	
+	VectorGridMovements favoriteMovements;
+	favoriteMovements.reserve(5);
+	favoriteMovements.push_back(sortedMovementScores.at(0).first);
+	favoriteMovements.push_back(sortedMovementScores.at(1).first);
+	favoriteMovements.push_back(sortedMovementScores.at(2).first);
+	favoriteMovements.push_back(sortedMovementScores.at(3).first);
+	favoriteMovements.push_back(sortedMovementScores.at(4).first);
+	
+	return favoriteMovements;
+}
+
 #pragma mark - Places of Interest
 - (void)setupPois
 {
-	NSArray *results = FetchResultsFromEntitywithPredicate(self.managedObjectContext, @"Location", nil);
+	// PlacesOfInterest is filled from the cells around the user's position and the user's position cell
+	// 1) Get user cell and cells around the user
+	CLLocationCoordinate2D userCoords = _userVectorGridCoordinates.back();
+	NSArray *cells = [_grid getCenterCellAndCellsAroundFromCellId:userCoords];
 	
-	NSMutableArray *placesOfInterest = [NSMutableArray arrayWithCapacity:[results count]];
+	// 2) Add the locations to the pois array
+	NSMutableArray *placesOfInterest = [NSMutableArray arrayWithCapacity:[cells count]];
 	int i = 0;
-	for (Location *l in results)
+	for (Cell *c in cells)
 	{
-		// Get RoadSigns in this location
-		NSArray *roadSigns = [[l.roadsigns allObjects] valueForKey:@"name"];
-		
-		UILabel *label = [UILabel new];
-		label.adjustsFontSizeToFitWidth = NO;
-		label.opaque = NO;
-		label.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.5f];
-		label.center = CGPointMake(200.0f, 200.0f);
-		label.textAlignment = NSTextAlignmentCenter;
-		label.textColor = [UIColor whiteColor];
-		label.text = [roadSigns componentsJoinedByString:@"/"];
-		CGSize size = [label.text sizeWithFont:label.font];
-		label.bounds = CGRectMake(0.0f, 0.0f, size.width, size.height);
-		
-		PlaceOfInterest *poi = [PlaceOfInterest placeOfInterestWithView:label at:[[CLLocation alloc] initWithLatitude:[l.latitude doubleValue]
-																											longitude:[l.longitude doubleValue]]
-															   facingAt:[l.face floatValue]];
-		[placesOfInterest insertObject:poi atIndex:i++];
+		NSArray *cellElements = [c cellElements];
+				
+		for (CellElement *e in [cellElements reverseObjectEnumerator])
+		{
+//			NSArray *roadSigns = [e signIds];
+//			UILabel *label = [UILabel new];
+//			label.adjustsFontSizeToFitWidth = NO;
+//			label.opaque = NO;
+//			label.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.5f];
+//			label.center = CGPointMake(200.0f, 200.0f);
+//			label.textAlignment = NSTextAlignmentCenter;
+//			label.textColor = [UIColor whiteColor];
+//			label.text = [roadSigns componentsJoinedByString:@"/"];
+//			CGSize size = [label.text sizeWithFont:label.font];
+//			label.bounds = CGRectMake(0.0f, 0.0f, size.width, size.height);
+			PlaceOfInterest *poi = [PlaceOfInterest placeOfInterestWithViews:[signImageViews objectsForKeys:[e signIds] notFoundMarker:[NSNull null]]
+																		 at:[[CLLocation alloc] initWithLatitude:[e latitude]
+																									   longitude:[e longitude]]
+																   facingAt:[e facing]];
+			[placesOfInterest insertObject:poi atIndex:i++];
+		}
 	}
 	
 	[self setPlacesOfInterest:placesOfInterest];
@@ -695,10 +919,11 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	}
 	
 }
+
 - (void)setPlacesOfInterest:(NSArray *)pois
 {
 	for (PlaceOfInterest *poi in [_placesOfInterest objectEnumerator])
-		[poi.view removeFromSuperview];
+		[poi removeFromSuperview];
 	
 	_placesOfInterest = nil;
 	
@@ -776,10 +1001,64 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	for (NSData *d in [orderedDistances reverseObjectEnumerator]) {
 		const DistanceAndIndex *distanceAndIndex = (const DistanceAndIndex *)d.bytes;
 		PlaceOfInterest *poi = (PlaceOfInterest *)[_placesOfInterest objectAtIndex:distanceAndIndex->index];
-		[self.view addSubview:poi.view];
+		for (UIView *view in poi.views)
+		{
+			[self.view addSubview:view];
+		}
 	}
 	
 	[self.view bringSubviewToFront:_toolbar];
+}
+
+- (void)resetPoiIntersection
+{
+	NSMutableArray *pois = [NSMutableArray arrayWithArray:[[self view] subviews]];
+	
+	for (UIView *poiView in pois)
+	{
+		if ([poiView isKindOfClass:[UIImageView class]])
+		{
+			((UIImageView*)poiView).highlighted = NO;
+		}
+		//		else
+		//		{
+		//			[pois removeObject:poiView];
+		//		}
+	}
+}
+
+- (void)checkPoiIntersection:(PlaceOfInterest*)aPoi
+{
+	NSArray *views = [[self view] subviews];
+	
+	for (PlaceOfInterest *poi in _placesOfInterest)
+	{
+		for (UIImageView *poiViewA in poi.views)
+		{
+			if (![poiViewA isHidden])
+			{
+				for (UIImageView *poiViewB in aPoi.views)
+				{
+					if (poiViewA != poiViewB && ![aPoi.views containsObject:poiViewA] && CGRectIntersectsRect([poiViewA frame], [poiViewB frame]))
+					{
+						NSUInteger indexA = [views indexOfObject:poiViewA];
+						NSUInteger indexB = [views indexOfObject:poiViewB];
+						
+						if (indexA > indexB)
+						{
+							for (UIImageView *poiView in aPoi.views)
+								poiView.highlighted = YES;
+						}
+						else
+						{
+							for (UIImageView *poiView in poi.views)
+								poiView.highlighted = YES;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 #pragma mark - Location Manager
@@ -798,8 +1077,30 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 
 - (void)locationDataReceived
 {
+	if (setPois)
+	{
+		[_loadingView setHidden:NO];
+		[_loadingView startAnimating];
+		[_warningLabel setHidden:NO];
+
+		if (_locationManager.bestLocation.horizontalAccuracy <= minHorizontalAccuracy)
+		{
+			setPois = NO;
+			signImageViews = [NSMutableDictionary new];
+			[self setupGrid];
+			[self setupPois];
+			[_warningLabel setHidden:YES];
+			[_loadingView stopAnimating];
+		}
+	}
+
 	if (_placesOfInterest != nil)
 		[self updatePlacesOfInterestCoordinates];
+	
+	if (_grid)
+	{
+		[self updateUserPosition];
+	}
 }
 
 - (void)headingDataReceived
@@ -824,8 +1125,11 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 #pragma mark - UI Actions
 - (IBAction)takePicture:(id)sender
 {
+	// Save sensor data
+	CLLocation *stillImageLocation = _locationManager.bestLocation; // bestLocation contains the best last location.
+	
 	// Find out the current orientation and tell the still image output.
-	AVCaptureStillImageOutput *stillImageOutput = camera.stillImageOutput;
+	AVCaptureStillImageOutput *stillImageOutput = _camera.stillImageOutput;
 	AVCaptureConnection *stillImageConnection = [stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
 	[stillImageConnection setVideoOrientation:AVCaptureVideoOrientationPortrait];
 	
@@ -895,11 +1199,15 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 			 cv::Mat image(height, width, CV_8UC1, bufferAddress, bytesPerRow);
 			 [self processImage:image];
 			 CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
+			 
+			 // If processImage fails we should relay on sensor data
+			 // TODO: implement sensor data "recognition" !!!!!!!
 		 }
 	 }
 	 ];
 }
 
+#pragma mark - Utilities
 // utility routine to display error aleart if takePicture fails
 - (void)displayErrorOnMainQueue:(NSError *)error withMessage:(NSString *)message
 {
@@ -912,5 +1220,49 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 		[alertView show];
 	});
 }
+
+
+#pragma mark - Minigame 1
+- (void)setupMinigame:(NSString*) sign
+{
+	NSArray *result = FetchResultsFromEntitywithPredicate(_managedObjectContext, @"RoadSign", [NSPredicate predicateWithFormat:@"name == %@", sign], nil);
+	if ([result count] > 0)
+	{
+		RoadSign *r = [result objectAtIndex:0];
+		NSLog(@"RoadSign: %@", r.name);
+		_minigameLabel.text = @"Probando...";//r.desc;
+	}
+}
+
+- (void)showMinigame:(BOOL)show
+{
+	_isMinigame1Running = show;
+	
+	if (_isMinigame1Running)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, _positionVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) << 3, screenVerticesWithToolbar, GL_STATIC_DRAW);
+		_toolbar.hidden = NO;
+		_minigameLabel.hidden = NO;
+		_pictureButton.enabled = YES;
+		[self setupMinigame:@"Give way"];
+	}
+	else
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, _positionVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) << 3, screenVertices, GL_STATIC_DRAW);
+		_toolbar.hidden = YES;
+		_minigameLabel.hidden = YES;
+		_pictureButton.enabled = NO;
+	}
+}
+
+#if defined(DEBUG)
+- (IBAction)minigamePressButton:(UIButton *)sender
+{
+	_isMinigame1Running = !_isMinigame1Running;
+	[self showMinigame:_isMinigame1Running];
+}
+#endif
 
 @end

@@ -7,16 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		010EBBDC17427A3100F8BE97 /* Readme.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 010EBBDB17427A3100F8BE97 /* Readme.rtf */; };
-		012E6EC017426A920098F2FF /* 4.1.6_(Road_sign).gif in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EB717426A920098F2FF /* 4.1.6_(Road_sign).gif */; };
-		012E6EC117426A920098F2FF /* 417px-Belgium-trafficsign-e9a.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EB817426A920098F2FF /* 417px-Belgium-trafficsign-e9a.svg.png */; };
-		012E6EC217426A920098F2FF /* 600px-Belgium-trafficsign-c1.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EB917426A920098F2FF /* 600px-Belgium-trafficsign-c1.svg.png */; };
-		012E6EC317426A920098F2FF /* 600px-Belgium-trafficsign-d1_right.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EBA17426A920098F2FF /* 600px-Belgium-trafficsign-d1_right.svg.png */; };
-		012E6EC417426A920098F2FF /* 600px-Belgium-trafficsign-d5.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EBB17426A920098F2FF /* 600px-Belgium-trafficsign-d5.svg.png */; };
-		012E6EC517426A920098F2FF /* 600px-Belgium-trafficsign-f49.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EBC17426A920098F2FF /* 600px-Belgium-trafficsign-f49.svg.png */; };
-		012E6EC617426A920098F2FF /* 720px-Belgium-trafficsign-b1.svg.png in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EBD17426A920098F2FF /* 720px-Belgium-trafficsign-b1.svg.png */; };
-		012E6EC717426A920098F2FF /* Selected Data from Oregon 300 (GARMIN).GPX in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EBE17426A920098F2FF /* Selected Data from Oregon 300 (GARMIN).GPX */; };
-		012E6EC817426A920098F2FF /* Signs Collected.rtfd in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EBF17426A920098F2FF /* Signs Collected.rtfd */; };
+		011D9BC6175DFE8400CFD21F /* Shaders.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 011D9BC4175DFE8400CFD21F /* Shaders.cpp */; };
 		012E6ED717426BA60098F2FF /* CoreDataModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6ECB17426BA60098F2FF /* CoreDataModule.mm */; };
 		012E6ED817426BA60098F2FF /* CoreLocationModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6ECE17426BA60098F2FF /* CoreLocationModule.mm */; };
 		012E6ED917426BA60098F2FF /* CoreMotionModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6ED117426BA60098F2FF /* CoreMotionModule.mm */; };
@@ -26,10 +17,18 @@
 		012E6EEA17426C710098F2FF /* Activity.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6EE017426C710098F2FF /* Activity.mm */; };
 		012E6EEB17426C710098F2FF /* Location.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6EE217426C710098F2FF /* Location.mm */; };
 		012E6EEC17426C710098F2FF /* RoadSign.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6EE417426C710098F2FF /* RoadSign.mm */; };
-		012E6EEE17426C710098F2FF /* RoadSignsCD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 012E6EE617426C710098F2FF /* RoadSignsCD.xcdatamodeld */; };
 		012E6EF017426C820098F2FF /* RoadSignsCD.storedata in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EEF17426C820098F2FF /* RoadSignsCD.storedata */; };
-		012E6EF2174274600098F2FF /* TODO.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EF1174274600098F2FF /* TODO.rtf */; };
+		015BBE36174BDB76007D9F33 /* Grid.mm in Sources */ = {isa = PBXBuildFile; fileRef = 015BBE35174BDB76007D9F33 /* Grid.mm */; };
 		01612E8D172EB89E0037F3F0 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01612E8C172EB89E0037F3F0 /* opencv2.framework */; };
+		0164110A174BD4F00069DDD8 /* Cell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01641109174BD4F00069DDD8 /* Cell.mm */; };
+		016FC99C1758BD31000508AB /* RoadSignsCD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 016FC9971758BD31000508AB /* RoadSignsCD.xcdatamodeld */; };
+		016FC9A71758BDAA000508AB /* Give way.png in Resources */ = {isa = PBXBuildFile; fileRef = 016FC99E1758BDAA000508AB /* Give way.png */; };
+		016FC9A81758BDAA000508AB /* No entry.png in Resources */ = {isa = PBXBuildFile; fileRef = 016FC99F1758BDAA000508AB /* No entry.png */; };
+		016FC9A91758BDAA000508AB /* Parking allowed.png in Resources */ = {isa = PBXBuildFile; fileRef = 016FC9A01758BDAA000508AB /* Parking allowed.png */; };
+		016FC9AA1758BDAA000508AB /* Pedestrian crossing.png in Resources */ = {isa = PBXBuildFile; fileRef = 016FC9A11758BDAA000508AB /* Pedestrian crossing.png */; };
+		016FC9AB1758BDAA000508AB /* Roundabout.png in Resources */ = {isa = PBXBuildFile; fileRef = 016FC9A21758BDAA000508AB /* Roundabout.png */; };
+		016FC9AE1758BDAA000508AB /* Turn right or left.png in Resources */ = {isa = PBXBuildFile; fileRef = 016FC9A51758BDAA000508AB /* Turn right or left.png */; };
+		016FC9AF1758BDAA000508AB /* Turn right.png in Resources */ = {isa = PBXBuildFile; fileRef = 016FC9A61758BDAA000508AB /* Turn right.png */; };
 		019D0155172FFCB000C81701 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019D0154172FFCB000C81701 /* ImageIO.framework */; };
 		01A003DE1740F48B00E238A7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A003DD1740F48B00E238A7 /* CoreData.framework */; };
 		01A003FA1740FA2300E238A7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A003F91740FA2300E238A7 /* CoreLocation.framework */; };
@@ -65,15 +64,8 @@
 
 /* Begin PBXFileReference section */
 		010EBBDB17427A3100F8BE97 /* Readme.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Readme.rtf; sourceTree = "<group>"; };
-		012E6EB717426A920098F2FF /* 4.1.6_(Road_sign).gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "4.1.6_(Road_sign).gif"; sourceTree = "<group>"; };
-		012E6EB817426A920098F2FF /* 417px-Belgium-trafficsign-e9a.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "417px-Belgium-trafficsign-e9a.svg.png"; sourceTree = "<group>"; };
-		012E6EB917426A920098F2FF /* 600px-Belgium-trafficsign-c1.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "600px-Belgium-trafficsign-c1.svg.png"; sourceTree = "<group>"; };
-		012E6EBA17426A920098F2FF /* 600px-Belgium-trafficsign-d1_right.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "600px-Belgium-trafficsign-d1_right.svg.png"; sourceTree = "<group>"; };
-		012E6EBB17426A920098F2FF /* 600px-Belgium-trafficsign-d5.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "600px-Belgium-trafficsign-d5.svg.png"; sourceTree = "<group>"; };
-		012E6EBC17426A920098F2FF /* 600px-Belgium-trafficsign-f49.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "600px-Belgium-trafficsign-f49.svg.png"; sourceTree = "<group>"; };
-		012E6EBD17426A920098F2FF /* 720px-Belgium-trafficsign-b1.svg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "720px-Belgium-trafficsign-b1.svg.png"; sourceTree = "<group>"; };
-		012E6EBE17426A920098F2FF /* Selected Data from Oregon 300 (GARMIN).GPX */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Selected Data from Oregon 300 (GARMIN).GPX"; sourceTree = "<group>"; };
-		012E6EBF17426A920098F2FF /* Signs Collected.rtfd */ = {isa = PBXFileReference; lastKnownFileType = wrapper.rtfd; path = "Signs Collected.rtfd"; sourceTree = "<group>"; };
+		011D9BC4175DFE8400CFD21F /* Shaders.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shaders.cpp; sourceTree = "<group>"; };
+		011D9BC5175DFE8400CFD21F /* Shaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shaders.h; sourceTree = "<group>"; };
 		012E6ECA17426BA60098F2FF /* CoreDataModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataModule.h; sourceTree = "<group>"; };
 		012E6ECB17426BA60098F2FF /* CoreDataModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CoreDataModule.mm; sourceTree = "<group>"; };
 		012E6ECD17426BA60098F2FF /* CoreLocationModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreLocationModule.h; sourceTree = "<group>"; };
@@ -92,11 +84,26 @@
 		012E6EE217426C710098F2FF /* Location.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Location.mm; sourceTree = "<group>"; };
 		012E6EE317426C710098F2FF /* RoadSign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoadSign.h; sourceTree = "<group>"; };
 		012E6EE417426C710098F2FF /* RoadSign.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RoadSign.mm; sourceTree = "<group>"; };
-		012E6EE717426C710098F2FF /* RoadSignsCD 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RoadSignsCD 2.xcdatamodel"; sourceTree = "<group>"; };
-		012E6EE817426C710098F2FF /* RoadSignsCD.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RoadSignsCD.xcdatamodel; sourceTree = "<group>"; };
 		012E6EEF17426C820098F2FF /* RoadSignsCD.storedata */ = {isa = PBXFileReference; lastKnownFileType = file; name = RoadSignsCD.storedata; path = "../../../Library/Application Support/David.RoadSignsCD/RoadSignsCD.storedata"; sourceTree = "<group>"; };
 		012E6EF1174274600098F2FF /* TODO.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = TODO.rtf; sourceTree = SOURCE_ROOT; };
+		015BBE34174BDB76007D9F33 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
+		015BBE35174BDB76007D9F33 /* Grid.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Grid.mm; sourceTree = "<group>"; };
 		01612E8C172EB89E0037F3F0 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../OpenCV/opencv2.framework; sourceTree = "<group>"; };
+		01641108174BD4F00069DDD8 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
+		01641109174BD4F00069DDD8 /* Cell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Cell.mm; sourceTree = "<group>"; };
+		016FC9981758BD31000508AB /* RoadSignsCD 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RoadSignsCD 2.xcdatamodel"; sourceTree = "<group>"; };
+		016FC9991758BD31000508AB /* RoadSignsCD 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RoadSignsCD 3.xcdatamodel"; sourceTree = "<group>"; };
+		016FC99A1758BD31000508AB /* RoadSignsCD 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RoadSignsCD 4.xcdatamodel"; sourceTree = "<group>"; };
+		016FC99B1758BD31000508AB /* RoadSignsCD.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RoadSignsCD.xcdatamodel; sourceTree = "<group>"; };
+		016FC99E1758BDAA000508AB /* Give way.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Give way.png"; sourceTree = "<group>"; };
+		016FC99F1758BDAA000508AB /* No entry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No entry.png"; sourceTree = "<group>"; };
+		016FC9A01758BDAA000508AB /* Parking allowed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Parking allowed.png"; sourceTree = "<group>"; };
+		016FC9A11758BDAA000508AB /* Pedestrian crossing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pedestrian crossing.png"; sourceTree = "<group>"; };
+		016FC9A21758BDAA000508AB /* Roundabout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Roundabout.png; sourceTree = "<group>"; };
+		016FC9A31758BDAA000508AB /* Selected Data from Oregon 300 (GARMIN).GPX */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Selected Data from Oregon 300 (GARMIN).GPX"; sourceTree = "<group>"; };
+		016FC9A41758BDAA000508AB /* Signs Collected.rtfd */ = {isa = PBXFileReference; lastKnownFileType = wrapper.rtfd; path = "Signs Collected.rtfd"; sourceTree = "<group>"; };
+		016FC9A51758BDAA000508AB /* Turn right or left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Turn right or left.png"; sourceTree = "<group>"; };
+		016FC9A61758BDAA000508AB /* Turn right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Turn right.png"; sourceTree = "<group>"; };
 		019D0154172FFCB000C81701 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		01A003DD1740F48B00E238A7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		01A003F91740FA2300E238A7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -168,29 +175,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		011D9BC3175DFE3B00CFD21F /* OpenGL Stuff */ = {
+			isa = PBXGroup;
+			children = (
+				011D9BC4175DFE8400CFD21F /* Shaders.cpp */,
+				011D9BC5175DFE8400CFD21F /* Shaders.h */,
+			);
+			path = "OpenGL Stuff";
+			sourceTree = "<group>";
+		};
 		012E6EB517426A920098F2FF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				012E6EB617426A920098F2FF /* Signs Collected */,
+				016FC99D1758BDAA000508AB /* Signs Collected */,
 			);
 			name = Resources;
 			path = HelloOpenCViOS/Resources;
-			sourceTree = "<group>";
-		};
-		012E6EB617426A920098F2FF /* Signs Collected */ = {
-			isa = PBXGroup;
-			children = (
-				012E6EB717426A920098F2FF /* 4.1.6_(Road_sign).gif */,
-				012E6EB817426A920098F2FF /* 417px-Belgium-trafficsign-e9a.svg.png */,
-				012E6EB917426A920098F2FF /* 600px-Belgium-trafficsign-c1.svg.png */,
-				012E6EBA17426A920098F2FF /* 600px-Belgium-trafficsign-d1_right.svg.png */,
-				012E6EBB17426A920098F2FF /* 600px-Belgium-trafficsign-d5.svg.png */,
-				012E6EBC17426A920098F2FF /* 600px-Belgium-trafficsign-f49.svg.png */,
-				012E6EBD17426A920098F2FF /* 720px-Belgium-trafficsign-b1.svg.png */,
-				012E6EBE17426A920098F2FF /* Selected Data from Oregon 300 (GARMIN).GPX */,
-				012E6EBF17426A920098F2FF /* Signs Collected.rtfd */,
-			);
-			path = "Signs Collected";
 			sourceTree = "<group>";
 		};
 		012E6EC917426BA60098F2FF /* CoreData */ = {
@@ -244,10 +244,37 @@
 				012E6EE317426C710098F2FF /* RoadSign.h */,
 				012E6EE417426C710098F2FF /* RoadSign.mm */,
 				012E6EEF17426C820098F2FF /* RoadSignsCD.storedata */,
-				012E6EE617426C710098F2FF /* RoadSignsCD.xcdatamodeld */,
+				016FC9971758BD31000508AB /* RoadSignsCD.xcdatamodeld */,
 			);
 			path = RoadSignsDataBase;
 			sourceTree = SOURCE_ROOT;
+		};
+		01641107174BD3D90069DDD8 /* Grid */ = {
+			isa = PBXGroup;
+			children = (
+				01641108174BD4F00069DDD8 /* Cell.h */,
+				01641109174BD4F00069DDD8 /* Cell.mm */,
+				015BBE34174BDB76007D9F33 /* Grid.h */,
+				015BBE35174BDB76007D9F33 /* Grid.mm */,
+			);
+			path = Grid;
+			sourceTree = "<group>";
+		};
+		016FC99D1758BDAA000508AB /* Signs Collected */ = {
+			isa = PBXGroup;
+			children = (
+				016FC99E1758BDAA000508AB /* Give way.png */,
+				016FC99F1758BDAA000508AB /* No entry.png */,
+				016FC9A01758BDAA000508AB /* Parking allowed.png */,
+				016FC9A11758BDAA000508AB /* Pedestrian crossing.png */,
+				016FC9A21758BDAA000508AB /* Roundabout.png */,
+				016FC9A31758BDAA000508AB /* Selected Data from Oregon 300 (GARMIN).GPX */,
+				016FC9A41758BDAA000508AB /* Signs Collected.rtfd */,
+				016FC9A51758BDAA000508AB /* Turn right or left.png */,
+				016FC9A61758BDAA000508AB /* Turn right.png */,
+			);
+			path = "Signs Collected";
+			sourceTree = "<group>";
 		};
 		019D0150172FE89700C81701 /* Camera */ = {
 			isa = PBXGroup;
@@ -308,6 +335,8 @@
 		E0145252171DB5E300B94A9A /* HelloOpenCViOS */ = {
 			isa = PBXGroup;
 			children = (
+				011D9BC3175DFE3B00CFD21F /* OpenGL Stuff */,
+				01641107174BD3D90069DDD8 /* Grid */,
 				019D0150172FE89700C81701 /* Camera */,
 				012E6EC917426BA60098F2FF /* CoreData */,
 				012E6ECC17426BA60098F2FF /* CoreLocation */,
@@ -403,18 +432,14 @@
 				E0145263171DB5E300B94A9A /* Default-568h@2x.png in Resources */,
 				E0145266171DB5E300B94A9A /* MainStoryboard_iPhone.storyboard in Resources */,
 				E0145269171DB5E300B94A9A /* MainStoryboard_iPad.storyboard in Resources */,
-				012E6EC017426A920098F2FF /* 4.1.6_(Road_sign).gif in Resources */,
-				012E6EC117426A920098F2FF /* 417px-Belgium-trafficsign-e9a.svg.png in Resources */,
-				012E6EC217426A920098F2FF /* 600px-Belgium-trafficsign-c1.svg.png in Resources */,
-				012E6EC317426A920098F2FF /* 600px-Belgium-trafficsign-d1_right.svg.png in Resources */,
-				012E6EC417426A920098F2FF /* 600px-Belgium-trafficsign-d5.svg.png in Resources */,
-				012E6EC517426A920098F2FF /* 600px-Belgium-trafficsign-f49.svg.png in Resources */,
-				012E6EC617426A920098F2FF /* 720px-Belgium-trafficsign-b1.svg.png in Resources */,
-				012E6EC717426A920098F2FF /* Selected Data from Oregon 300 (GARMIN).GPX in Resources */,
-				012E6EC817426A920098F2FF /* Signs Collected.rtfd in Resources */,
 				012E6EF017426C820098F2FF /* RoadSignsCD.storedata in Resources */,
-				012E6EF2174274600098F2FF /* TODO.rtf in Resources */,
-				010EBBDC17427A3100F8BE97 /* Readme.rtf in Resources */,
+				016FC9A71758BDAA000508AB /* Give way.png in Resources */,
+				016FC9A81758BDAA000508AB /* No entry.png in Resources */,
+				016FC9A91758BDAA000508AB /* Parking allowed.png in Resources */,
+				016FC9AA1758BDAA000508AB /* Pedestrian crossing.png in Resources */,
+				016FC9AB1758BDAA000508AB /* Roundabout.png in Resources */,
+				016FC9AE1758BDAA000508AB /* Turn right or left.png in Resources */,
+				016FC9AF1758BDAA000508AB /* Turn right.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,7 +466,10 @@
 				012E6EEA17426C710098F2FF /* Activity.mm in Sources */,
 				012E6EEB17426C710098F2FF /* Location.mm in Sources */,
 				012E6EEC17426C710098F2FF /* RoadSign.mm in Sources */,
-				012E6EEE17426C710098F2FF /* RoadSignsCD.xcdatamodeld in Sources */,
+				0164110A174BD4F00069DDD8 /* Cell.mm in Sources */,
+				015BBE36174BDB76007D9F33 /* Grid.mm in Sources */,
+				016FC99C1758BD31000508AB /* RoadSignsCD.xcdatamodeld in Sources */,
+				011D9BC6175DFE8400CFD21F /* Shaders.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,13 +630,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		012E6EE617426C710098F2FF /* RoadSignsCD.xcdatamodeld */ = {
+		016FC9971758BD31000508AB /* RoadSignsCD.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				012E6EE717426C710098F2FF /* RoadSignsCD 2.xcdatamodel */,
-				012E6EE817426C710098F2FF /* RoadSignsCD.xcdatamodel */,
+				016FC9981758BD31000508AB /* RoadSignsCD 2.xcdatamodel */,
+				016FC9991758BD31000508AB /* RoadSignsCD 3.xcdatamodel */,
+				016FC99A1758BD31000508AB /* RoadSignsCD 4.xcdatamodel */,
+				016FC99B1758BD31000508AB /* RoadSignsCD.xcdatamodel */,
 			);
-			currentVersion = 012E6EE717426C710098F2FF /* RoadSignsCD 2.xcdatamodel */;
+			currentVersion = 016FC99A1758BD31000508AB /* RoadSignsCD 4.xcdatamodel */;
 			path = RoadSignsCD.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -19,8 +19,8 @@
 
 @property (nonatomic, assign) id<CoreLocationModuleDelegate> delegate;
 @property (readonly, nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) CLLocation *bestLocation;
-@property (nonatomic, strong) CLHeading *currentHeading;
+@property (readonly, nonatomic, strong) CLLocation *bestLocation;
+@property (readonly, nonatomic, strong) CLHeading *currentHeading;
 
 - (void)startLocation;
 - (void)stopLocation;

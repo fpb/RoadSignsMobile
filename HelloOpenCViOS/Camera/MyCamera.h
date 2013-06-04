@@ -17,5 +17,7 @@
 - (id)initWithFrame:(CGRect) frame;
 - (void)startCameraPreviewWithPreset:(NSString*) preset;
 - (void)stopCameraPreview;
-
+- (void)startRunning;
+- (void)stopRunning;
+- (BOOL)isRunning;
 @end

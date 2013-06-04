@@ -156,4 +156,19 @@ static const NSString *AVCaptureStillImageIsCapturingStillImageContext = @"AVCap
 	}
 }
 
+- (void)startRunning
+{
+	[_captureSession startRunning];
+}
+
+- (void)stopRunning
+{
+	[_captureSession stopRunning];
+}
+
+- (BOOL)isRunning
+{
+	return [_captureSession isRunning];
+}
+
 @end
