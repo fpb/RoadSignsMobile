@@ -12,11 +12,6 @@
 
 @implementation CellElement
 
-@synthesize signIds = _signIds;
-@synthesize latitude = _latitude;
-@synthesize longitude = _longitude;
-@synthesize facing = _facing;
-
 - (id)initWithSignId:(NSArray*)signIds withLatitude:(double)latitude andLongitude:(double)longitude andFacingTo:(float)facing
 {
 	self = [super init];
@@ -37,10 +32,6 @@
 
 #pragma mark - Cell
 @implementation Cell
-
-@synthesize cellId		 = _cellId;
-@synthesize life		 = _life;
-@synthesize cellElements = _cellElements;
 
 - (id)initWithCellId:(CLLocationCoordinate2D)cellId
 {

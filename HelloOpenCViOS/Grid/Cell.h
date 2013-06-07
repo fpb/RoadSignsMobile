@@ -24,7 +24,7 @@
 @interface Cell : NSObject
 
 @property (nonatomic, assign, readonly) CLLocationCoordinate2D cellId;
-@property (nonatomic, assign, setter = updateLife:) int life;
+@property (nonatomic, assign, readonly) int life;
 @property (nonatomic, strong, readonly) NSMutableArray *cellElements;
 
 - (id)initWithCellId:(CLLocationCoordinate2D)cellId;

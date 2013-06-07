@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -22,7 +22,7 @@
                                 <color key="textColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDv-Jv-d6d">
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDv-Jv-d6d">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -37,7 +37,7 @@
                                 <color key="textColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="juI-6N-y0l">
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="juI-6N-y0l">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -123,13 +123,13 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="distanceLabel" destination="juI-6N-y0l" id="o9H-RR-yCy"/>
-                        <outlet property="distanceLabel2" destination="yDv-Jv-d6d" id="FcN-z9-ehb"/>
                         <outlet property="fpsLabel" destination="w15-Sx-kxf" id="KYf-9r-cep"/>
                         <outlet property="fpsLabel2" destination="oVE-nP-kQB" id="FBX-Au-i23"/>
                         <outlet property="headingLabel" destination="rbb-Sz-po8" id="XSi-v0-GNJ"/>
                         <outlet property="headingLabel2" destination="Pwr-gP-Xjd" id="ODd-KG-Afa"/>
                         <outlet property="loadingView" destination="b3U-M5-jXb" id="6gh-22-tow"/>
+                        <outlet property="locationLabel" destination="juI-6N-y0l" id="Wzb-gv-rMf"/>
+                        <outlet property="locationLabel2" destination="yDv-Jv-d6d" id="x4t-Sf-7jB"/>
                         <outlet property="minigameButton" destination="2GL-YH-1Qc" id="WIx-t6-YFB"/>
                         <outlet property="minigameLabel" destination="Klj-dr-sJi" id="ncX-Gf-7Vl"/>
                         <outlet property="pictureButton" destination="egY-gM-djI" id="Hd5-E8-aZX"/>
@@ -151,13 +151,13 @@
             <relationships>
                 <relationship kind="action" name="minigamePressButton:" candidateClass="UIButton"/>
                 <relationship kind="action" name="takePicture:"/>
-                <relationship kind="outlet" name="distanceLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="distanceLabel2" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="fpsLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="fpsLabel2" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="headingLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="headingLabel2" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="loadingView" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="locationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="locationLabel2" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="minigameButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="minigameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="pictureButton" candidateClass="UIBarButtonItem"/>

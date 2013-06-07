@@ -18,6 +18,7 @@
 		012E6EEB17426C710098F2FF /* Location.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6EE217426C710098F2FF /* Location.mm */; };
 		012E6EEC17426C710098F2FF /* RoadSign.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6EE417426C710098F2FF /* RoadSign.mm */; };
 		012E6EF017426C820098F2FF /* RoadSignsCD.storedata in Resources */ = {isa = PBXBuildFile; fileRef = 012E6EEF17426C820098F2FF /* RoadSignsCD.storedata */; };
+		015049661760A30E00D25A6A /* SimulatedLocations.GPX in Resources */ = {isa = PBXBuildFile; fileRef = 015049651760A30E00D25A6A /* SimulatedLocations.GPX */; };
 		015BBE36174BDB76007D9F33 /* Grid.mm in Sources */ = {isa = PBXBuildFile; fileRef = 015BBE35174BDB76007D9F33 /* Grid.mm */; };
 		01612E8D172EB89E0037F3F0 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01612E8C172EB89E0037F3F0 /* opencv2.framework */; };
 		0164110A174BD4F00069DDD8 /* Cell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01641109174BD4F00069DDD8 /* Cell.mm */; };
@@ -86,6 +87,7 @@
 		012E6EE417426C710098F2FF /* RoadSign.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RoadSign.mm; sourceTree = "<group>"; };
 		012E6EEF17426C820098F2FF /* RoadSignsCD.storedata */ = {isa = PBXFileReference; lastKnownFileType = file; name = RoadSignsCD.storedata; path = "../../../Library/Application Support/David.RoadSignsCD/RoadSignsCD.storedata"; sourceTree = "<group>"; };
 		012E6EF1174274600098F2FF /* TODO.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = TODO.rtf; sourceTree = SOURCE_ROOT; };
+		015049651760A30E00D25A6A /* SimulatedLocations.GPX */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SimulatedLocations.GPX; sourceTree = "<group>"; };
 		015BBE34174BDB76007D9F33 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
 		015BBE35174BDB76007D9F33 /* Grid.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Grid.mm; sourceTree = "<group>"; };
 		01612E8C172EB89E0037F3F0 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../OpenCV/opencv2.framework; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 		016FC99D1758BDAA000508AB /* Signs Collected */ = {
 			isa = PBXGroup;
 			children = (
+				015049651760A30E00D25A6A /* SimulatedLocations.GPX */,
 				016FC99E1758BDAA000508AB /* Give way.png */,
 				016FC99F1758BDAA000508AB /* No entry.png */,
 				016FC9A01758BDAA000508AB /* Parking allowed.png */,
@@ -440,6 +443,7 @@
 				016FC9AB1758BDAA000508AB /* Roundabout.png in Resources */,
 				016FC9AE1758BDAA000508AB /* Turn right or left.png in Resources */,
 				016FC9AF1758BDAA000508AB /* Turn right.png in Resources */,
+				015049661760A30E00D25A6A /* SimulatedLocations.GPX in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

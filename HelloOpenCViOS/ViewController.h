@@ -28,11 +28,11 @@ class Shape;
 @property (nonatomic, weak) NSManagedObjectContext *managedObjectContext;
 
 // Options
-@property (nonatomic, weak) IBOutlet UILabel *distanceLabel2;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel2;
 @property (nonatomic, weak) IBOutlet UILabel *headingLabel2;
 @property (nonatomic, weak) IBOutlet UILabel *fpsLabel2;
 
-@property (nonatomic, weak) IBOutlet UILabel *distanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (nonatomic, weak) IBOutlet UILabel *headingLabel;
 @property (nonatomic, weak) IBOutlet UILabel *fpsLabel;
 

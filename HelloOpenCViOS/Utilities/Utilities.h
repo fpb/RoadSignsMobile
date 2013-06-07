@@ -75,6 +75,14 @@ struct EnumValues
 	}
 };
 
-double getDoubleRounded(double number, short scale);
+double getDoubleRounded(double number, short scale, NSRoundingMode mode = NSRoundDown);
 int getDecimalPlaces(double number);
 UIImage* convertImageToGrayScale(UIImage *image);
+
+inline bool Equals(float const &f1, float const &f2, float const& absTol = FLT_EPSILON, float const& relTol = FLT_EPSILON)
+{
+	if(std::fabs(f1 - f2) <= std::max<float>(absTol, relTol * std::max<float>(std::fabs(f1), std::fabs(f2))))
+		return true;
+	
+	return false;
+}

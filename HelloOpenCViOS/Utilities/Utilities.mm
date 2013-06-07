@@ -191,11 +191,11 @@ double getNewLongitudeFromDistance(double const &lat1, double const &lon1, doubl
 	return lon2;
 }
 
-double getDoubleRounded(double number, short scale)
+double getDoubleRounded(double number, short scale, NSRoundingMode mode)
 {
 	NSNumber *n = [NSNumber numberWithDouble:number];
 	NSDecimalNumber *dn = [NSDecimalNumber decimalNumberWithDecimal:[n decimalValue]];
-	NSDecimalNumberHandler *handler = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown
+	NSDecimalNumberHandler *handler = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:mode
 																							 scale:scale
 																				  raiseOnExactness:NO
 																				   raiseOnOverflow:NO

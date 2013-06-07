@@ -25,9 +25,6 @@
 // TODO: FUTURE WORK: Interpolate to predict to movement
 // TODO: FUTURE WORK: What happens if we have moved more than one cell!!!!! Do not store the movement but update the position of the user??? (guess the movements) Iterate until we have all the movements done???
 
-// Grid
-using VectorGridCoordinates = std::vector<CLLocationCoordinate2D>;
-
 const unsigned int kMaxVectorGridCoordinates = 5;
 const unsigned int kMaxVectorGridMovements = 5;
 const int kMinLife = -5;
@@ -40,7 +37,7 @@ BOOL setPois = YES;
 const CGFloat minHorizontalAccuracy = 10.0f;
 
 const BOOL showFPS = YES;
-const BOOL showDistance = NO;
+const BOOL showLocation = YES;
 const BOOL showHeading = YES;
 
 const CGFloat toolbarHeight = 44.0f;
@@ -130,10 +127,11 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	VectorGridMovements _userVectorGridMovements;
 	GridMovementScores _userGridMovementsScores[static_cast<int>(GridMovements::TotalPositions)];
 	// Dictionary containing the image views of the signs loaded in the grid
-	NSMutableDictionary *signImageViews;
+	NSMutableDictionary *_signImageViews;
 	
 	// Minigame 1
 	BOOL _isMinigame1Running;
+	RoadSign *signToFind;
 }
 
 - (void)cleanUpTextures;
@@ -167,7 +165,6 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 @implementation ViewController
 
 @dynamic placesOfInterest;
-@synthesize managedObjectContext = _managedObjectContext;
 
 - (void)viewDidLoad
 {
@@ -176,7 +173,7 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	[_loadingView setHidden:NO];
 	[_loadingView startAnimating];
 	
-	[self showMinigame:NO];
+	[self showMinigame1:NO];
 	
 	//lengths.push_back(10);
     lengths.push_back(13);
@@ -188,10 +185,10 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 		self.fpsLabel.hidden = NO;
 		self.fpsLabel2.hidden = NO;
 	}
-	if (showDistance)
+	if (showLocation)
 	{
-		self.distanceLabel.hidden = NO;
-		self.distanceLabel2.hidden = NO;
+		self.locationLabel.hidden = NO;
+		self.locationLabel2.hidden = NO;
 	}
 	if (showHeading)
 	{
@@ -374,7 +371,7 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 }
 
 #pragma mark - OpenCV
-- (void) processImage:(cv::Mat&) image
+- (BOOL) processImage:(cv::Mat&) image
 {
 //	// Do some OpenCV stuff with the image
 //	cv::Mat image_copy;
@@ -397,6 +394,8 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 
 //    cvtColor(image, image, CV_RGBA2BGR);
 //    drawShapes(c_shapes, image);
+	
+	return NO;
 }
 
 #pragma mark - OpenGL ES
@@ -535,14 +534,19 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 			if (v[2] < 0.0f)
 			{
 				CGRect bounds = self.view.bounds;
-				[poi setViewsCenter:CGPointMake(x*bounds.size.width, bounds.size.height-y*bounds.size.height)];
+				
+				if (!std::isnan(x) && !std::isnan(y)) // If we are in the same location as the sign x and y are nan
+					[poi setViewsCenter:CGPointMake(x*bounds.size.width, bounds.size.height-y*bounds.size.height)];
+				else
+					[poi setViewsCenter:CGPointMake(bounds.size.width * 0.5f, bounds.size.height - bounds.size.height*0.5f)];
+				
 				//			poi.view.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.5f];
 				float scale = 1.0f - ([poi distance] - kMinDistnace) / (kMaxDistnace - kMinDistnace);
 				CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
 				[poi transformViews:CGAffineTransformRotate(transform, _deviceYrotation)];
 				
 				[poi setViewsHidden:NO];
-				[self checkPoiIntersection:poi];
+//				[self checkPoiIntersection:poi];
 				//			if (/*[poi distance] < kMaxDistnace &&*/ [[poi views] count] == 2)
 				//			{
 				
@@ -550,8 +554,8 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 				//					poi.view.backgroundColor = [UIColor colorWithRed:0.0f green:1.0f blue:0.0f alpha:0.5f];
 				//				if (x < 0.0f || x > 1.0f)
 				//					poi.view.backgroundColor = [UIColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:0.5f];
-				//				if (y < 1.0f - screenWithToolBar || y > 1.0f)
-				//					poi.view.backgroundColor = [UIColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:0.5f];
+//				if (y > (1.0f - screenWithToolBar) && y < 1.0f && x > 0.0f && x < 1.0f)
+//					NSLog(@"%@", poi);
 				//			}
 				//			else
 				//				[poi setViewsHidden:YES];
@@ -563,9 +567,9 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 			++i;
 		}
 	}
-	//	// Distance to closest sign
-	//	if (!_distanceLabel.hidden)
-	//		_distanceLabel.text = [NSString stringWithFormat:@"%f", distance];
+	// Current User Location
+	if (!_locationLabel.hidden)
+		_locationLabel.text = [NSString stringWithFormat:@"%f,%f", _locationManager.bestLocation.coordinate.latitude, _locationManager.bestLocation.coordinate.longitude];
 }
 
 #pragma mark - Grid
@@ -575,9 +579,6 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	CLLocationCoordinate2D myLocation = _locationManager.bestLocation.coordinate;
 	//	NSLog(@"Latitude: %f\tLongitude: %f", myLocation.coordinate.latitude, myLocation.coordinate.longitude);
 	
-	///////////////////////////////////////////////////////
-	// Initialize the grid
-	///////////////////////////////////////////////////////
 	_grid = [Grid new];
 	[_grid setCellSize:kMinCellSize]; // Minimum cell size
 	double distance = [_grid cellSize];
@@ -621,23 +622,26 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 				
 				for (RoadSign *r in roadSigns)
 				{
-					if ([signImageViews objectForKey:r.name] == nil)
+					if ([_signImageViews objectForKey:r.name] == nil)
 					{
 						UIImage *image = [UIImage imageNamed:r.imageUrl];
-						[signImageViews setObject:image forKey:r.name];
+						[_signImageViews setObject:image forKey:r.name];
 					}
 				}
 			}
 		}
 		
 		NSString *key = [NSString stringWithFormat:@"%f,%f", newCellId.latitude, newCellId.longitude];
-		NSLog(@"%@", key);
+//		NSLog(@"%@", key);
 		[_grid setCell:cell forKey:key];
 		cell = nil;
 	}
-	///////////////////////////////////////////////////////
-	// End of grid initialization
-	///////////////////////////////////////////////////////
+
+	[_grid printGridWithUserPath:_userVectorGridCoordinates];
+	
+	// Initialize grid movements score
+	for (GridMovements i = GridMovements::InitialPosition; i < GridMovements::TotalPositions; ++i)
+		_userGridMovementsScores[static_cast<int>(i)].first = i;
 }
 
 - (void)tearDownGrid
@@ -678,16 +682,25 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 			for (Location *l in results)
 			{
 				// Get RoadSigns in this location
-				NSArray *roadSigns = [[l.roadsigns allObjects] valueForKey:@"name"];
-				CellElement *element = [[CellElement alloc] initWithSignId:roadSigns
+				NSArray *roadSigns = [l.roadsigns allObjects];
+				CellElement *element = [[CellElement alloc] initWithSignId:[roadSigns valueForKey:@"name"]
 															  withLatitude:[l.latitude doubleValue]
 															  andLongitude:[l.longitude doubleValue]
 															   andFacingTo:[l.face floatValue]];
 				[cell addElement:element];
+				
+				for (RoadSign *r in roadSigns)
+				{
+					if ([_signImageViews objectForKey:r.name] == nil)
+					{
+						UIImage *image = [UIImage imageNamed:r.imageUrl];
+						[_signImageViews setObject:image forKey:r.name];
+					}
+				}
 			}
 		}
 		
-		NSLog(@"%@", key);
+//		NSLog(@"%@", key);
 		[_grid setCell:cell forKey:key];
 		cell = nil;
 	}
@@ -723,21 +736,32 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 			for (Location *l in results)
 			{
 				// Get RoadSigns in this location
-				NSArray *roadSigns = [[l.roadsigns allObjects] valueForKey:@"name"];
-				CellElement *element = [[CellElement alloc] initWithSignId:roadSigns
+				NSArray *roadSigns = [l.roadsigns allObjects];
+				CellElement *element = [[CellElement alloc] initWithSignId:[roadSigns valueForKey:@"name"]
 															  withLatitude:[l.latitude doubleValue]
 															  andLongitude:[l.longitude doubleValue]
 															   andFacingTo:[l.face floatValue]];
 				[cell addElement:element];
+				
+				for (RoadSign *r in roadSigns)
+				{
+					if ([_signImageViews objectForKey:r.name] == nil)
+					{
+						UIImage *image = [UIImage imageNamed:r.imageUrl];
+						[_signImageViews setObject:image forKey:r.name];
+					}
+				}
 			}
 		}
 		
-		NSLog(@"%@", key);
+//		NSLog(@"%@", key);
 		[_grid setCell:cell forKey:key];
 		cell = nil;
 	}
 	
 	[self removeOldCells];
+	
+	[_grid printGridWithUserPath:_userVectorGridCoordinates];
 }
 
 
@@ -747,7 +771,7 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 //	NSArray *adjacents;
 	
 	// Decrease life of every cell with the exception of the user cell and the adjacent cells
-	for (Cell *c in _grid.grid)
+	for (Cell *c in [_grid.grid allValues])
 	{
 		if ([userCells containsObject:c])
 		{
@@ -784,12 +808,12 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 		[sortedArray removeObjectsInArray:adjacentCells];
 		
 		// Delete cells with less life
-		while ((condition) && ([sortedArray count] > 0))
+		while ([sortedArray count] > [_grid maxCellsInMemory])
 		{
 			// Check that the cells we are going to delete are not adjacent to the user cell
-			CLLocationCoordinate2D cellId = ((Cell*)[sortedArray objectAtIndex:0]).cellId;
+			CLLocationCoordinate2D cellId = ((Cell*)[sortedArray lastObject]).cellId;
 			[_grid.grid removeObjectForKey:[NSString stringWithFormat:@"%f,%f", cellId.latitude, cellId.longitude]];
-			[sortedArray removeObjectAtIndex:0];
+			[sortedArray removeLastObject];
 		}
 	}
 }
@@ -857,8 +881,11 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 {
 	std::vector<GridMovementScores> sortedMovementScores(_userGridMovementsScores, _userGridMovementsScores + static_cast<int>(GridMovements::TotalPositions));
 	
-	std::sort(sortedMovementScores.begin(), sortedMovementScores.end(),
-			  [](const GridMovementScores &s1, const GridMovementScores &s2) -> bool { return s1.second > s2.second; });
+	std::sort(
+			  sortedMovementScores.begin(),
+			  sortedMovementScores.end(),
+			  [](const GridMovementScores &s1, const GridMovementScores &s2) -> bool { return s1.second > s2.second; }
+			  );
 	
 	VectorGridMovements favoriteMovements;
 	favoriteMovements.reserve(5);
@@ -880,13 +907,13 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	NSArray *cells = [_grid getCenterCellAndCellsAroundFromCellId:userCoords];
 	
 	// 2) Add the locations to the pois array
-	NSMutableArray *placesOfInterest = [NSMutableArray arrayWithCapacity:[cells count]];
+	NSMutableArray *placesOfInterest = [NSMutableArray new];// arrayWithCapacity:[cells count]];
 	int i = 0;
 	for (Cell *c in cells)
 	{
 		NSArray *cellElements = [c cellElements];
 				
-		for (CellElement *e in [cellElements reverseObjectEnumerator])
+		for (CellElement *e in cellElements)
 		{
 //			NSArray *roadSigns = [e signIds];
 //			UILabel *label = [UILabel new];
@@ -899,7 +926,7 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 //			label.text = [roadSigns componentsJoinedByString:@"/"];
 //			CGSize size = [label.text sizeWithFont:label.font];
 //			label.bounds = CGRectMake(0.0f, 0.0f, size.width, size.height);
-			PlaceOfInterest *poi = [PlaceOfInterest placeOfInterestWithViews:[signImageViews objectsForKeys:[e signIds] notFoundMarker:[NSNull null]]
+			PlaceOfInterest *poi = [PlaceOfInterest placeOfInterestWithViews:[_signImageViews objectsForKeys:[e signIds] notFoundMarker:[NSNull null]]
 																		 at:[[CLLocation alloc] initWithLatitude:[e latitude]
 																									   longitude:[e longitude]]
 																   facingAt:[e facing]];
@@ -1086,7 +1113,7 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 		if (_locationManager.bestLocation.horizontalAccuracy <= minHorizontalAccuracy)
 		{
 			setPois = NO;
-			signImageViews = [NSMutableDictionary new];
+			_signImageViews = [NSMutableDictionary new];
 			[self setupGrid];
 			[self setupPois];
 			[_warningLabel setHidden:YES];
@@ -1127,7 +1154,36 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 {
 	// Save sensor data
 	CLLocation *stillImageLocation = _locationManager.bestLocation; // bestLocation contains the best last location.
+	// Save the data from the picture taken frame
+	if (_placesOfInterestCoordinates == nil)
+		return;
+		
+	int i = 0;
+//	[self resetPoiIntersection];
+	NSMutableArray *poisInPicture = [NSMutableArray new];
 	
+	mat4f_t projectionCameraTransform;
+	multiplyMatrixAndMatrix(projectionCameraTransform, _projectionTransform, _cameraTransform);
+	
+	for (PlaceOfInterest *poi in _placesOfInterest)
+	{
+		vec4f_t v;
+		multiplyMatrixAndVector(v, projectionCameraTransform, _placesOfInterestCoordinates[i]);
+		
+		float x = (v[0] / v[3] + 1.0f) * 0.5f;
+		float y = (v[1] / v[3] + 1.0f) * 0.5f;
+
+		if (v[2] < 0.0f) // These signs are in the picture taken
+		{
+//				if (_locationManager.currentHeading.trueHeading < (poi.face - 90.0) && _locationManager.currentHeading.trueHeading > (poi.face + 90.0))
+//					poi.view.backgroundColor = [UIColor colorWithRed:0.0f green:1.0f blue:0.0f alpha:0.5f];
+			if (y > (1.0f - screenWithToolBar) && y < 1.0f && x > 0.0f && x < 1.0f)
+				[poisInPicture addObject:poi];
+		}
+
+		++i;
+	}
+
 	// Find out the current orientation and tell the still image output.
 	AVCaptureStillImageOutput *stillImageOutput = _camera.stillImageOutput;
 	AVCaptureConnection *stillImageConnection = [stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
@@ -1197,11 +1253,10 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 			 });
 */			 
 			 cv::Mat image(height, width, CV_8UC1, bufferAddress, bytesPerRow);
-			 [self processImage:image];
-			 CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
 			 
-			 // If processImage fails we should relay on sensor data
-			 // TODO: implement sensor data "recognition" !!!!!!!
+			 [self detectSignMinigame1FromPicure:image orFromSensorData:stillImageLocation andVisiblePois:poisInPicture];
+			 
+			 CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
 		 }
 	 }
 	 ];
@@ -1223,18 +1278,20 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 
 
 #pragma mark - Minigame 1
-- (void)setupMinigame:(NSString*) sign
+- (void)setupMinigame1:(NSString*)sign
 {
 	NSArray *result = FetchResultsFromEntitywithPredicate(_managedObjectContext, @"RoadSign", [NSPredicate predicateWithFormat:@"name == %@", sign], nil);
 	if ([result count] > 0)
 	{
-		RoadSign *r = [result objectAtIndex:0];
-		NSLog(@"RoadSign: %@", r.name);
+		signToFind = [result objectAtIndex:0];
+		NSLog(@"RoadSign: %@", signToFind.name);
 		_minigameLabel.text = @"Probando...";//r.desc;
 	}
+	else
+		_minigameLabel.text = @"Error: Sign name not found.";
 }
 
-- (void)showMinigame:(BOOL)show
+- (void)showMinigame1:(BOOL)show
 {
 	_isMinigame1Running = show;
 	
@@ -1245,7 +1302,7 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 		_toolbar.hidden = NO;
 		_minigameLabel.hidden = NO;
 		_pictureButton.enabled = YES;
-		[self setupMinigame:@"Give way"];
+		[self setupMinigame1:@"Give way"];
 	}
 	else
 	{
@@ -1257,11 +1314,50 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	}
 }
 
+- (void)detectSignMinigame1FromPicure:(cv::Mat&)image orFromSensorData:(CLLocation*)pictureLocation andVisiblePois:(NSArray*)pois
+{
+	if ([self processImage:image])
+	{
+		
+	}
+	else // Sign not detected
+	{
+		for (PlaceOfInterest *poi in pois)
+		{
+			// Fetch locations of the visible poi
+			NSArray *result = FetchResultsFromEntitywithPredicate(_managedObjectContext,
+																  @"Location",
+																  [NSPredicate predicateWithFormat:@"(latitude == %@) AND (longitude == %@)",
+																   [NSNumber numberWithDouble:poi.location.coordinate.latitude],
+																   [NSNumber numberWithDouble:poi.location.coordinate.longitude]],
+																  nil);
+			if ([result count] > 0)
+			{
+				// TODO: Check distance????
+				for (Location *l in result)
+				{
+					NSArray * roadsigns = [l.roadsigns allObjects];
+					// Fetch roadsign of the location
+					NSArray *resultRoadSigns = FetchResultsFromEntitywithPredicate(_managedObjectContext,
+																				   @"RoadSign",
+																				   [NSPredicate predicateWithFormat:@"self IN %@", roadsigns],
+																				   nil);
+					if ([resultRoadSigns containsObject:signToFind])
+					{
+						_minigameLabel.text = @"Good work!!!! You find it!!!!";
+					}
+
+				}
+			}
+		}
+	}
+}
+
 #if defined(DEBUG)
 - (IBAction)minigamePressButton:(UIButton *)sender
 {
 	_isMinigame1Running = !_isMinigame1Running;
-	[self showMinigame:_isMinigame1Running];
+	[self showMinigame1:_isMinigame1Running];
 }
 #endif
 

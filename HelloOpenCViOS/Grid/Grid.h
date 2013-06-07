@@ -7,6 +7,8 @@
 //
 #import "Utilities.h"
 
+using VectorGridCoordinates = std::vector<CLLocationCoordinate2D>;
+
 const double kMinCellSize = 0.001;
 
 @class Cell;
@@ -45,4 +47,6 @@ VectorGridMovements getAdjacentMovementsFromMovement(GridMovements const &moveme
 - (CLLocationCoordinate2D)getNewCellIdsFromMovement:(GridMovements const &)movement andCellId:(CLLocationCoordinate2D)cellId;
 - (GridMovements)getMovementFromPreviousCellId:(CLLocationCoordinate2D)previousCellId toNewCellId:(CLLocationCoordinate2D)newCellId;
 - (NSArray*)getAdjacentCellsFromMovement:(GridMovements)aMovement andCellId:(CLLocationCoordinate2D)cellId;
+
+- (void)printGridWithUserPath:(VectorGridCoordinates)userPath;
 @end
