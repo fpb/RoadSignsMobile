@@ -86,3 +86,24 @@ inline bool Equals(float const &f1, float const &f2, float const& absTol = FLT_E
 	
 	return false;
 }
+
+inline bool Equals(double const &f1, double const &f2, double const& absTol = FLT_EPSILON, double const& relTol = FLT_EPSILON)
+{
+	if(std::fabs(f1 - f2) <= std::max<double>(absTol, relTol * std::max<double>(std::fabs(f1), std::fabs(f2))))
+		return true;
+	
+	return false;
+}
+
+inline double RealSize2Pixels(double const &objectRealSize, double const &distance)
+{
+	// Convert object real size to equivalent pixels
+	static const double kFocalDistance = 3.85; //mm
+	static const double kSensorHeight = 2.0 * kFocalDistance * tan(60.8 * DEGREES_TO_RADIANS * 0.5);
+	static const double kScreenHeight = 480.0;
+	
+	double y = objectRealSize * kFocalDistance / distance;
+	
+	return (y / kSensorHeight * kScreenHeight);
+	
+}

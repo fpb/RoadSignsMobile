@@ -132,6 +132,7 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	// Minigame 1
 	BOOL _isMinigame1Running;
 	RoadSign *signToFind;
+	Location *locationToFind;
 }
 
 - (void)cleanUpTextures;
@@ -541,12 +542,13 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 					[poi setViewsCenter:CGPointMake(bounds.size.width * 0.5f, bounds.size.height - bounds.size.height*0.5f)];
 				
 				//			poi.view.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.5f];
-				float scale = 1.0f - ([poi distance] - kMinDistnace) / (kMaxDistnace - kMinDistnace);
-				CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
-				[poi transformViews:CGAffineTransformRotate(transform, _deviceYrotation)];
+				[poi transformViews:CGAffineTransformMakeRotation(_deviceYrotation)];
+				
+				double size = RealSize2Pixels(700, poi.distance * 1000.0);
+				[poi setViewsSize:CGSizeMake(size, size)];
 				
 				[poi setViewsHidden:NO];
-//				[self checkPoiIntersection:poi];
+				[self checkPoiIntersection:poi];
 				//			if (/*[poi distance] < kMaxDistnace &&*/ [[poi views] count] == 2)
 				//			{
 				
@@ -595,8 +597,9 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 		CLLocationCoordinate2D newCellId = [_grid getNewCellIdsFromMovement:i andCellId:center];
 				
 		// Fetch sign inside the cell
-		NSPredicate *fetchPredicate = [NSPredicate predicateWithFormat:@"(latitude => %f) AND (latitude < %f) AND (longitude => %f) AND (longitude < %f)",
-									   newCellId.latitude, newCellId.latitude + distance, newCellId.longitude, newCellId.longitude + distance];
+		NSPredicate *fetchPredicate = [NSPredicate predicateWithFormat:@"(latitude => %@) AND (latitude < %@) AND (longitude => %@) AND (longitude < %@)",
+									   [NSNumber numberWithDouble:newCellId.latitude], [NSNumber numberWithDouble:newCellId.latitude + distance],
+									   [NSNumber numberWithDouble:newCellId.longitude], [ NSNumber numberWithDouble:newCellId.longitude + distance]];
 		NSArray *results = FetchResultsFromEntitywithPredicate(self.managedObjectContext, @"Location", fetchPredicate, nil);
 		
 		Cell* cell = [[Cell alloc] initWithCellId:newCellId];
@@ -672,8 +675,9 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 		Cell* cell = [[Cell alloc] initWithCellId:newCellId];
 		
 		
-		NSPredicate *fetchPredicate = [NSPredicate predicateWithFormat:@"(latitude => %f) AND (latitude < %f) AND (longitude => %f) AND (longitude < %f)",
-									   newCellId.latitude, newCellId.latitude + distance, newCellId.longitude, newCellId.longitude + distance];
+		NSPredicate *fetchPredicate = [NSPredicate predicateWithFormat:@"(latitude => %@) AND (latitude < %@) AND (longitude => %@) AND (longitude < %@)",
+									   [NSNumber numberWithDouble:newCellId.latitude], [NSNumber numberWithDouble:newCellId.latitude + distance],
+									   [NSNumber numberWithDouble:newCellId.longitude], [NSNumber numberWithDouble:newCellId.longitude + distance]];
 		NSArray *results = FetchResultsFromEntitywithPredicate(self.managedObjectContext, @"Location", fetchPredicate, nil);
 		
 		if ([results count] > 0)
@@ -726,8 +730,9 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 		Cell* cell = [[Cell alloc] initWithCellId:newCellId];
 		
 		
-		NSPredicate *fetchPredicate = [NSPredicate predicateWithFormat:@"(latitude => %f) AND (latitude < %f) AND (longitude => %f) AND (longitude < %f)",
-									   newCellId.latitude, newCellId.latitude + distance, newCellId.longitude, newCellId.longitude + distance];
+		NSPredicate *fetchPredicate = [NSPredicate predicateWithFormat:@"(latitude => %@) AND (latitude < %@) AND (longitude => %@) AND (longitude < %@)",
+									   [NSNumber numberWithDouble:newCellId.latitude], [NSNumber numberWithDouble:newCellId.latitude + distance],
+									   [NSNumber numberWithDouble:newCellId.longitude], [NSNumber numberWithDouble:newCellId.longitude + distance]];
 		NSArray *results = FetchResultsFromEntitywithPredicate(self.managedObjectContext, @"Location", fetchPredicate, nil);
 		
 		if ([results count] > 0)
@@ -1278,17 +1283,25 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 
 
 #pragma mark - Minigame 1
-- (void)setupMinigame1:(NSString*)sign
+- (void)setupMinigame1WithSign:(NSString*)sign andLocation:(CLLocationCoordinate2D)coordinate
 {
+	NSArray *resultLocation = FetchResultsFromEntitywithPredicate(_managedObjectContext,
+																  @"Location",
+																  [NSPredicate predicateWithFormat:@"latitude == %@ AND longitude == %@",
+																   [NSNumber numberWithDouble:coordinate.latitude],
+																   [NSNumber numberWithDouble:coordinate.longitude]],
+																  nil);
+	
 	NSArray *result = FetchResultsFromEntitywithPredicate(_managedObjectContext, @"RoadSign", [NSPredicate predicateWithFormat:@"name == %@", sign], nil);
-	if ([result count] > 0)
+	if ([result count] > 0 && [resultLocation count] > 0)
 	{
+		locationToFind = [resultLocation objectAtIndex:0];
 		signToFind = [result objectAtIndex:0];
-		NSLog(@"RoadSign: %@", signToFind.name);
-		_minigameLabel.text = @"Probando...";//r.desc;
+
+		_minigameLabel.text = @"Sign desciption...";//r.desc;
 	}
 	else
-		_minigameLabel.text = @"Error: Sign name not found.";
+		_minigameLabel.text = @"Error: Sign name or location not found.";
 }
 
 - (void)showMinigame1:(BOOL)show
@@ -1302,7 +1315,18 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 		_toolbar.hidden = NO;
 		_minigameLabel.hidden = NO;
 		_pictureButton.enabled = YES;
-		[self setupMinigame1:@"Give way"];
+
+		//----------------------------------------------------------------------------------------------------------------------------------------
+		//----------------------------------------------------------------------------------------------------------------------------------------
+		//----------------------------------------------------------------------------------------------------------------------------------------
+		Cell *c = [_grid getCellFromKey:[NSString stringWithFormat:@"%f,%f",
+										 _userVectorGridCoordinates.back().latitude, _userVectorGridCoordinates.back().longitude]];
+		CellElement *e = [c.cellElements objectAtIndex:0];
+		CLLocationCoordinate2D l = {e.latitude, e.longitude};
+		[self setupMinigame1WithSign:@"Give way" andLocation:l];
+		//----------------------------------------------------------------------------------------------------------------------------------------
+		//----------------------------------------------------------------------------------------------------------------------------------------
+		//----------------------------------------------------------------------------------------------------------------------------------------
 	}
 	else
 	{
@@ -1336,17 +1360,22 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 				// TODO: Check distance????
 				for (Location *l in result)
 				{
-					NSArray * roadsigns = [l.roadsigns allObjects];
-					// Fetch roadsign of the location
-					NSArray *resultRoadSigns = FetchResultsFromEntitywithPredicate(_managedObjectContext,
-																				   @"RoadSign",
-																				   [NSPredicate predicateWithFormat:@"self IN %@", roadsigns],
-																				   nil);
-					if ([resultRoadSigns containsObject:signToFind])
+					if ([l.latitude compare:locationToFind.latitude] == NSOrderedSame &&
+						[l.longitude compare:locationToFind.longitude] == NSOrderedSame)
 					{
-						_minigameLabel.text = @"Good work!!!! You find it!!!!";
+						NSArray * roadsigns = [l.roadsigns allObjects];
+						// Fetch roadsign of the location
+						NSArray *resultRoadSigns = FetchResultsFromEntitywithPredicate(_managedObjectContext,
+																					   @"RoadSign",
+																					   [NSPredicate predicateWithFormat:@"self IN %@", roadsigns],
+																					   nil);
+						if ([resultRoadSigns containsObject:signToFind])
+						{
+							_minigameLabel.text = @"Good work!!!! You find it!!!!";
+							// TODO: Return to the main game ???
+							
+						}
 					}
-
 				}
 			}
 		}

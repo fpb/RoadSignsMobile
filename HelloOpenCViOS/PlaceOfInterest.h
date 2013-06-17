@@ -64,6 +64,7 @@
 - (CLLocationDistance) distance;
 - (void)setViewsHidden:(BOOL)hidden;
 - (void)setViewsCenter:(CGPoint)center;
+- (void)setViewsSize:(CGSize)size;
 - (void)removeFromSuperview;
 - (void)transformViews:(CGAffineTransform)transform;
 

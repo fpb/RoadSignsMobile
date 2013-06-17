@@ -142,6 +142,14 @@
 
 }
 
+- (void)setViewsSize:(CGSize)size
+{
+	for (UIView *view in _views)
+	{
+		view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, size.width, size.height);
+	}
+}
+
 - (void)removeFromSuperview
 {
 	for (UIView *view in _views)
