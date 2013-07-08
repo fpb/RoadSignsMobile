@@ -18,6 +18,13 @@
 	if (self)
 	{
 		_motionManager = [CMMotionManager new];
+		if (![_motionManager isDeviceMotionAvailable])
+		{
+			UIAlertView *servicesDisabledAlert = [[UIAlertView alloc] initWithTitle:@"Device motion not available" message:@"Your device does not provide the device motion services." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[servicesDisabledAlert show];
+			
+			return nil;
+		}
 		// Tell CoreMotion to show the compass calibration HUD when required to provide true north-referenced attitude
 		_motionManager.showsDeviceMovementDisplay = YES;
 		_motionManager.deviceMotionUpdateInterval = 1.0 / 60.0;

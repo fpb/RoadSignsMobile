@@ -98,7 +98,7 @@ inline bool Equals(double const &f1, double const &f2, double const& absTol = FL
 inline double RealSize2Pixels(double const &objectRealSize, double const &distance)
 {
 	// Convert object real size to equivalent pixels
-	static const double kFocalDistance = 3.85; //mm
+	static const double kFocalDistance = 3.85 * 0.001; //meters
 	static const double kSensorHeight = 2.0 * kFocalDistance * tan(60.8 * DEGREES_TO_RADIANS * 0.5);
 	static const double kScreenHeight = 480.0;
 	

@@ -1,4 +1,4 @@
-//
+ //
 //  FPS.mm
 //  HelloOpenCViOS
 //
@@ -11,35 +11,36 @@
 
 const double kUSecond = 0.000001;
 
-void FramesPerSecond::initFPS(void)
-{
-	timeval interval;
-	gettimeofday(&interval, NULL);
-	currentTime = interval.tv_sec + interval.tv_usec * kUSecond;
-}
-
 float FramesPerSecond::CalculateFPS(void)
 {
     timeval interval;
 	
 	++frames;
 	
+	if (!currentTime)
+	{
+		gettimeofday(&interval, NULL);
+		currentTime = interval.tv_sec + interval.tv_usec * kUSecond;
+	}
+
 	lastTime = currentTime;
 	
 	gettimeofday(&interval, NULL);
 	currentTime = interval.tv_sec + interval.tv_usec * kUSecond;
 	
-	double elaspedTime = currentTime - lastTime;
-    
-	timeInterval += elaspedTime;
-	if (timeInterval >= 1.0)
-	{
-		fps = frames / timeInterval;
-		frames = 0.0;
-		
-		while(timeInterval >= 1.0)
-			timeInterval -= 1.0;
-	}
+	double elapsedTime = currentTime - lastTime;
+
+	return 1.0 / elapsedTime;
 	
-	return fps;
+//	timeInterval += elapsedTime;
+//	if (timeInterval >= 1.0)
+//	{
+//		fps = frames / timeInterval;
+//		frames = 0.0;
+//		
+//		while(timeInterval >= 1.0)
+//			timeInterval -= 1.0;
+//	}
+//	
+//	return fps;
 }

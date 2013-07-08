@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		011D9BC6175DFE8400CFD21F /* Shaders.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 011D9BC4175DFE8400CFD21F /* Shaders.cpp */; };
+		011DC58E1770B949000318BE /* MainScreenViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 011DC58D1770B949000318BE /* MainScreenViewController.mm */; };
 		012E6ED717426BA60098F2FF /* CoreDataModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6ECB17426BA60098F2FF /* CoreDataModule.mm */; };
 		012E6ED817426BA60098F2FF /* CoreLocationModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6ECE17426BA60098F2FF /* CoreLocationModule.mm */; };
 		012E6ED917426BA60098F2FF /* CoreMotionModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 012E6ED117426BA60098F2FF /* CoreMotionModule.mm */; };
@@ -67,6 +68,8 @@
 		010EBBDB17427A3100F8BE97 /* Readme.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Readme.rtf; sourceTree = "<group>"; };
 		011D9BC4175DFE8400CFD21F /* Shaders.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shaders.cpp; sourceTree = "<group>"; };
 		011D9BC5175DFE8400CFD21F /* Shaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shaders.h; sourceTree = "<group>"; };
+		011DC58C1770B949000318BE /* MainScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenViewController.h; sourceTree = "<group>"; };
+		011DC58D1770B949000318BE /* MainScreenViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MainScreenViewController.mm; sourceTree = "<group>"; };
 		012E6ECA17426BA60098F2FF /* CoreDataModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataModule.h; sourceTree = "<group>"; };
 		012E6ECB17426BA60098F2FF /* CoreDataModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CoreDataModule.mm; sourceTree = "<group>"; };
 		012E6ECD17426BA60098F2FF /* CoreLocationModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreLocationModule.h; sourceTree = "<group>"; };
@@ -358,6 +361,8 @@
 				E014526A171DB5E300B94A9A /* ViewController.h */,
 				E014526B171DB5E300B94A9A /* ViewController.mm */,
 				E0145253171DB5E300B94A9A /* Supporting Files */,
+				011DC58C1770B949000318BE /* MainScreenViewController.h */,
+				011DC58D1770B949000318BE /* MainScreenViewController.mm */,
 			);
 			path = HelloOpenCViOS;
 			sourceTree = "<group>";
@@ -474,6 +479,7 @@
 				015BBE36174BDB76007D9F33 /* Grid.mm in Sources */,
 				016FC99C1758BD31000508AB /* RoadSignsCD.xcdatamodeld in Sources */,
 				011D9BC6175DFE8400CFD21F /* Shaders.cpp in Sources */,
+				011DC58E1770B949000318BE /* MainScreenViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

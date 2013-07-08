@@ -19,6 +19,19 @@
 	self = [super init];
 	if (self)
 	{
+		if ([CLLocationManager locationServicesEnabled] == NO)
+		{
+			UIAlertView *servicesDisabledAlert = [[UIAlertView alloc] initWithTitle:@"Location Services Disabled" message:@"You currently have all location services for this device disabled. If you proceed, you will be asked to confirm whether location services should be reenabled." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[servicesDisabledAlert show];
+		}
+		
+		if (![CLLocationManager headingAvailable])
+		{
+			UIAlertView *servicesDisabledAlert = [[UIAlertView alloc] initWithTitle:@"Heading not available" message:@"Your device does not have the capabilities for generating heading-related events." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[servicesDisabledAlert show];
+			return nil;
+		}
+
 		_locationManager = [CLLocationManager new];
 		_locationManager.distanceFilter = kCLDistanceFilterNone; //100.0;
 		_locationManager.desiredAccuracy = kCLLocationAccuracyBest; // kCLLocationAccuracyNearestTenMeters ???

@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 
+#import "AppDelegate.h"
+#import "CoreDataModule.h"
 #include "ShapeFinder.h"
 #import "PlaceOfInterest.h"
 #import "FetchResults.h"
@@ -31,24 +33,20 @@ const int kMinLife = -5;
 const int kLifeDecrease = -1;
 const int kLifeUser = 2;
 const int kLifeAdjacents = 1;
-//////////////////////////////////////////////////////////////////
+
 
 BOOL setPois = YES;
-const CGFloat minHorizontalAccuracy = 10.0f;
+const CGFloat minHorizontalAccuracy = 15.0f;
 
-const BOOL showFPS = YES;
+const BOOL showFPS = NO;
 const BOOL showLocation = YES;
 const BOOL showHeading = YES;
 
-const CGFloat toolbarHeight = 44.0f;
-const CGFloat screenHeight = 480.0f;
-const CGFloat screenWithToolBar = (screenHeight - toolbarHeight) / screenHeight;
+//const float kMinDistnace = 10.0f;
+//const float kMaxDistnace = 500.0f;
 
-
-const float kMinDistnace = 10.0f;
-const float kMaxDistnace = 500.0f;
-
-const GLfloat texCoords[] =
+// OPENGLES
+static const GLfloat texCoords[] =
 {
 	0,0,
 	1,0,
@@ -56,17 +54,16 @@ const GLfloat texCoords[] =
 	1,1
 };
 
-const GLfloat screenVerticesWithToolbar[] =
+static GLfloat screenVerticesWithToolbar[] =
 {
-	// Full screen with toolbar. ToolbarHeight is double because of retina screen
 	 1, 1,
-	 1,-(screenHeight - toolbarHeight * 2) / screenHeight,
+	 1,-1,
 	-1, 1,
-	-1,-(screenHeight - toolbarHeight * 2) / screenHeight
+	-1,-1
 	
 };
 
-const GLfloat screenVertices[] =
+static const GLfloat screenVertices[] =
 {
 // Full screen
 	 1, 1,
@@ -75,7 +72,7 @@ const GLfloat screenVertices[] =
 	-1,-1
 };
 
-const GLushort indices[]  = {0, 1, 2, 3};
+static const GLushort indices[]  = {0, 1, 2, 3};
 
 #define GRAD_THRESHOLD  150
 
@@ -130,7 +127,6 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	NSMutableDictionary *_signImageViews;
 	
 	// Minigame 1
-	BOOL _isMinigame1Running;
 	RoadSign *signToFind;
 	Location *locationToFind;
 }
@@ -171,10 +167,12 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 {
     [super viewDidLoad];
     
+	self.delegate = self;
+	
 	[_loadingView setHidden:NO];
 	[_loadingView startAnimating];
 	
-	[self showMinigame1:NO];
+	self.managedObjectContext = [[(AppDelegate*)[[UIApplication sharedApplication] delegate] cdm] managedObjectContext];
 	
 	//lengths.push_back(10);
     lengths.push_back(13);
@@ -183,26 +181,27 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 
 	if (showFPS)
 	{
-		self.fpsLabel.hidden = NO;
-		self.fpsLabel2.hidden = NO;
+		_fpsLabel.hidden = NO;
+		_fpsLabel2.hidden = NO;
 	}
 	if (showLocation)
 	{
-		self.locationLabel.hidden = NO;
-		self.locationLabel2.hidden = NO;
+		_locationLabel.hidden = NO;
+		_locationLabel2.hidden = NO;
 	}
 	if (showHeading)
 	{
-		self.headingLabel.hidden = NO;
-		self.headingLabel2.hidden = NO;
+		_headingLabel.hidden = NO;
+		_headingLabel2.hidden = NO;
 	}
 	
     [self setupGL];
     [self setupAVCapture];
 	
 	// Initialize projection matrix
-	CGRect frame = CGRectMake(0, 0, 320, 480 - toolbarHeight); // Substract toolbar height
-	createProjectionMatrix(_projectionTransform, 60.8f * DEGREES_TO_RADIANS, frame.size.width * 1.0f / frame.size.height, 0.25f, 1000.0f);
+	CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
+//	CGRect frame = CGRectMake(0, 0, appFrame.size.width, appFrame.size.height - _toolbar.frame.size.height); // Substract toolbar height
+	createProjectionMatrix(_projectionTransform, 60.8f * DEGREES_TO_RADIANS, appFrame.size.width * 1.0f / appFrame.size.height, 0.25f, 1000.0f);
 	
 	[self setupLocationManager];
 	[self setupMotionManager];
@@ -230,7 +229,6 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
-	_fps.initFPS();
 	
 	[_locationManager startLocation];
 	[_motionManager startDeviceMotion];
@@ -246,8 +244,12 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	//	[self.button setHidden:YES];
 	[super viewDidDisappear:animated];
 	
-	[_locationManager stopLocation];
-	[_motionManager stopDeviceMotion];
+	[self tearDownGrid];
+	[self tearDownPois];
+	[self tearDownMotionManager];
+	[self tearDownLocationManager];
+    [self tearDownAVCapture];
+    [self tearDownGL];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -450,10 +452,13 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
         NSLog(@"Failed to create ES context");
     }
 	GLKView *glkView = (GLKView*)self.view;
+	
+	// Supporting the retina screen
+	[glkView setContentScaleFactor:[UIScreen mainScreen].scale];
+	[(CAEAGLLayer*)[glkView layer] setContentsScale:[UIScreen mainScreen].scale];
+	
     glkView.context = _context;
-    self.preferredFramesPerSecond = 60;
-    
-	glkView.contentScaleFactor = [UIScreen mainScreen].scale;
+    self.preferredFramesPerSecond = 30;
 	
     [EAGLContext setCurrentContext:_context];
     
@@ -478,8 +483,8 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
         [EAGLContext setCurrentContext:nil];
 }
 
-#pragma mark - CLKViewController delegate
-- (void) update
+#pragma mark - GLKViewController delegate
+- (void) glkViewControllerUpdate:(GLKViewController *)controller
 {
 	CMDeviceMotion *d = _motionManager.motionManager.deviceMotion;
 	if (d != nil)
@@ -488,33 +493,36 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 		transformFromCMRotationMatrix(_cameraTransform, &r);
 		_deviceYrotation = atan2f(d.gravity.x, d.gravity.y) + M_PI;
 	}
-	
+
+
 	if (!_fpsLabel.hidden)
-		_fpsLabel.text = [NSString stringWithFormat:@"%.2f fps", _fps.CalculateFPS()];
+	{
+//		NSLog(@"FPS: %.2f", 1.0 / self.timeSinceLastUpdate);
+//		_fpsLabel.text = [NSString stringWithFormat:@"%f", 1.0 / self.timeSinceLastUpdate];
+		_fpsLabel.text = [NSString stringWithFormat:@"%f fps", _fps.CalculateFPS()];
+	}
 }
 
 #pragma mark - GLKView delegate
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
+	glClear(GL_COLOR_BUFFER_BIT);
+	
+	glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT, 0);
+	
 	if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationFaceUp)
 	{
 		//face up
-		glClear(GL_COLOR_BUFFER_BIT);
-		
-		glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT, 0);
-		
+		_mainMenuButton.hidden = NO;
 		[_camera stopRunning];
 	}
 	else
 	{
 		if (![_camera isRunning])
 		{
+			_mainMenuButton.hidden = YES;
 			[_camera startRunning];
 		}
-		
-		glClear(GL_COLOR_BUFFER_BIT);
-		
-		glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT, 0);
 		
 		if (_placesOfInterestCoordinates == nil)
 			return;
@@ -537,14 +545,14 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 				CGRect bounds = self.view.bounds;
 				
 				if (!std::isnan(x) && !std::isnan(y)) // If we are in the same location as the sign x and y are nan
-					[poi setViewsCenter:CGPointMake(x*bounds.size.width, bounds.size.height-y*bounds.size.height)];
+					[poi setViewsCenter:CGPointMake(x*bounds.size.width, bounds.size.height - y*bounds.size.height)];
 				else
 					[poi setViewsCenter:CGPointMake(bounds.size.width * 0.5f, bounds.size.height - bounds.size.height*0.5f)];
 				
 				//			poi.view.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.5f];
 				[poi transformViews:CGAffineTransformMakeRotation(_deviceYrotation)];
 				
-				double size = RealSize2Pixels(700, poi.distance * 1000.0);
+				double size = RealSize2Pixels(5, poi.distance);
 				[poi setViewsSize:CGSizeMake(size, size)];
 				
 				[poi setViewsHidden:NO];
@@ -571,7 +579,7 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	}
 	// Current User Location
 	if (!_locationLabel.hidden)
-		_locationLabel.text = [NSString stringWithFormat:@"%f,%f", _locationManager.bestLocation.coordinate.latitude, _locationManager.bestLocation.coordinate.longitude];
+		_locationLabel.text = [NSString stringWithFormat:@"%f,%f", _locationManager.bestLocation.coordinate.latitude, _locationManager.bestLocation.coordinate.longitude];	
 }
 
 #pragma mark - Grid
@@ -1122,6 +1130,20 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 			[self setupGrid];
 			[self setupPois];
 			[_warningLabel setHidden:YES];
+			
+			switch (_mode)
+			{
+				case GameModes::Learning:
+					[self startLearning];
+					break;
+					
+				case GameModes::FindTheSign:
+					[self startFindTheSign];
+					break;
+				default:
+					break;
+			}
+
 			[_loadingView stopAnimating];
 		}
 	}
@@ -1159,6 +1181,7 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 {
 	// Save sensor data
 	CLLocation *stillImageLocation = _locationManager.bestLocation; // bestLocation contains the best last location.
+
 	// Save the data from the picture taken frame
 	if (_placesOfInterestCoordinates == nil)
 		return;
@@ -1182,12 +1205,17 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 		{
 //				if (_locationManager.currentHeading.trueHeading < (poi.face - 90.0) && _locationManager.currentHeading.trueHeading > (poi.face + 90.0))
 //					poi.view.backgroundColor = [UIColor colorWithRed:0.0f green:1.0f blue:0.0f alpha:0.5f];
-			if (y > (1.0f - screenWithToolBar) && y < 1.0f && x > 0.0f && x < 1.0f)
+			const CGFloat toolbarHeight = _toolbar.frame.size.height;
+			const CGFloat screenHeight = [[UIScreen mainScreen] applicationFrame].size.height;
+
+			if (y > (1.0f - ((screenHeight - toolbarHeight) / screenHeight) ) && y < 1.0f &&
+				x > 0.0f && x < 1.0f)
 				[poisInPicture addObject:poi];
 		}
 
 		++i;
 	}
+	// TODO: Añadir variable completed
 
 	// Find out the current orientation and tell the still image output.
 	AVCaptureStillImageOutput *stillImageOutput = _camera.stillImageOutput;
@@ -1259,7 +1287,7 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 */			 
 			 cv::Mat image(height, width, CV_8UC1, bufferAddress, bytesPerRow);
 			 
-			 [self detectSignMinigame1FromPicure:image orFromSensorData:stillImageLocation andVisiblePois:poisInPicture];
+			 [self detectSignFromPicure:image orFromSensorData:stillImageLocation andVisiblePois:poisInPicture];
 			 
 			 CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
 		 }
@@ -1282,8 +1310,8 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 }
 
 
-#pragma mark - Minigame 1
-- (void)setupMinigame1WithSign:(NSString*)sign andLocation:(CLLocationCoordinate2D)coordinate
+#pragma mark - Find the Sign mode
+- (void)setupFindTheSign:(NSString*)sign andLocation:(CLLocationCoordinate2D)coordinate
 {
 	NSArray *resultLocation = FetchResultsFromEntitywithPredicate(_managedObjectContext,
 																  @"Location",
@@ -1298,47 +1326,43 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 		locationToFind = [resultLocation objectAtIndex:0];
 		signToFind = [result objectAtIndex:0];
 
-		_minigameLabel.text = @"Sign desciption...";//r.desc;
+		_findTheSignLabel.text = @"Sign desciption...";//r.desc;
 	}
 	else
-		_minigameLabel.text = @"Error: Sign name or location not found.";
+		_findTheSignLabel.text = @"Error: Sign name or location not found.";
 }
 
-- (void)showMinigame1:(BOOL)show
+- (void)startFindTheSign
 {
-	_isMinigame1Running = show;
+	const CGFloat toolbarHeight = _toolbar.frame.size.height;
+	const CGFloat screenHeight = [[UIScreen mainScreen] applicationFrame].size.height;
 	
-	if (_isMinigame1Running)
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, _positionVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) << 3, screenVerticesWithToolbar, GL_STATIC_DRAW);
-		_toolbar.hidden = NO;
-		_minigameLabel.hidden = NO;
-		_pictureButton.enabled = YES;
-
-		//----------------------------------------------------------------------------------------------------------------------------------------
-		//----------------------------------------------------------------------------------------------------------------------------------------
-		//----------------------------------------------------------------------------------------------------------------------------------------
-		Cell *c = [_grid getCellFromKey:[NSString stringWithFormat:@"%f,%f",
-										 _userVectorGridCoordinates.back().latitude, _userVectorGridCoordinates.back().longitude]];
-		CellElement *e = [c.cellElements objectAtIndex:0];
-		CLLocationCoordinate2D l = {e.latitude, e.longitude};
-		[self setupMinigame1WithSign:@"Give way" andLocation:l];
-		//----------------------------------------------------------------------------------------------------------------------------------------
-		//----------------------------------------------------------------------------------------------------------------------------------------
-		//----------------------------------------------------------------------------------------------------------------------------------------
-	}
-	else
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, _positionVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) << 3, screenVertices, GL_STATIC_DRAW);
-		_toolbar.hidden = YES;
-		_minigameLabel.hidden = YES;
-		_pictureButton.enabled = NO;
-	}
+	screenVerticesWithToolbar[3] = screenVerticesWithToolbar[7] = -(screenHeight - toolbarHeight * [UIScreen mainScreen].scale) / screenHeight;
+	
+	CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
+	CGRect frame = CGRectMake(0, 0, appFrame.size.width, appFrame.size.height - _toolbar.frame.size.height); // Substract toolbar height
+	createProjectionMatrix(_projectionTransform, 60.8f * DEGREES_TO_RADIANS, frame.size.width * 1.0f / frame.size.height, 0.25f, 1000.0f);
+	
+	glBindBuffer(GL_ARRAY_BUFFER, _positionVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) << 3, screenVerticesWithToolbar, GL_STATIC_DRAW);
+	_toolbar.hidden = NO;
+	_findTheSignLabel.hidden = NO;
+	_pictureButton.enabled = YES;
+	
+	//----------------------------------------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------------------------------------------------
+	Cell *c = [_grid getCellFromKey:[NSString stringWithFormat:@"%f,%f",
+									 _userVectorGridCoordinates.back().latitude, _userVectorGridCoordinates.back().longitude]];
+	CellElement *e = [c.cellElements objectAtIndex:0];
+	CLLocationCoordinate2D l = {e.latitude, e.longitude};
+	[self setupFindTheSign:@"Give way" andLocation:l];
+	//----------------------------------------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------------------------------------------------
 }
 
-- (void)detectSignMinigame1FromPicure:(cv::Mat&)image orFromSensorData:(CLLocation*)pictureLocation andVisiblePois:(NSArray*)pois
+- (void)detectSignFromPicure:(cv::Mat&)image orFromSensorData:(CLLocation*)pictureLocation andVisiblePois:(NSArray*)pois
 {
 	if ([self processImage:image])
 	{
@@ -1371,7 +1395,7 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 																					   nil);
 						if ([resultRoadSigns containsObject:signToFind])
 						{
-							_minigameLabel.text = @"Good work!!!! You find it!!!!";
+							_findTheSignLabel.text = @"Good work!!!! You find it!!!!";
 							// TODO: Return to the main game ???
 							
 						}
@@ -1382,12 +1406,41 @@ void drawShapes(const std::vector<Shape*> &shapes, cv::Mat &img)
 	}
 }
 
-#if defined(DEBUG)
-- (IBAction)minigamePressButton:(UIButton *)sender
+// TODO: Hide after x seconds
+- (void) findTheSignLabelExpand
 {
-	_isMinigame1Running = !_isMinigame1Running;
-	[self showMinigame1:_isMinigame1Running];
+	static BOOL expand = true;
+	
+	expand = !expand;
+	if (expand)
+	{
+		_findTheSignLabel.frame = CGRectMake(0, 0, 320, 50);
+		_findTheSignLabel.text = @"Sign desciption...";//r.desc;
+	}
+	else
+	{
+		_findTheSignLabel.frame = CGRectMake(0, 0, 50, 50);
+		_findTheSignLabel.text = @"?";
+	}
 }
-#endif
 
+
+#pragma mark - Learning mode
+// TODO: Implement Learning mode
+- (void)startLearning
+{
+	
+}
+
+#pragma mark - Handling touches
+-(void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
+{
+	for (UITouch *touch in touches)
+	{
+		if(touch.view.tag == 1)
+		{
+			[self findTheSignLabelExpand];
+		}
+	}
+}
 @end

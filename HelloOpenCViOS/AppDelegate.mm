@@ -16,16 +16,28 @@
 #import "ViewController.h"
 #import "CoreDataModule.h"
 
+NSString *reqSysVer = @"6.1.3";
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
 	_cdm = [CoreDataModule new];
-	NSManagedObjectContext *context = [_cdm managedObjectContext];
-
-	_controller = (ViewController*)self.window.rootViewController;
-	_controller.managedObjectContext = context;
+	
+	// Check for device model
+	UIDevice *device = [UIDevice currentDevice];
+	if ( ([[device systemVersion] compare:reqSysVer options:NSNumericSearch] != NSOrderedDescending) &&
+		 ([[device systemVersion] compare:reqSysVer options:NSNumericSearch] != NSOrderedSame) )
+	{
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning"
+														message:@"OS version not supported"
+													   delegate:nil
+											  cancelButtonTitle:nil
+											  otherButtonTitles:nil, nil];
+		
+		[alert show];
+	}
 	
     return YES;
 }

@@ -15,9 +15,18 @@
 #import "CoreLocationModule.h"
 #import "CoreMotionModule.h"
 
+enum class GameModes
+{
+	Learning,
+	FindTheSign
+};
+
 class Shape;
 
-@interface ViewController : GLKViewController <AVCaptureVideoDataOutputSampleBufferDelegate, GLKViewDelegate, CoreLocationModuleDelegate>
+@interface ViewController : GLKViewController <AVCaptureVideoDataOutputSampleBufferDelegate,
+GLKViewControllerDelegate,
+GLKViewDelegate,
+CoreLocationModuleDelegate>
 {
 	std::vector<int> lengths;
 }
@@ -42,14 +51,10 @@ class Shape;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *loadingView;
 @property (nonatomic, weak) IBOutlet UILabel *warningLabel;
 
-// Minigames
-@property (nonatomic, weak) IBOutlet UILabel *minigameLabel;
-#if defined(DEBUG)
-@property (weak, nonatomic) IBOutlet UIButton *minigameButton;
+@property (weak, nonatomic) IBOutlet UIButton *mainMenuButton;
 
-
-- (IBAction)minigamePressButton:(UIButton *)sender;
-#endif
+@property (nonatomic, assign) GameModes mode;
+@property (weak, nonatomic) IBOutlet UILabel *findTheSignLabel;
 
 - (IBAction)takePicture:(id)sender;
 @end

@@ -76,6 +76,7 @@ static const NSString *AVCaptureStillImageIsCapturingStillImageContext = @"AVCap
 	if ( [_captureSession canAddOutput:_stillImageOutput] )
 		[_captureSession addOutput:_stillImageOutput];
 	
+	
 	//-- Create the output for the capture session.
 	AVCaptureVideoDataOutput * dataOutput = [AVCaptureVideoDataOutput new];
 	[dataOutput setAlwaysDiscardsLateVideoFrames:YES]; // Probably want to set this to NO when recording
@@ -112,12 +113,13 @@ static const NSString *AVCaptureStillImageIsCapturingStillImageContext = @"AVCap
 
 - (void)stopCameraPreview
 {
+	[_stillImageOutput removeObserver:self forKeyPath:@"capturingStillImage"];
+	
 	[_captureSession stopRunning];
 	
 	if (_captureLayer)
 		[_captureLayer removeFromSuperlayer];
 	
-	[_stillImageOutput removeObserver:self forKeyPath:@"isCapturingStillImage"];
 	
 	_videoDataOutputQueue = nil;
 	_captureSession = nil;
